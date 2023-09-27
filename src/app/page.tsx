@@ -1,3 +1,5 @@
+"use client"; // This is a client component 👈🏽
+
 import Image from 'next/image'
 import useStyles from './components/styles.tsx'
 import { useState } from 'react'
@@ -13,7 +15,7 @@ export default function App() {
 
   return (
     <div className={styles.chatWidget}>
-      {showToolTip ? ( <ToolTip setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={config}/> ) }
+      {showToolTip ? ( <ToolTip setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={config}/> ) : (<></>) } 
     </div>
   )
 }
