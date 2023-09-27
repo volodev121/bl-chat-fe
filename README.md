@@ -11,6 +11,6 @@ After making sure that you have the requirements go to root and execute the foll
 ```sh
 npm install && npm start
 ```
-# Running production
+## Running production
 
 
