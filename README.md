@@ -9,8 +9,10 @@ First of all you have to make sure to use the right node version. We currently u
 After making sure that you have the requirements go to root and execute the following command:
 
 ```sh
-npm install && npm start
+npm install && npm run dev
 ```
+
+Open http://localhost:3000 with your browser to see the result.
 ## Running production
 
 
