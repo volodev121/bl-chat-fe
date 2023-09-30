@@ -1,6 +1,7 @@
 "use client"; // This is a client component 👈🏽
 
 import Image from 'next/image'
+import { Grid } from '@mui/material'
 import useStyles from './components/styles.tsx'
 import { useState } from 'react'
 import ToolTip from './components/toolTip.tsx'
@@ -52,7 +53,11 @@ export default function App() {
 
   return (
     <div className={styles.chatWidget}>
-      {showToolTip ? ( <ToolTip setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={fetchedConfig}/> ) : (<></>) } 
-    </div>
-  )
+      {// tooltip
+      }
+      {showToolTip ? ( <ToolTip setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={fetchedConfig}/> ) : (<></>) }
+      {//chat widget
+      }
+      {showChatWidget ? (
+    </div> )
 }

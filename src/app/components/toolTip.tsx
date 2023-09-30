@@ -13,8 +13,8 @@ interface ToolTipProps {
 const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }) => {
   const styles = useStyles();
   const handleClick = () => {
-    setShowChatWidget(false);
-    setShowToolTip(true);
+    setShowChatWidget(true);
+    setShowToolTip(false);
   };
   const termsLink = <a href={config.terms_of_service_link || '#'} className={styles.termsConditionsLink}>Terms&Conditions</a>;
 
