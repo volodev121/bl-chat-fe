@@ -6,6 +6,7 @@ import ChatWidgetBody from "./chatWidgetBody.tsx";
 import { MessageType } from "./../utils/types.tsx";
 import { useState } from 'react'
 import Footer from './footer.tsx'
+import {mockMessagesList} from './../utils/mocks.tsx'
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -19,7 +20,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   config,
 }) => {
   const styles = useStyles();
-  const [messages, setMessages] = useState<Array<MessageType>>([]);
+  const [messages, setMessages] = useState<Array<MessageType>>(mockMessagesList);
   const storeTimeLineMessages = (message: MessageType) => {
     setMessages((messages) => [...messages, message]);
   }
