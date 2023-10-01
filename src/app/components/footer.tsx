@@ -42,7 +42,6 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
           value={inputMessage}
           onChange={handleInputChange}
           className={styles.footerTextBox}
-          placeholder={t('textInputPlaceholder')}
           multiline maxRows={3}
           onKeyPress={handleKeyPress}
           disableUnderline

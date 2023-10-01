@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { MessageType } from './../fixtures';
+import { MessageType } from './../utils/types';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ThumbDownOffAlt from '@mui/icons-material/ThumbDownOffAlt';

@@ -5,6 +5,7 @@ import Header from "./header.tsx";
 import ChatWidgetBody from "./chatWidgetBody.tsx";
 import { MessageType } from "./../utils/types.tsx";
 import { useState } from 'react'
+import Footer from './footer.tsx'
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -22,6 +23,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const storeTimeLineMessages = (message: MessageType) => {
     setMessages((messages) => [...messages, message]);
   }
+  const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
 
   return (
     <>
