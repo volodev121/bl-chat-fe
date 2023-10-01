@@ -17,6 +17,7 @@ const Header: FC<HeaderProps> = ({
   const styles = useStyles();
 
   const handleClick = () => {
+    console.log('header clicked')
     setShowChatWidget(false);
     setShowToolTip(true);
   };
@@ -30,10 +31,11 @@ const Header: FC<HeaderProps> = ({
         />
       </span>
       <Button
-        className={styles.buttonCollapse}
+        //className={styles.buttonCollapse}
         sx={{
           backgroundColor: "#F6F7FC !important",
-          marginLeft: "110em",
+          //marginLeft: "110em",
+          justifyContent: 'center',
           color: "#000000",
           textTransform: "none",
           ":hover": {
