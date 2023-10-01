@@ -8,6 +8,7 @@ import ToolTip from './components/toolTip.tsx'
 import { useEffect } from 'react'
 import { getToken } from './utils/authorization.tsx'
 import { getConfig } from './utils/authorization.tsx'
+import ChatWidget from './components/chatWidget.tsx';
 
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);
@@ -57,7 +58,7 @@ export default function App() {
       }
       {showToolTip ? ( <ToolTip setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={fetchedConfig}/> ) : (<></>) }
       {//chat widget
+      showChatWidget ? (<ChatWidget setShowChatWidget={setShowChatWidget} setShowToolTip={setShowToolTip} config={fetchedConfig}/> ) : (<></>)
       }
-      {showChatWidget ? (
     </div> )
 }

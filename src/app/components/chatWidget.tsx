@@ -2,6 +2,9 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
+import ChatWidgetBody from "./chatWidgetBody.tsx";
+import { MessageType } from "./../utils/types.tsx";
+import { useState } from 'react'
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -15,10 +18,10 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   config,
 }) => {
   const styles = useStyles();
-  const handleClick = () => {
-    setShowChatWidget(false);
-    setShowToolTip(true);
-  };
+  const [messages, setMessages] = useState<Array<MessageType>>([]);
+  const storeTimeLineMessages = (message: MessageType) => {
+    setMessages((messages) => [...messages, message]);
+  }
 
   return (
     <>
