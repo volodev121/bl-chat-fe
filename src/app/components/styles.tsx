@@ -194,8 +194,11 @@ const useStyles = makeStyles({
       'font-size': '16px',
       'margin-left': '10px',
     },
+    buttonGridContainer: {
+      justifyContent: 'center'
+    },
     headerIcon: {
-      position: 'fixed',
+      position: 'relative',
     },
     findCrmButton: {
       margin: 0,

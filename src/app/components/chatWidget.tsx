@@ -46,7 +46,6 @@ const ChatWidget: FC<ChatWidgetProps> = ({
             />
           }
         />
-        {/* <MessagesList messages={messages} setMessage={setMessage}/> */}
       </Grid>
     </>
   );
