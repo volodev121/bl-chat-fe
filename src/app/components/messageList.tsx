@@ -1,14 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { Grid, Typography, List, ListItemIcon, ListItem } from "@mui/material";
 import useStyles from "./styles";
-import {
-  Button,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import HelpIcon from "@mui/icons-material/Help";
 import { MessageType } from "./../utils/types.tsx";
 import { ThumbUpOffAlt } from "@mui/icons-material";
-import { useState } from 'react'
+import { useState } from "react";
 import { Divider } from "@mui/material";
 import { ThumbDownOffAlt } from "@mui/icons-material";
 import FeedbackModel from "./feedbackModel.tsx";
@@ -19,7 +17,10 @@ interface MessageListProps {
   storeTimeLineMessages: (message: MessageType) => void;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, storeTimeLineMessages }) => {
+const MessageList: React.FC<MessageListProps> = ({
+  messages,
+  storeTimeLineMessages,
+}) => {
   const styles = useStyles();
   const [selectedValue, setSelectedValue] = useState("");
   const [elementDisabled, setElementDisabled] = useState(true);
@@ -65,8 +66,6 @@ const MessageList: React.FC<MessageListProps> = ({ messages, storeTimeLineMessag
     setAction("down");
   };
 
-
-  
   return (
     <>
       <List className={styles.chatWidgetMessageList}>
@@ -92,7 +91,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, storeTimeLineMessag
                     </Typography>
                   </ListItemIcon>
                   <div className={styles.listItemContent}>
-                    <Message message={message} handleChange={handleChange}/>
+                    <Message message={message} handleChange={handleChange} />
                   </div>
                   <div>
                     <Button
@@ -206,4 +205,4 @@ const MessageList: React.FC<MessageListProps> = ({ messages, storeTimeLineMessag
   );
 };
 
-export default MessageList
+export default MessageList;
