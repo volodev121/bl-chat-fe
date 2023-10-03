@@ -34,7 +34,6 @@ const useStyles = makeStyles({
       height: '112px',
       display: 'flex',
       'align-items': 'center',
-      cursor: 'pointer',
       'border-bottom-style': 'groove',
       'border-color': '#F6F7FC',
       'border-width': 'thin',

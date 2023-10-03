@@ -23,7 +23,7 @@ const Header: FC<HeaderProps> = ({
   };
 
   return (
-    <Grid container direction="row" className={styles.header} onClick={() => handleClick()}>
+    <Grid container direction="row" className={styles.header}>
       <Grid item xs={2}>
         <span className={styles.headerIcon}>
           <img
@@ -45,6 +45,7 @@ const Header: FC<HeaderProps> = ({
               borderColor: "#0062cc",
               boxShadow: "none",
             },
+            borderRadius: "8px",
           }}
           onClick={() => handleClick()}
         >
