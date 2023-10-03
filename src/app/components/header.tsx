@@ -23,7 +23,7 @@ const Header: FC<HeaderProps> = ({
   };
 
   return (
-    <Grid container direction="row" className={styles.header}>
+    <Grid container direction="row" className={styles.header} onClick={() => handleClick()}>
       <Grid item xs={2}>
         <span className={styles.headerIcon}>
           <img
