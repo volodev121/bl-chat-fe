@@ -28,6 +28,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "esbuild": "0.19.4",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "typescript": "latest"

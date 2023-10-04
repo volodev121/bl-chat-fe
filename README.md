@@ -19,7 +19,7 @@ Open http://localhost:3000 with your browser to see the result.
 To bundle the app for production we need to run the following command
 
 ```sh
-
+./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 ```
 
 
