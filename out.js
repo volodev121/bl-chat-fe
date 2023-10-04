@@ -99652,6 +99652,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
       showChatWidget ? /* @__PURE__ */ React.createElement(chatWidget_default, { setShowChatWidget, setShowToolTip, config: fetchedConfig }) : /* @__PURE__ */ React.createElement(React.Fragment, null)
     );
   }
+  window.chatFeWidget = App;
 })();
 /*! Bundled license information:
 

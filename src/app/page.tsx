@@ -60,3 +60,5 @@ export default function App() {
       }
     </div> )
 }
+
+window.chatFeWidget = App;
