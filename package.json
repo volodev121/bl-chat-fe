@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export",
+    "build:widget": "parcel build src/page.tsx --no-source-maps -d widget"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -18,7 +20,8 @@
     "lodash": "^4.17.21",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.199",

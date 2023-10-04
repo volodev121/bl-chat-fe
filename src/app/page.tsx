@@ -1,7 +1,5 @@
 "use client"; // This is a client component 👈🏽
 
-import Image from 'next/image'
-import { Grid } from '@mui/material'
 import useStyles from './components/styles.tsx'
 import { useState } from 'react'
 import ToolTip from './components/toolTip.tsx'

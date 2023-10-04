@@ -16,4 +16,10 @@ Open http://localhost:3000 with your browser to see the result.
 
 ## Running production
 
+To bundle the app for production we need to run the following command
+
+```sh
+
+```
+
 
