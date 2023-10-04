@@ -90,8 +90,10 @@ export default function App() {
 }
 
 // make the component available for the window
-const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
-if (navDomNode != null) {
-  const navRoot = createRoot(navDomNode);
-  navRoot.render(<App />);
+if (document != null) {
+  const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
+  if (navDomNode != null) {
+    const navRoot = createRoot(navDomNode);
+    navRoot.render(<App />);
+  }
 }

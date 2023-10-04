@@ -5,11 +5,8 @@ import { Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import HelpIcon from "@mui/icons-material/Help";
 import { MessageType } from "./../utils/types.tsx";
-import { ThumbUpOffAlt } from "@mui/icons-material";
+import MessageBot from "./messageBot.tsx";
 import { useState } from "react";
-import { Divider } from "@mui/material";
-import { ThumbDownOffAlt } from "@mui/icons-material";
-import FeedbackModel from "./feedbackModel.tsx";
 import Message from "./message.tsx";
 
 interface MessageListProps {
@@ -56,123 +53,15 @@ const MessageList: React.FC<MessageListProps> = ({
     setElementDisabled(true);
   };
 
-  const handleThubUp = (message: MessageType) => {
-    setOpenModel(true);
-    setAction("up");
-  };
-
-  const handleThubDown = (message: MessageType) => {
-    setOpenModel(false);
-    setAction("down");
-  };
-
   return (
     <>
       <List className={styles.chatWidgetMessageList}>
         {messages.map((message, _index) =>
           (() => {
-            if (
-              message.element &&
-              message.role === "bot" &&
-              message.element.type === "radiogroup"
-            ) {
-              return (
-                <ListItem
-                  sx={{
-                    flexWrap: "wrap",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <ListItemIcon className={styles.listItemHeadIcon}>
-                    <HelpIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
-                    <Typography variant="h6" className={styles.listItemHead}>
-                      {message.title || message.content}
-                    </Typography>
-                  </ListItemIcon>
-                  <div className={styles.listItemContent}>
-                    <Message message={message} handleChange={handleChange} />
-                  </div>
-                  <div>
-                    <Button
-                      variant="contained"
-                      disabled={message.completed ? true : elementDisabled}
-                      onClick={() => {
-                        handleClick(message);
-                      }}
-                      sx={{
-                        color: "#FFFFFF",
-                        textTransform: "none",
-                        backgroundColor: "#D02DF5",
-                        ":hover": {
-                          backgroundColor: "#aa32c5",
-                          borderColor: "#0062cc",
-                          boxShadow: "none",
-                        },
-                        "&.Mui-disabled": {
-                          background: "#e082f5",
-                          color: "#FFFFFF",
-                        },
-                        boxShadow: "none",
-                      }}
-                    >
-                      Send answer
-                    </Button>
-                  </div>
-                </ListItem>
-              );
+            if (message.role === "bot" && message.default) {
+              return <MessageBot message={message} ratingAvailable={false} elementDisabled={false} handleChange={handleChange} handleClick={handleClick}/>;
             } else if (message.role === "bot") {
-              return (
-                <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "40em" }}>
-                  <ListItemIcon className={styles.listItemHeadIcon}>
-                    {!message.customInput && (
-                      <InfoIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
-                    )}
-                    <Typography variant="h6" className={styles.listItemHead}>
-                      {message.content}
-                    </Typography>
-                  </ListItemIcon>
-                  {!message.default && (
-                    <div className={styles.feedbackContainer}>
-                      <div className={styles.thumbUp}>
-                        <ThumbUpOffAlt onClick={() => handleThubUp(message)} />
-                      </div>
-                      <Divider
-                        orientation="vertical"
-                        variant="middle"
-                        flexItem
-                      />
-                      <div className={styles.thumbDown}>
-                        <ThumbDownOffAlt
-                          onClick={() => handleThubDown(message)}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <FeedbackModel
-                    message={message}
-                    setOpenModel={setOpenModel}
-                    openModel={openModel}
-                    action={action}
-                  />
-                </ListItem>
-              );
-            } else if (message.role === "bot" && message.default) {
-              return (
-                <ListItem sx={{ "flex-wrap": "wrap" }}>
-                  <ListItemIcon className={styles.listItemHeadIcon}>
-                    <InfoIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
-                    <Typography variant="h6" className={styles.listItemHead}>
-                      {message.title ?? message.content}
-                    </Typography>
-                  </ListItemIcon>
-                  <div>
-                    <Typography className={styles.listItemText}>
-                      {message.content}
-                    </Typography>
-                  </div>
-                </ListItem>
-              );
+              return <MessageBot message={message} ratingAvailable={true} elementDisabled={false} handleChange={handleChange} handleClick={handleClick} />;
             } else if (message.role === "user") {
               return (
                 <ListItem

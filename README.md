@@ -21,5 +21,3 @@ To bundle the app for production we need to run the following command
 ```sh
 ./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 ```
-
-

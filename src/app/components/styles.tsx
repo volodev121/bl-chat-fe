@@ -167,6 +167,7 @@ const useStyles = makeStyles({
       margin: '0%',
       padding: '2px 15px 2px 10px',
       border: '1px solid white',
+      marginTop: '10px',
       borderRadius: '16px',
     },
     thumbUp: {

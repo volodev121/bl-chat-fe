@@ -99709,7 +99709,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
   var navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
   if (navDomNode != null) {
     const navRoot = (0, import_client.createRoot)(navDomNode);
-    navRoot.render(import_react18.default.createElement(App, {}));
+    navRoot.render(/* @__PURE__ */ import_react18.default.createElement(App, null));
   }
 })();
 /*! Bundled license information:
