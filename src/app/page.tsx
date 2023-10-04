@@ -93,5 +93,5 @@ export default function App() {
 const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
 if (navDomNode != null) {
   const navRoot = createRoot(navDomNode);
-  navRoot.render(React.createElement(App, {}));
+  navRoot.render(<App />);
 }

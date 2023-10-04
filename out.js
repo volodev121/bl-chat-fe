@@ -3483,7 +3483,7 @@
         value: true
       });
       exports.default = isMuiElement2;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -3524,7 +3524,7 @@
       }
       function isMuiElement2(element, muiNames) {
         var _muiName, _element$type;
-        return /* @__PURE__ */ React264.isValidElement(element) && muiNames.indexOf(
+        return /* @__PURE__ */ React265.isValidElement(element) && muiNames.indexOf(
           // For server components `muiName` is avaialble in element.type._payload.value.muiName
           // relevant info - https://github.com/facebook/react/blob/2807d781a08db8e9873687fccc25c0f12b4fb3d4/packages/react/src/ReactLazy.js#L45
           // eslint-disable-next-line no-underscore-dangle
@@ -3662,7 +3662,7 @@
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -3701,7 +3701,7 @@
         }
         return newObj;
       }
-      var useEnhancedEffect13 = typeof window !== "undefined" ? React264.useLayoutEffect : React264.useEffect;
+      var useEnhancedEffect13 = typeof window !== "undefined" ? React265.useLayoutEffect : React265.useEffect;
       var _default = useEnhancedEffect13;
       exports.default = _default;
     }
@@ -3735,7 +3735,7 @@
         value: true
       });
       exports.default = useId14;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -3776,9 +3776,9 @@
       }
       var globalId = 0;
       function useGlobalId(idOverride) {
-        const [defaultId, setDefaultId] = React264.useState(idOverride);
+        const [defaultId, setDefaultId] = React265.useState(idOverride);
         const id = idOverride || defaultId;
-        React264.useEffect(() => {
+        React265.useEffect(() => {
           if (defaultId == null) {
             globalId += 1;
             setDefaultId(`mui-${globalId}`);
@@ -3786,7 +3786,7 @@
         }, [defaultId]);
         return id;
       }
-      var maybeReactUseId = React264["useId".toString()];
+      var maybeReactUseId = React265["useId".toString()];
       function useId14(idOverride) {
         if (maybeReactUseId !== void 0) {
           const reactId = maybeReactUseId();
@@ -3846,7 +3846,7 @@
         value: true
       });
       exports.default = useControlled10;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -3893,25 +3893,25 @@
       }) {
         const {
           current: isControlled
-        } = React264.useRef(controlled !== void 0);
-        const [valueState, setValue] = React264.useState(defaultProp);
+        } = React265.useRef(controlled !== void 0);
+        const [valueState, setValue] = React265.useState(defaultProp);
         const value = isControlled ? controlled : valueState;
         if (true) {
-          React264.useEffect(() => {
+          React265.useEffect(() => {
             if (isControlled !== (controlled !== void 0)) {
               console.error([`MUI: A component is changing the ${isControlled ? "" : "un"}controlled ${state} state of ${name} to be ${isControlled ? "un" : ""}controlled.`, "Elements should not switch from uncontrolled to controlled (or vice versa).", `Decide between using a controlled or uncontrolled ${name} element for the lifetime of the component.`, "The nature of the state is determined during the first render. It's considered controlled if the value is not `undefined`.", "More info: https://fb.me/react-controlled-components"].join("\n"));
             }
           }, [state, name, controlled]);
           const {
             current: defaultValue
-          } = React264.useRef(defaultProp);
-          React264.useEffect(() => {
+          } = React265.useRef(defaultProp);
+          React265.useEffect(() => {
             if (!isControlled && defaultValue !== defaultProp) {
               console.error([`MUI: A component is changing the default ${state} state of an uncontrolled ${name} after being initialized. To suppress this warning opt to use a controlled ${name}.`].join("\n"));
             }
           }, [JSON.stringify(defaultProp)]);
         }
-        const setValueIfUncontrolled = React264.useCallback((newValue) => {
+        const setValueIfUncontrolled = React265.useCallback((newValue) => {
           if (!isControlled) {
             setValue(newValue);
           }
@@ -3950,7 +3950,7 @@
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _useEnhancedEffect = _interopRequireDefault(require_useEnhancedEffect2());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -3991,11 +3991,11 @@
         return newObj;
       }
       function useEventCallback7(fn2) {
-        const ref = React264.useRef(fn2);
+        const ref = React265.useRef(fn2);
         (0, _useEnhancedEffect.default)(() => {
           ref.current = fn2;
         });
-        return React264.useCallback((...args) => (
+        return React265.useCallback((...args) => (
           // @ts-expect-error hide `this`
           // tslint:disable-next-line:ban-comma-operator
           (0, ref.current)(...args)
@@ -4035,7 +4035,7 @@
         value: true
       });
       exports.default = useForkRef29;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _setRef = _interopRequireDefault(require_setRef());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -4076,7 +4076,7 @@
         return newObj;
       }
       function useForkRef29(...refs) {
-        return React264.useMemo(() => {
+        return React265.useMemo(() => {
           if (refs.every((ref) => ref == null)) {
             return null;
           }
@@ -4119,7 +4119,7 @@
       });
       exports.default = useIsFocusVisible6;
       exports.teardown = teardown;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -4233,12 +4233,12 @@
         return hadKeyboardEvent || focusTriggersKeyboardModality(target);
       }
       function useIsFocusVisible6() {
-        const ref = React264.useCallback((node2) => {
+        const ref = React265.useCallback((node2) => {
           if (node2 != null) {
             prepare(node2.ownerDocument);
           }
         }, []);
-        const isFocusVisibleRef = React264.useRef(false);
+        const isFocusVisibleRef = React265.useRef(false);
         function handleBlurVisible() {
           if (isFocusVisibleRef.current) {
             hadFocusVisibleRecently = true;
@@ -4349,7 +4349,7 @@
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -4389,8 +4389,8 @@
         return newObj;
       }
       var usePreviousProps4 = (value) => {
-        const ref = React264.useRef({});
-        React264.useEffect(() => {
+        const ref = React265.useRef({});
+        React265.useEffect(() => {
           ref.current = value;
         });
         return ref.current;
@@ -5136,7 +5136,7 @@
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
           return null;
@@ -5175,7 +5175,7 @@
         }
         return newObj;
       }
-      var ThemeContext2 = /* @__PURE__ */ React264.createContext(null);
+      var ThemeContext2 = /* @__PURE__ */ React265.createContext(null);
       if (true) {
         ThemeContext2.displayName = "ThemeContext";
       }
@@ -5193,7 +5193,7 @@
         value: true
       });
       exports.default = useTheme7;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _ThemeContext = _interopRequireDefault(require_ThemeContext());
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -5234,9 +5234,9 @@
         return newObj;
       }
       function useTheme7() {
-        const theme = React264.useContext(_ThemeContext.default);
+        const theme = React265.useContext(_ThemeContext.default);
         if (true) {
-          React264.useDebugValue(theme);
+          React265.useDebugValue(theme);
         }
         return theme;
       }
@@ -5282,7 +5282,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React264 = require_react();
+          var React265 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -5308,7 +5308,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React264.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React265.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -6175,7 +6175,7 @@
       });
       exports.default = void 0;
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _utils = require_utils();
       var _ThemeContext = _interopRequireDefault(require_ThemeContext());
@@ -6243,7 +6243,7 @@
             console.error(["MUI: You are providing a theme function prop to the ThemeProvider component:", "<ThemeProvider theme={outerTheme => outerTheme} />", "", "However, no outer theme is present.", "Make sure a theme is already injected higher in the React tree or provide a theme object."].join("\n"));
           }
         }
-        const theme = React264.useMemo(() => {
+        const theme = React265.useMemo(() => {
           const output = outerTheme === null ? localTheme : mergeOuterLocalTheme(outerTheme, localTheme);
           if (output != null) {
             output[_nested.default] = outerTheme !== null;
@@ -8690,7 +8690,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         value: true
       });
       exports.default = StyledEngineProvider2;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _react2 = (init_emotion_react_browser_esm(), __toCommonJS(emotion_react_browser_esm_exports));
       var _cache = _interopRequireDefault((init_emotion_cache_browser_esm(), __toCommonJS(emotion_cache_browser_esm_exports)));
@@ -8794,7 +8794,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         value: true
       });
       exports.default = GlobalStyles2;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _react2 = (init_emotion_react_browser_esm(), __toCommonJS(emotion_react_browser_esm_exports));
       var _jsxRuntime = require_jsx_runtime();
@@ -10444,7 +10444,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _styledEngine = require_node();
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -10488,7 +10488,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         return Object.keys(obj).length === 0;
       }
       function useTheme7(defaultTheme4 = null) {
-        const contextTheme = React264.useContext(_styledEngine.ThemeContext);
+        const contextTheme = React265.useContext(_styledEngine.ThemeContext);
         return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme4 : contextTheme;
       }
       var _default = useTheme7;
@@ -10528,7 +10528,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         value: true
       });
       exports.default = void 0;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _styledEngine = require_node();
       var _useTheme = _interopRequireDefault(require_useTheme3());
@@ -11148,7 +11148,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
       exports.default = createBox2;
       var _extends2 = _interopRequireDefault(require_extends());
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _clsx = _interopRequireDefault(require_clsx());
       var _styledEngine = _interopRequireDefault(require_node());
       var _styleFunctionSx = _interopRequireWildcard(require_styleFunctionSx2());
@@ -11203,7 +11203,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
         const BoxRoot = (0, _styledEngine.default)("div", {
           shouldForwardProp: (prop) => prop !== "theme" && prop !== "sx" && prop !== "as"
         })(_styleFunctionSx.default);
-        const Box2 = /* @__PURE__ */ React264.forwardRef(function Box3(inProps, ref) {
+        const Box2 = /* @__PURE__ */ React265.forwardRef(function Box3(inProps, ref) {
           const theme = (0, _useTheme.default)(defaultTheme4);
           const _extendSxProp = (0, _styleFunctionSx.extendSxProp)(inProps), {
             className,
@@ -12016,7 +12016,7 @@ The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rg
       });
       exports.default = void 0;
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _privateTheming = require_node2();
       var _utils = require_utils();
@@ -12063,7 +12063,7 @@ The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rg
       }
       var EMPTY_THEME = {};
       function useThemeScoping(themeId, upperTheme, localTheme, isPrivate = false) {
-        return React264.useMemo(() => {
+        return React265.useMemo(() => {
           const resolvedTheme = themeId ? upperTheme[themeId] || upperTheme : upperTheme;
           if (typeof localTheme === "function") {
             const mergedTheme = localTheme(resolvedTheme);
@@ -12157,7 +12157,7 @@ The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rg
       });
       exports.DEFAULT_MODE_STORAGE_KEY = exports.DEFAULT_COLOR_SCHEME_STORAGE_KEY = exports.DEFAULT_ATTRIBUTE = void 0;
       exports.default = getInitColorSchemeScript2;
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _jsxRuntime = require_jsx_runtime();
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -12258,7 +12258,7 @@ try {
       exports.getColorScheme = getColorScheme;
       exports.getSystemMode = getSystemMode;
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _getInitColorSchemeScript = require_getInitColorSchemeScript();
       function _getRequireWildcardCache(nodeInterop) {
         if (typeof WeakMap !== "function")
@@ -12353,7 +12353,7 @@ try {
           storageWindow = typeof window === "undefined" ? void 0 : window
         } = options;
         const joinedColorSchemes = supportedColorSchemes.join(",");
-        const [state, setState] = React264.useState(() => {
+        const [state, setState] = React265.useState(() => {
           const initialMode = initializeValue(modeStorageKey, defaultMode);
           const lightColorScheme = initializeValue(`${colorSchemeStorageKey}-light`, defaultLightColorScheme);
           const darkColorScheme = initializeValue(`${colorSchemeStorageKey}-dark`, defaultDarkColorScheme);
@@ -12365,7 +12365,7 @@ try {
           };
         });
         const colorScheme = getColorScheme(state);
-        const setMode = React264.useCallback((mode) => {
+        const setMode = React265.useCallback((mode) => {
           setState((currentState) => {
             if (mode === currentState.mode) {
               return currentState;
@@ -12381,7 +12381,7 @@ try {
             });
           });
         }, [modeStorageKey, defaultMode]);
-        const setColorScheme = React264.useCallback((value) => {
+        const setColorScheme = React265.useCallback((value) => {
           if (!value) {
             setState((currentState) => {
               try {
@@ -12446,23 +12446,23 @@ try {
             });
           }
         }, [joinedColorSchemes, colorSchemeStorageKey, defaultLightColorScheme, defaultDarkColorScheme]);
-        const handleMediaQuery = React264.useCallback((e) => {
+        const handleMediaQuery = React265.useCallback((e) => {
           if (state.mode === "system") {
             setState((currentState) => (0, _extends2.default)({}, currentState, {
               systemMode: e != null && e.matches ? "dark" : "light"
             }));
           }
         }, [state.mode]);
-        const mediaListener = React264.useRef(handleMediaQuery);
+        const mediaListener = React265.useRef(handleMediaQuery);
         mediaListener.current = handleMediaQuery;
-        React264.useEffect(() => {
+        React265.useEffect(() => {
           const handler = (...args) => mediaListener.current(...args);
           const media = window.matchMedia("(prefers-color-scheme: dark)");
           media.addListener(handler);
           handler(media);
           return () => media.removeListener(handler);
         }, []);
-        React264.useEffect(() => {
+        React265.useEffect(() => {
           const handleStorage = (event) => {
             const value = event.newValue;
             if (typeof event.key === "string" && event.key.startsWith(colorSchemeStorageKey) && (!value || joinedColorSchemes.match(value))) {
@@ -12509,7 +12509,7 @@ try {
       var _extends2 = _interopRequireDefault(require_extends());
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
       var _utils = require_utils();
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _styledEngine = require_node();
       var _privateTheming = require_node2();
@@ -12580,9 +12580,9 @@ try {
         if (!defaultTheme4.colorSchemes || typeof designSystemColorScheme === "string" && !defaultTheme4.colorSchemes[designSystemColorScheme] || typeof designSystemColorScheme === "object" && !defaultTheme4.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.light] || typeof designSystemColorScheme === "object" && !defaultTheme4.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.dark]) {
           console.error(`MUI: \`${designSystemColorScheme}\` does not exist in \`theme.colorSchemes\`.`);
         }
-        const ColorSchemeContext = /* @__PURE__ */ React264.createContext(void 0);
+        const ColorSchemeContext = /* @__PURE__ */ React265.createContext(void 0);
         const useColorScheme2 = () => {
-          const value = React264.useContext(ColorSchemeContext);
+          const value = React265.useContext(ColorSchemeContext);
           if (!value) {
             throw new Error(true ? `MUI: \`useColorScheme\` must be called under <CssVarsProvider />` : (0, _utils.formatMuiErrorMessage)(19));
           }
@@ -12604,9 +12604,9 @@ try {
           disableNestedContext = false,
           disableStyleSheetGeneration = false
         }) {
-          const hasMounted = React264.useRef(false);
+          const hasMounted = React265.useRef(false);
           const upperTheme = (0, _privateTheming.useTheme)();
-          const ctx = React264.useContext(ColorSchemeContext);
+          const ctx = React265.useContext(ColorSchemeContext);
           const nested2 = !!ctx && !disableNestedContext;
           const scopedTheme = themeProp[themeId];
           const _ref = scopedTheme || themeProp, {
@@ -12717,12 +12717,12 @@ try {
             }
           });
           theme.vars = (0, _utils.deepmerge)(theme.vars, rootVars);
-          React264.useEffect(() => {
+          React265.useEffect(() => {
             if (colorScheme && colorSchemeNode) {
               colorSchemeNode.setAttribute(attribute, colorScheme);
             }
           }, [colorScheme, attribute, colorSchemeNode]);
-          React264.useEffect(() => {
+          React265.useEffect(() => {
             let timer;
             if (disableTransitionOnChange && hasMounted.current && documentNode) {
               const css7 = documentNode.createElement("style");
@@ -12737,13 +12737,13 @@ try {
               clearTimeout(timer);
             };
           }, [colorScheme, disableTransitionOnChange, documentNode]);
-          React264.useEffect(() => {
+          React265.useEffect(() => {
             hasMounted.current = true;
             return () => {
               hasMounted.current = false;
             };
           }, []);
-          const contextValue = React264.useMemo(() => ({
+          const contextValue = React265.useMemo(() => ({
             mode,
             systemMode,
             setMode,
@@ -12757,8 +12757,8 @@ try {
           if (disableStyleSheetGeneration || nested2 && (upperTheme == null ? void 0 : upperTheme.cssVarPrefix) === cssVarPrefix) {
             shouldGenerateStyleSheet = false;
           }
-          const element = /* @__PURE__ */ (0, _jsxRuntime.jsxs)(React264.Fragment, {
-            children: [shouldGenerateStyleSheet && /* @__PURE__ */ (0, _jsxRuntime.jsxs)(React264.Fragment, {
+          const element = /* @__PURE__ */ (0, _jsxRuntime.jsxs)(React265.Fragment, {
+            children: [shouldGenerateStyleSheet && /* @__PURE__ */ (0, _jsxRuntime.jsxs)(React265.Fragment, {
               children: [/* @__PURE__ */ (0, _jsxRuntime.jsx)(_styledEngine.GlobalStyles, {
                 styles: {
                   [colorSchemeSelector]: rootCss
@@ -13095,7 +13095,7 @@ try {
       exports.default = createContainer2;
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _clsx = _interopRequireDefault(require_clsx());
       var _utils = require_utils();
@@ -13226,7 +13226,7 @@ try {
             maxWidth: `${theme.breakpoints.values[ownerState.maxWidth]}${theme.breakpoints.unit}`
           }
         }));
-        const Container2 = /* @__PURE__ */ React264.forwardRef(function Container3(inProps, ref) {
+        const Container2 = /* @__PURE__ */ React265.forwardRef(function Container3(inProps, ref) {
           const props = useThemeProps3(inProps);
           const {
             className,
@@ -13735,7 +13735,7 @@ try {
       exports.default = createGrid;
       var _extends2 = _interopRequireDefault(require_extends());
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _clsx = _interopRequireDefault(require_clsx());
       var _utils = require_utils();
@@ -13805,7 +13805,7 @@ try {
           useThemeProps: useThemeProps3 = useThemePropsDefault,
           componentName = "MuiGrid"
         } = options;
-        const OverflowContext = /* @__PURE__ */ React264.createContext(void 0);
+        const OverflowContext = /* @__PURE__ */ React265.createContext(void 0);
         const useUtilityClasses136 = (ownerState, theme) => {
           const {
             container,
@@ -13820,12 +13820,12 @@ try {
           return (0, _utils.unstable_composeClasses)(slots, (slot) => (0, _utils.unstable_generateUtilityClass)(componentName, slot), {});
         };
         const GridRoot2 = createStyledComponent(_gridGenerator.generateGridColumnsStyles, _gridGenerator.generateGridColumnSpacingStyles, _gridGenerator.generateGridRowSpacingStyles, _gridGenerator.generateGridSizeStyles, _gridGenerator.generateGridDirectionStyles, _gridGenerator.generateGridStyles, _gridGenerator.generateGridOffsetStyles);
-        const Grid3 = /* @__PURE__ */ React264.forwardRef(function Grid4(inProps, ref) {
+        const Grid3 = /* @__PURE__ */ React265.forwardRef(function Grid4(inProps, ref) {
           var _inProps$columns, _inProps$spacing, _ref, _inProps$rowSpacing, _ref2, _inProps$columnSpacin, _ref3, _disableEqualOverflow;
           const theme = (0, _useTheme.default)();
           const themeProps = useThemeProps3(inProps);
           const props = (0, _styleFunctionSx.extendSxProp)(themeProps);
-          const overflow = React264.useContext(OverflowContext);
+          const overflow = React265.useContext(OverflowContext);
           const {
             className,
             children,
@@ -13883,10 +13883,10 @@ try {
             ownerState,
             className: (0, _clsx.default)(classes.root, className)
           }, other, {
-            children: React264.Children.map(children, (child) => {
-              if (/* @__PURE__ */ React264.isValidElement(child) && (0, _utils.unstable_isMuiElement)(child, ["Grid"])) {
+            children: React265.Children.map(children, (child) => {
+              if (/* @__PURE__ */ React265.isValidElement(child) && (0, _utils.unstable_isMuiElement)(child, ["Grid"])) {
                 var _child$props$unstable;
-                return /* @__PURE__ */ React264.cloneElement(child, {
+                return /* @__PURE__ */ React265.cloneElement(child, {
                   unstable_level: (_child$props$unstable = child.props.unstable_level) != null ? _child$props$unstable : level + 1
                 });
               }
@@ -14282,7 +14282,7 @@ try {
       exports.style = void 0;
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _clsx = _interopRequireDefault(require_clsx());
       var _utils = require_utils();
@@ -14346,11 +14346,11 @@ try {
         });
       }
       function joinChildren(children, separator) {
-        const childrenArray = React264.Children.toArray(children).filter(Boolean);
+        const childrenArray = React265.Children.toArray(children).filter(Boolean);
         return childrenArray.reduce((output, child, index3) => {
           output.push(child);
           if (index3 < childrenArray.length - 1) {
-            output.push(/* @__PURE__ */ React264.cloneElement(separator, {
+            output.push(/* @__PURE__ */ React265.cloneElement(separator, {
               key: `separator-${index3}`
             }));
           }
@@ -14444,7 +14444,7 @@ try {
           return (0, _utils.unstable_composeClasses)(slots, (slot) => (0, _utils.unstable_generateUtilityClass)(componentName, slot), {});
         };
         const StackRoot = createStyledComponent(style);
-        const Stack2 = /* @__PURE__ */ React264.forwardRef(function Grid3(inProps, ref) {
+        const Stack2 = /* @__PURE__ */ React265.forwardRef(function Grid3(inProps, ref) {
           const themeProps = useThemeProps3(inProps);
           const props = (0, _styleFunctionSx.extendSxProp)(themeProps);
           const {
@@ -16397,7 +16397,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
       exports.default = void 0;
       var _extends2 = _interopRequireDefault(require_extends());
       var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require_objectWithoutPropertiesLoose());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _propTypes = _interopRequireDefault(require_prop_types());
       var _clsx = _interopRequireDefault(require_clsx());
       var _composeClasses = require_composeClasses3();
@@ -16496,7 +16496,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
           }[ownerState.color]
         };
       });
-      var SvgIcon3 = /* @__PURE__ */ React264.forwardRef(function SvgIcon4(inProps, ref) {
+      var SvgIcon3 = /* @__PURE__ */ React265.forwardRef(function SvgIcon4(inProps, ref) {
         const props = (0, _useThemeProps.default)({
           props: inProps,
           name: "MuiSvgIcon"
@@ -16512,7 +16512,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
           titleAccess,
           viewBox = "0 0 24 24"
         } = props, other = (0, _objectWithoutPropertiesLoose2.default)(props, _excluded170);
-        const hasSvgAsChild = /* @__PURE__ */ React264.isValidElement(children) && children.type === "svg";
+        const hasSvgAsChild = /* @__PURE__ */ React265.isValidElement(children) && children.type === "svg";
         const ownerState = (0, _extends2.default)({}, props, {
           color,
           component,
@@ -16712,7 +16712,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
       });
       exports.default = createSvgIcon4;
       var _extends2 = _interopRequireDefault(require_extends());
-      var React264 = _interopRequireWildcard(require_react());
+      var React265 = _interopRequireWildcard(require_react());
       var _SvgIcon = _interopRequireDefault(require_SvgIcon2());
       var _jsxRuntime = require_jsx_runtime();
       function _getRequireWildcardCache(nodeInterop) {
@@ -16766,7 +16766,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
           Component.displayName = `${displayName}Icon`;
         }
         Component.muiName = _SvgIcon.default.muiName;
-        return /* @__PURE__ */ React264.memo(/* @__PURE__ */ React264.forwardRef(Component));
+        return /* @__PURE__ */ React265.memo(/* @__PURE__ */ React265.forwardRef(Component));
       }
     }
   });
@@ -17781,9 +17781,9 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React264 = require_react();
+          var React265 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React264.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React265.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -19388,7 +19388,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React264.Children.forEach(props.children, function(child) {
+                  React265.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -27835,7 +27835,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React264.Component().refs;
+          var emptyRefsObject = new React265.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -38437,7 +38437,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
               unmarkContainerAsRoot(container);
             }
           };
-          function createRoot(container, options2) {
+          function createRoot2(container, options2) {
             if (!isValidContainer(container)) {
               throw new Error("createRoot(...): Target container is not a DOM element.");
             }
@@ -38808,7 +38808,7 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
                 error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
               }
             }
-            return createRoot(container, options2);
+            return createRoot2(container, options2);
           }
           function hydrateRoot$1(container, initialChildren, options2) {
             {
@@ -44503,6 +44503,37 @@ Please use another name.` : (0, _utils.formatMuiErrorMessage)(18));
         d: "M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
       }), "Send");
       exports.default = _default;
+    }
+  });
+
+  // node_modules/react-dom/client.js
+  var require_client = __commonJS({
+    "node_modules/react-dom/client.js"(exports) {
+      "use strict";
+      var m = require_react_dom();
+      if (false) {
+        exports.createRoot = m.createRoot;
+        exports.hydrateRoot = m.hydrateRoot;
+      } else {
+        i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        exports.createRoot = function(c, o) {
+          i.usingClientEntryPoint = true;
+          try {
+            return m.createRoot(c, o);
+          } finally {
+            i.usingClientEntryPoint = false;
+          }
+        };
+        exports.hydrateRoot = function(c, h, o) {
+          i.usingClientEntryPoint = true;
+          try {
+            return m.hydrateRoot(c, h, o);
+          } finally {
+            i.usingClientEntryPoint = false;
+          }
+        };
+      }
+      var i;
     }
   });
 
@@ -99610,6 +99641,8 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
   var chatWidget_default = ChatWidget;
 
   // src/app/page.tsx
+  var import_client = __toESM(require_client());
+  var import_react18 = __toESM(require_react());
   function App() {
     const [showChatWidget, setShowChatWidget] = (0, import_react16.useState)(false);
     const [showToolTip, setShowToolTip] = (0, import_react16.useState)(true);
@@ -99621,14 +99654,21 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
     const [fetchedConfig, setFetchedConfig] = (0, import_react16.useState)(config2);
     (0, import_react17.useEffect)(() => {
       const fetchConfig = async () => {
-        const authResponse = await getToken("https://llm-storage.brandslisten.com/api/v1/auth/", {});
+        const authResponse = await getToken(
+          "https://llm-storage.brandslisten.com/api/v1/auth/",
+          {}
+        );
         if (authResponse.status === 200) {
           const headers = {
             headers: {
               Authorization: authResponse.data.auth_token
             }
           };
-          const configResponse = await getConfig("https://llm-storage.brandslisten.com/config", {}, headers);
+          const configResponse = await getConfig(
+            "https://llm-storage.brandslisten.com/config",
+            {},
+            headers
+          );
           if (configResponse.status === 200) {
             setFetchedConfig(configResponse.data);
             setHasConfig(true);
@@ -99642,17 +99682,35 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
       fetchConfig();
     }, []);
     if (!hasConfig) {
-      return /* @__PURE__ */ React.createElement(React.Fragment, null);
+      return /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null);
     }
-    return /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ import_react18.default.createElement(
       "div",
       { className: styles7.chatWidget },
-      showToolTip ? /* @__PURE__ */ React.createElement(toolTip_default, { setShowChatWidget, setShowToolTip, config: fetchedConfig }) : /* @__PURE__ */ React.createElement(React.Fragment, null),
+      showToolTip ? /* @__PURE__ */ import_react18.default.createElement(
+        toolTip_default,
+        {
+          setShowChatWidget,
+          setShowToolTip,
+          config: fetchedConfig
+        }
+      ) : /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null),
       //chat widget
-      showChatWidget ? /* @__PURE__ */ React.createElement(chatWidget_default, { setShowChatWidget, setShowToolTip, config: fetchedConfig }) : /* @__PURE__ */ React.createElement(React.Fragment, null)
+      showChatWidget ? /* @__PURE__ */ import_react18.default.createElement(
+        chatWidget_default,
+        {
+          setShowChatWidget,
+          setShowToolTip,
+          config: fetchedConfig
+        }
+      ) : /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null)
     );
   }
-  window.chatFeWidget = App;
+  var navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
+  if (navDomNode != null) {
+    const navRoot = (0, import_client.createRoot)(navDomNode);
+    navRoot.render(import_react18.default.createElement(App, {}));
+  }
 })();
 /*! Bundled license information:
 
