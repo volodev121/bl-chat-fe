@@ -12,8 +12,8 @@ export const mockMessagesList: Array<MessageType> = [
     },
     {
         key: 'someRandomUniqString2',
-        title: 'Question',
-        content: "test123",
+        title: 'Answer',
+        content: "Great, let's get started!",
         role: 'user',
         element: null,
         completed: true,
@@ -21,8 +21,26 @@ export const mockMessagesList: Array<MessageType> = [
       },
       {
         key: 'someRandomUniqString2',
-        title: 'Introduction',
-        content: "Hey there, I'm Mavens Chatbot, I'm here to answer your questions and find the best suitable CRM for you! I prepared 4 questions for you to answer after which I can suggest you the best CRM.",
+        title: 'Company Size',
+        content: "So, we would first like to know the size of your company, please tell us something about it.",
+        role: 'bot',
+        element: null,
+        completed: true,
+        default: false,
+      },
+      {
+        key: 'someRandomUniqString2',
+        title: 'Answer',
+        content: "We currently have 10 employees.",
+        role: 'user',
+        element: null,
+        completed: true,
+        default: true,
+      },
+      {
+        key: 'someRandomUniqString2',
+        title: 'Company Area',
+        content: "Great, based on your answer I figured that it makes sense to ask you a bit about the content your company works with. Please select one from the drop down I prepared for you.",
         role: 'bot',
         element: null,
         completed: true,
@@ -30,7 +48,7 @@ export const mockMessagesList: Array<MessageType> = [
       },
       {
         key: 'someRandomUniqString3',
-        title: 'Question4',
+        title: 'Area of work',
         content: "test test",
         role: 'bot',
         completed: true,
@@ -39,13 +57,17 @@ export const mockMessagesList: Array<MessageType> = [
             type: "radiogroup",
             choices: [
               {
-                text: "Yes",
+                text: "Information Technology", 
                 value: "yes",
               },
               {
-                text: "No",
+                text: "Agriculture",
                 value: "no",
               },
+              {
+                text: "Something else",
+                value: "something else",
+              }
             ],
           },
       },
