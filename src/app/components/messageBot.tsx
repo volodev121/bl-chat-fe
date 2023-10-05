@@ -56,7 +56,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
           </Typography>
         </ListItemIcon>
         <div className={styles.listItemContent}>
-          <Message message={message} handleChange={handleChange ? handleChange : (msg, lbl) => {}} />
+          <Message message={message} handleChange={handleChange} />
         </div>
         <div>
           <Button

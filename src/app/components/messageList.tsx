@@ -54,9 +54,25 @@ const MessageList: React.FC<MessageListProps> = ({
         {messages.map((message, _index) =>
           (() => {
             if (message.role === "bot" && message.default) {
-              return <MessageBot message={message} ratingAvailable={false} elementDisabled={false} handleChange={handleChange} handleClick={handleClick}/>;
+              return (
+                <MessageBot
+                  message={message}
+                  ratingAvailable={false}
+                  elementDisabled={false}
+                  handleChange={handleChange}
+                  handleClick={handleClick}
+                />
+              );
             } else if (message.role === "bot") {
-              return <MessageBot message={message} ratingAvailable={true} elementDisabled={false} handleChange={handleChange} handleClick={handleClick} />;
+              return (
+                <MessageBot
+                  message={message}
+                  ratingAvailable={true}
+                  elementDisabled={false}
+                  handleChange={handleChange}
+                  handleClick={handleClick}
+                />
+              );
             } else if (message.role === "user") {
               return <UserMessage message={message} />;
             }
