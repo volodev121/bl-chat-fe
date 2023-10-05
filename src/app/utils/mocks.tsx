@@ -13,7 +13,7 @@ export const mockMessagesList: Array<MessageType> = [
     {
         key: 'someRandomUniqString2',
         title: 'Answer',
-        content: "Great, let's get started!",
+        content: "Great, let's get started! Yes",
         role: 'user',
         element: null,
         completed: true,

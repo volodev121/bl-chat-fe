@@ -21,3 +21,12 @@ To bundle the app for production we need to run the following command
 ```sh
 ./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 ```
+
+After bundling you probably also want to inject the widget into a web application. To do this you can fetch a page with the following command:
+
+```sh
+# get webpage
+wget -p -H -P out/ --user team --password justforus! https://wl-sg.brandslisten.com/
+cd out/wl-sg.brandslisten.com/
+python3 -m http.server 3023
+```
