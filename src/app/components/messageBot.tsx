@@ -32,6 +32,10 @@ const BotMessage: React.FC<BotMessageProps> = ({
   const handleThumbDown = (message: MessageType) => {};
   const [openModel, setOpenModel] = React.useState(false);
 
+  if (handleChange == null) {
+    handleChange = (msg, lbl) => {};
+  }
+
   if (
     message.element &&
     message.role === "bot" &&
@@ -52,7 +56,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
           </Typography>
         </ListItemIcon>
         <div className={styles.listItemContent}>
-          <Message message={message} handleChange={handleChange} />
+          <Message message={message} handleChange={handleChange ? handleChange : (msg, lbl) => {}} />
         </div>
         <div>
           <Button
