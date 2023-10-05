@@ -1,14 +1,12 @@
 "use client"; // This is a client component 👈🏽
 
 import useStyles from "./components/styles.tsx";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
-import { useEffect } from "react";
 import { getToken } from "./utils/authorization.tsx";
 import { getConfig } from "./utils/authorization.tsx";
 import ChatWidget from "./components/chatWidget.tsx";
-import { createRoot } from "react-dom/client";
-import React from "react";
 
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);

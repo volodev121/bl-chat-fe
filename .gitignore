@@ -123,6 +123,7 @@ web_modules/
 # Next.js build output
 .next
 out
+out.js
 
 # Nuxt.js build / generate output
 .nuxt

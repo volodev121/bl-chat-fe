@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid, List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import InfoIcon from "@mui/icons-material/Info";
