@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Grid, Typography, Button } from "@mui/material";
 import useStyles from './styles.tsx';
 import AppleIcon from '@mui/icons-material/Apple';

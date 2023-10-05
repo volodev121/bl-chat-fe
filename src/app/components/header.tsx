@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles";
 import { Button } from "@mui/material";

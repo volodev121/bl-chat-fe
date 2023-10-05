@@ -1,10 +1,9 @@
-import { FC } from "react";
+import React, { FC, useState } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
 import ChatWidgetBody from "./chatWidgetBody.tsx";
 import { MessageType } from "./../utils/types.tsx";
-import { useState } from 'react'
 import Footer from './footer.tsx'
 import {mockMessagesList} from './../utils/mocks.tsx'
 
