@@ -21,10 +21,7 @@ export default function App() {
 
   useEffect(() => {
     const fetchConfig = async () => {
-      const authResponse = await getToken(
-        "https://llm-storage.brandslisten.com/api/v1/auth/",
-        {}
-      );
+      const authResponse = await getToken({});
 
       if (authResponse.status === 200) {
         const headers = {
@@ -34,7 +31,6 @@ export default function App() {
         };
 
         const configResponse = await getConfig(
-          "https://llm-storage.brandslisten.com/config",
           {},
           headers
         );

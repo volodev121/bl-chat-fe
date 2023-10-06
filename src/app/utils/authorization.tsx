@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { apiPost, apiGet } from './axiosClient';
+import { configEndpoint, tokenEndpoint } from './apiConstants';
 
-export const getToken = async (url: string, data: any): Promise<any> => {
-  return await apiPost(url, {}, {}).then((response: { status: any; data: any; }) => {
+export const getToken = async ( data: any): Promise<any> => {
+  return await apiPost(tokenEndpoint, {}, {}).then((response: { status: any; data: any; }) => {
       return {
           status: response.status,
           data: response.data
@@ -16,8 +17,8 @@ export const getToken = async (url: string, data: any): Promise<any> => {
   })
 }
 
-export const getConfig = async (url: string, data: any, headers: any): Promise<any> =>{
-    return await apiGet(url, data, headers).then((response) => {
+export const getConfig = async (data: any, headers: any): Promise<any> =>{
+    return await apiGet(configEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
             data: response.data
