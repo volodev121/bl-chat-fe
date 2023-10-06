@@ -3,7 +3,7 @@ import { apiPost, apiGet } from './axiosClient';
 import { configEndpoint, tokenEndpoint } from './apiConstants';
 
 export const getToken = async ( data: any): Promise<any> => {
-  return await apiPost(tokenEndpoint, {}, {}).then((response: { status: any; data: any; }) => {
+  return await apiPost(tokenEndpoint, data, {}).then((response: { status: any; data: any; }) => {
       return {
           status: response.status,
           data: response.data
