@@ -29,6 +29,8 @@ const Header: FC<HeaderProps> = ({
           <img
             src={iconUrl}
             style={{ height: "64px", width: "64px", borderRadius: "50%" }}
+            role="presentation"
+            alt=""
           />
         </span>
       </Grid>

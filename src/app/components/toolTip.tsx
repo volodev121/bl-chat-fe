@@ -23,7 +23,12 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
     <Grid className={styles.toolTip}>
       <Grid className={styles.toolTipBlack} item>
         <Grid item className={styles.logo}>
-          <img src={config.logo_url} style={{ height: '40px', width: '40px', margin: '2em' }}/>
+          <img 
+            src={config.logo_url} 
+            style={{ height: '40px', width: '40px', margin: '2em' }}
+            role="presentation"
+            alt=""
+          />
         </Grid>
         <Typography className={styles.toolTipText}>{config.widget_headline}</Typography>
       </Grid>
