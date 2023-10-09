@@ -31,7 +31,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
     <>
       <style >
         {`
-          html { overflow: visible }
+          html { overflow: hidden; height: 100vh; scroll-padding: 0 }
           body { overflow: hidden }
         `}
       </style>
