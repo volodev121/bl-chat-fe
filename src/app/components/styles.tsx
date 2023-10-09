@@ -7,7 +7,9 @@ const useStyles = makeStyles({
       top: '0 !important',
       background: '#F6F7FC !important',
       width: '100% !important',
-      zIndex: '999 !important',
+      zIndex: '9999 !important',
+      height: '100vh',
+      alignContent: 'start',
     },
     floatingChatButton: {
       position: 'fixed',

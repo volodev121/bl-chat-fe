@@ -1,6 +1,5 @@
 "use client"; // This is a client component 👈🏽
 
-import useStyles from "./components/styles.tsx";
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
@@ -11,7 +10,6 @@ import ChatWidget from "./components/chatWidget.tsx";
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
-  const styles = useStyles();
   const config = {
     logo_url: "",
   };
@@ -58,7 +56,7 @@ export default function App() {
   }
 
   return (
-    <div className={styles.chatWidget}>
+    <div >
       {
         // tooltip
       }

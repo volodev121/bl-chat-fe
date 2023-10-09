@@ -27,7 +27,14 @@ const ChatWidget: FC<ChatWidgetProps> = ({
 
   return (
     <>
-      <Grid container>
+      <style >
+        {`
+          html { overflow: visible }
+          body { overflow: hidden }
+        `}
+      </style>
+      <Grid container
+            className={styles.chatWidget}>
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}
