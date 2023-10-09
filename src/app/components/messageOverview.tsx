@@ -25,8 +25,8 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   }
 
   return (
-    <>
-      <List className={styles.timeLineSideNav}>
+    <div className={styles.messageOverviewWrapper}>
+      <List className={styles.messageOverview}>
         {messages.map((message, _index) =>
           (() => {
             if (message.default && message.role == "bot") {
@@ -42,7 +42,7 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
                   <ListItemIcon className={styles.listItemIcon}>
                     <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />
                   </ListItemIcon>
-                  <Typography className={styles.timeLineSideNavState}>
+                  <Typography className={styles.messageOverviewState}>
                     {message.title || message.content}
                   </Typography>
                 </ListItem>
@@ -60,7 +60,7 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
                   <ListItemIcon className={styles.listItemIcon}>
                     <HelpIcon fontSize="small" sx={{ color: "#D02DF5" }} />
                   </ListItemIcon>
-                  <Typography className={styles.timeLineSideNavState}>
+                  <Typography className={styles.messageOverviewState}>
                     {message.title || message.content}
                   </Typography>
                 </ListItem>
@@ -78,7 +78,7 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
           }`}
         </Typography>
       </List>
-    </>
+    </div>
   );
 };
 

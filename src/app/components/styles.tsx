@@ -84,19 +84,21 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       gridArea: 'messages',
       [theme.breakpoints.down('md')]: {
-        overflowY: 'visible',
+        overflow: 'visible',
       }
     },
-    timeLineSideNav: {
-      backgroundColor: '#FFFFFF',
+    messageOverviewWrapper: {
       paddingTop: 'unset !important',
+      gridArea: 'list',
+    },
+    messageOverview: {
+      backgroundColor: '#FFFFFF',
       color: '#000000',
       borderRadius: '24px 0 24px 24px',
       fontFamily: 'poppins !important',
       fontWeight: '400 !important',
-      gridArea: 'list',
     },
-    timeLineSideNavState: {
+    messageOverviewState: {
       fontSize: '12px !important',
       fontFamily: 'poppins !important',
       fontWeight: '400 !important',
