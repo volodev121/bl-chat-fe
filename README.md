@@ -24,9 +24,21 @@ To bundle the app for production we need to run the following command
 
 After bundling you probably also want to inject the widget into a web application. To do this you can fetch a page with the following command:
 
+To create the "fake" staging side locally you can use the following commands.
 ```sh
 # get webpage
 wget -p -H -P out/ --user team --password justforus! https://wl-sg.brandslisten.com/
+./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
+cp out.js out/wl-sg.brandslisten.com/out.js
+sed -i 's|https://static-staging-wjs.brandslisten.com/llm-widget/out.js|out.js|g' out/wl-sg.brandslisten.com/index.html
+cd out/wl-sg.brandslisten.com/
+python3 -m http.server 3023
+```
+
+Likewise to just update the site locally you can use the script below (found in updateStagingLocal.sh)
+
+```sh
+# update webpage
 ./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 cp out.js out/wl-sg.brandslisten.com/out.js
 sed -i 's|https://static-staging-wjs.brandslisten.com/llm-widget/out.js|out.js|g' out/wl-sg.brandslisten.com/index.html
