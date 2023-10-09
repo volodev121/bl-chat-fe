@@ -20,7 +20,7 @@ export const mockMessagesList: Array<MessageType> = [
         default: true,
       },
       {
-        key: 'someRandomUniqString2',
+        key: 'someRandomUniqString3',
         title: 'Company Size',
         content: "So, we would first like to know the size of your company, please tell us something about it.",
         role: 'bot',
@@ -29,7 +29,7 @@ export const mockMessagesList: Array<MessageType> = [
         default: false,
       },
       {
-        key: 'someRandomUniqString2',
+        key: 'someRandomUniqString4',
         title: 'Answer',
         content: "We currently have 10 employees.",
         role: 'user',
@@ -38,7 +38,7 @@ export const mockMessagesList: Array<MessageType> = [
         default: true,
       },
       {
-        key: 'someRandomUniqString2',
+        key: 'someRandomUniqString5',
         title: 'Company Area',
         content: "Great, based on your answer I figured that it makes sense to ask you a bit about the content your company works with. Please select one from the drop down I prepared for you.",
         role: 'bot',
@@ -47,7 +47,7 @@ export const mockMessagesList: Array<MessageType> = [
         default: false,
       },
       {
-        key: 'someRandomUniqString3',
+        key: 'someRandomUniqString6',
         title: 'Area of work',
         content: "test test",
         role: 'bot',

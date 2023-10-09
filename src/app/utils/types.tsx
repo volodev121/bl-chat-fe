@@ -27,12 +27,18 @@ export interface Config {
 
 export interface QuestionTimelineProp {
   logoPosition: string;
-  elements: Array<QuestionTimelineElementsProp>;
+  elements: Array<QuestionTimelineRadiogroupElement >;
 }
 
 export interface QuestionTimelineElementsChoicesProp {
   text: string;
   value: string;
+}
+interface QuestionTimelineRadiogroupElement {
+  type: "radiogroup";
+  name: string;
+  title: string;
+  choices: Array<QuestionTimelineElementsProp>;
 }
 
 export interface HistoryData {
@@ -75,3 +81,4 @@ interface MessagesListProps {
   messages: Array<MessageType>;
   setMessage: (message: MessageType) => void;
 }
+
