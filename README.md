@@ -27,6 +27,7 @@ After bundling you probably also want to inject the widget into a web applicatio
 To create the "fake" staging side locally you can use the following commands.
 ```sh
 # get webpage
+npm install
 wget -p -H -P out/ --user team --password justforus! https://wl-sg.brandslisten.com/
 ./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 cp out.js out/wl-sg.brandslisten.com/out.js

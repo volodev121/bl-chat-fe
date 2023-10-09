@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+npm install --force
 wget -p -H -P out/ --user team --password justforus! https://wl-sg.brandslisten.com/
 ./node_modules/.bin/esbuild src/app/page.tsx --bundle --outfile=out.js
 cp out.js out/wl-sg.brandslisten.com/out.js
