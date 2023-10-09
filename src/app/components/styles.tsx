@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     chatWidgetMessageList: {
       width: '100%',
-      height: '48em',
       overflow: 'auto', 
       '&::-webkit-scrollbar': {
         width: 0
