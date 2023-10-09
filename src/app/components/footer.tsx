@@ -46,7 +46,7 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
           onKeyPress={handleKeyPress}
           disableUnderline
           sx={{
-            fontSize: '14px',
+            fontSize: '16px',
             background: '#F6F6FB !important',
             borderColor: '#F2F2F2 !important',
             '&:hover': {

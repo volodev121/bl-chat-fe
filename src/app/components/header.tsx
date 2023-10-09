@@ -24,7 +24,7 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <Grid container direction="row" className={styles.header}>
-      <Grid item xs={2}>
+      <Grid item >
         <span className={styles.headerIcon}>
           <img
             src={iconUrl}
@@ -32,8 +32,7 @@ const Header: FC<HeaderProps> = ({
           />
         </span>
       </Grid>
-      <Grid item xs={9}></Grid>
-      <Grid item xs={1} className={styles.buttonGridContainer}>
+      <Grid item className={styles.buttonGridContainer}>
         <Button
           sx={{
             backgroundColor: "#F6F7FC !important",

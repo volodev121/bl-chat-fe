@@ -5,6 +5,8 @@ import Header from "./header.tsx";
 import ChatWidgetBody from "./chatWidgetBody.tsx";
 import { MessageType } from "./../utils/types.tsx";
 import Footer from './footer.tsx'
+import MessageOverview from "./messageOverview";
+import MessageList from "./messageList";
 import {mockMessagesList} from './../utils/mocks.tsx'
 
 interface ChatWidgetProps {
@@ -33,25 +35,19 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           body { overflow: hidden }
         `}
       </style>
-      <Grid container
+      <Grid container sx={{ display: 'grid' }}
             className={styles.chatWidget}>
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}
           iconUrl={config.icon_url}
         />
-        <ChatWidgetBody
-          messages={messages}
+        <MessageOverview messages={messages} />
+        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages} />
+        <Footer
           storeTimeLineMessages={storeTimeLineMessages}
-          config={config}
-          setShowChatWidget={setShowChatWidget}
-          chatBox={
-            <Footer
-              storeTimeLineMessages={storeTimeLineMessages}
-              setMessage={setMessage}
-            />
-          }
-        />
+            setMessage={setMessage}
+          />
       </Grid>
     </>
   );

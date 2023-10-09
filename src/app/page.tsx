@@ -1,6 +1,7 @@
 "use client"; // This is a client component 👈🏽
 
 import React, { useState, useEffect } from "react";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
 import { getToken } from "./utils/authorization.tsx";
@@ -16,6 +17,18 @@ export default function App() {
 
   const [hasConfig, setHasConfig] = useState(false);
   const [fetchedConfig, setFetchedConfig] = useState<any>(config);
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
+    // ... other theme customization
+  });
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -56,10 +69,7 @@ export default function App() {
   }
 
   return (
-    <div >
-      {
-        // tooltip
-      }
+    <ThemeProvider theme={theme}>
       {showToolTip ? (
         <ToolTip
           setShowChatWidget={setShowChatWidget}
@@ -70,7 +80,6 @@ export default function App() {
         <></>
       )}
       {
-        //chat widget
         showChatWidget ? (
           <ChatWidget
             setShowChatWidget={setShowChatWidget}
@@ -81,7 +90,7 @@ export default function App() {
           <></>
         )
       }
-    </div>
+    </ThemeProvider>
   );
 }
 

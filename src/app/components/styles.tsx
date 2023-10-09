@@ -1,16 +1,30 @@
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  return {
     chatWidget: {
       position: 'fixed',
       top: '0 !important',
-      background: '#F6F7FC !important',
-      width: '100% !important',
+      background: '#FCFCFF !important',
+      width: '100vw !important',
       zIndex: '9999 !important',
       height: '100vh',
       alignContent: 'start',
-    },
+      paddingBottom: '2em',
+      gridGap: '2em',
+      gridTemplate: '"header header header  header  header" 112px \
+                     ".       list    .     messages .    " 1fr \
+                     ".        .      .      input   .    " auto / \
+                      minmax(0px, calc((100vw - 1180px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
+      [theme.breakpoints.down('md')]: {
+        gridTemplate: '"header" 112px \
+                       "list" auto\
+                       "messages" 1fr\
+                       "input" auto /\
+                        1fr'
+      }
+      },
     floatingChatButton: {
       position: 'fixed',
       bottom: '20px',
@@ -23,7 +37,7 @@ const useStyles = makeStyles({
     },
     '@global':{
       body:{
-        background: "#F6F7FC"
+        background: "#FCFCFF"
       },
     },
     '@font-face': {
@@ -39,7 +53,9 @@ const useStyles = makeStyles({
       'border-bottom-style': 'groove',
       'border-color': '#F6F7FC',
       'border-width': 'thin',
+      justifyContent: 'space-between',
       padding: '0px 39px',
+      gridArea: 'header'
     },
     toolTip: {
       width: '360px !important',
@@ -59,16 +75,14 @@ const useStyles = makeStyles({
       borderRadius: '12px !important',
       padding: '8px 22px 8px 22px !important',
     },
-    ChatWidgetBody: {
-      margin: '2em 3em !important',
-    },
     chatWidgetMessageList: {
       width: '100%',
       height: '48em',
       overflow: 'auto', 
       '&::-webkit-scrollbar': {
         width: 0
-      }
+      },
+      gridArea: 'messages',
     },
     timeLineSideNav: {
       backgroundColor: '#FFFFFF',
@@ -77,6 +91,7 @@ const useStyles = makeStyles({
       borderRadius: '24px 0 24px 24px',
       fontFamily: 'poppins !important',
       fontWeight: '400 !important',
+      gridArea: 'list',
     },
     timeLineSideNavState: {
       fontSize: '12px !important',
@@ -124,6 +139,7 @@ const useStyles = makeStyles({
     listItemHeadIcon: {
       height: 'auto',
       maxWidth: '40em',
+      width: 'fit-content',
     },
     chatContent: {
       paddingTop: '0px !important',
@@ -215,6 +231,7 @@ const useStyles = makeStyles({
     },
     footer: {
       display: 'flex',
+      gridArea: 'input',
     },
     submitButton: {
       fontFamily: 'poppins !important',
@@ -228,7 +245,7 @@ const useStyles = makeStyles({
       'flex-grow': 1,
       padding: '5px',
       border: 'solid',
-      borderRadius: '12px',
+      borderRadius: '1em',
       borderColor: '#F2F2F2',  
       paddingLeft: '16px !important',
       fontFamily: 'poppins !important',
@@ -331,7 +348,8 @@ const useStyles = makeStyles({
       'flex-direction': 'row',
       'justify-content': 'center',
     }
-  });
+  }
+});
   
   export default useStyles;
   

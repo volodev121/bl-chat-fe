@@ -26,60 +26,58 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
 
   return (
     <>
-      <Grid xs={4} item>
-        <List className={styles.timeLineSideNav}>
-          {messages.map((message, _index) =>
-            (() => {
-              if (message.default && message.role == "bot") {
-                return (
-                  <ListItem
-                    sx={{
-                      width: "100%",
-                      borderRight: message.completed
-                        ? "6px solid #D02DF5"
-                        : "unset",
-                    }}
-                  >
-                    <ListItemIcon className={styles.listItemIcon}>
-                      <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />
-                    </ListItemIcon>
-                    <Typography className={styles.timeLineSideNavState}>
-                      {message.title || message.content}
-                    </Typography>
-                  </ListItem>
-                );
-              } else if (message.role == "bot" && !message.customInput) {
-                return (
-                  <ListItem
-                    sx={{
-                      width: "100%",
-                      borderRight: message.completed
-                        ? "6px solid #D02DF5"
-                        : "unset",
-                    }}
-                  >
-                    <ListItemIcon className={styles.listItemIcon}>
-                      <HelpIcon fontSize="small" sx={{ color: "#D02DF5" }} />
-                    </ListItemIcon>
-                    <Typography className={styles.timeLineSideNavState}>
-                      {message.title || message.content}
-                    </Typography>
-                  </ListItem>
-                );
-              }
-              return null;
-            })()
-          )}
-          <Typography
-            className={styles.timeLineStepText}
-            sx={{ paddingLeft: "12px" }}
-          >
-            {`${getAnsweredMessageCount()} out of ${
-              getMessagesCount()
-            }`}
-          </Typography>
-        </List>
-      </Grid>
+      <List className={styles.timeLineSideNav}>
+        {messages.map((message, _index) =>
+          (() => {
+            if (message.default && message.role == "bot") {
+              return (
+                <ListItem
+                  sx={{
+                    width: "100%",
+                    borderRight: message.completed
+                      ? "6px solid #D02DF5"
+                      : "unset",
+                  }}
+                >
+                  <ListItemIcon className={styles.listItemIcon}>
+                    <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />
+                  </ListItemIcon>
+                  <Typography className={styles.timeLineSideNavState}>
+                    {message.title || message.content}
+                  </Typography>
+                </ListItem>
+              );
+            } else if (message.role == "bot" && !message.customInput) {
+              return (
+                <ListItem
+                  sx={{
+                    width: "100%",
+                    borderRight: message.completed
+                      ? "6px solid #D02DF5"
+                      : "unset",
+                  }}
+                >
+                  <ListItemIcon className={styles.listItemIcon}>
+                    <HelpIcon fontSize="small" sx={{ color: "#D02DF5" }} />
+                  </ListItemIcon>
+                  <Typography className={styles.timeLineSideNavState}>
+                    {message.title || message.content}
+                  </Typography>
+                </ListItem>
+              );
+            }
+            return null;
+          })()
+        )}
+        <Typography
+          className={styles.timeLineStepText}
+          sx={{ paddingLeft: "12px" }}
+        >
+          {`${getAnsweredMessageCount()} out of ${
+            getMessagesCount()
+          }`}
+        </Typography>
+      </List>
     </>
   );
 };
