@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme: Theme) => {
                        "list" auto\
                        "messages" 1fr\
                        "input" auto /\
-                        1fr'
+                        1fr',
+        overflowY: 'scroll',
       }
       },
     floatingChatButton: {
@@ -83,6 +84,9 @@ const useStyles = makeStyles((theme: Theme) => {
         width: 0
       },
       gridArea: 'messages',
+      [theme.breakpoints.down('md')]: {
+        overflowY: 'visible',
+      }
     },
     timeLineSideNav: {
       backgroundColor: '#FFFFFF',
@@ -255,6 +259,9 @@ const useStyles = makeStyles((theme: Theme) => {
       padding: '10px',
       height: '400px',
       'overflow-y': 'auto',
+      [theme.breakpoints.down('md')]: {
+        overflowY: 'visible',
+      }
     },
     chatMessageUl: {
       padding: '10px',
