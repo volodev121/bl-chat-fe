@@ -24,7 +24,7 @@ const UserMessage: React.FC<UserMessageProps> = ({
         sx={{
           background: "#F1DEF5",
           padding: "12px",
-          maxWidth: "20em",
+          maxWidth: "80%",
           borderRadius: "12px 12px 0px",
         }}
       >

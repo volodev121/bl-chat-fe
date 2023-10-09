@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme: Theme) => {
       '&::-webkit-scrollbar': {
         width: 0
       },
+      wordWrap: 'break-word',
       gridArea: 'messages',
       [theme.breakpoints.down('md')]: {
         overflow: 'visible',
