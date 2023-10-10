@@ -51,7 +51,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
       >
         <ListItemIcon className={styles.listItemHeadIcon}>
           <HelpIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
-          <Typography variant="h6" className={styles.listItemHead}>
+          <Typography variant="h6" className={styles.listItemHead} id={ `${message.name}-label` }>
             {message.title || message.content}
           </Typography>
         </ListItemIcon>

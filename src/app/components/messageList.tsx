@@ -36,11 +36,12 @@ const MessageList: React.FC<MessageListProps> = ({
 
   const handleClick = (message: MessageType) => {
     const msg = {
+      key: `${message.key} answer`,
       role: "user",
       content: selectedValue,
       completed: true,
       disabled: true,
-      name: message.name,
+      name: message.key,
       customInput: false,
       surveyQuestion: message.surveyQuestion,
     };

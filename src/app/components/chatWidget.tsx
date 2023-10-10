@@ -41,7 +41,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       // TODO: check if message has a survey question attached to it and mark the question as completed
       if (message.surveyQuestion) {
         tempMessages = tempMessages.map((msg) => {
-          if(msg.name == message.name) { 
+          if(msg.key == message.name) { 
             msg.completed = true; 
             msg.disabled = true; 
             msg.content = message.content; 
@@ -51,10 +51,18 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           }
         })
       }
+      tempMessages = [...tempMessages, message]
       // then add the new message
       // should all survey bot message be completed, check if messageTemplates has a new message and add it to the set
+      const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
+      if (!newMessageTemplate) {
+        const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
+        if (remainingTemplates.length) {
+          tempMessages = [...tempMessages, remainingTemplates[0]]
+        }
+      }
       // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
-      return [...tempMessages, message]
+      return [...tempMessages]
     });
   }
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
