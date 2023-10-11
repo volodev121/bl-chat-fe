@@ -46,8 +46,19 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,1));
+  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates);
   useEffect(() => {
-    apiClient.updateHistory(messages)
+    apiClient.updateHistory(messages);
+    setTimeline((timeline) => {
+      timeline = timeline.map((timelineItem) => {
+        const msg = messages.find((msg) => msg.key == timelineItem.key)
+        if (msg) {
+          return msg
+        }
+        return timelineItem
+      });
+      return timeline
+    });
   }, [messages])
 
   const updateMessageFactory = function(key) {
@@ -125,7 +136,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           setShowToolTip={setShowToolTip}
           iconUrl={config.icon_url}
         />
-        <MessageOverview messages={messages} />
+        <MessageOverview messages={timeline} />
         <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages} />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}

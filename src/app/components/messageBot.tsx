@@ -35,11 +35,12 @@ const BotMessage: React.FC<BotMessageProps> = ({
   if (handleChange == null) {
     handleChange = (msg, lbl) => {};
   }
-
+  const finalText = message.title || message.content;
   if (
     message.element &&
     message.role === "bot" &&
-    message.element.type === "radiogroup"
+    (message.element.type === "radiogroup" || 
+    message.element.type === "text")
   ) {
     return (
       <ListItem
@@ -52,7 +53,14 @@ const BotMessage: React.FC<BotMessageProps> = ({
         <ListItemIcon className={styles.listItemHeadIcon}>
           <HelpIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
           <Typography variant="h6" className={styles.listItemHead} id={ `${message.name}-label` }>
-            {message.title || message.content}
+            {finalText.split("\n").map(function(item, idx) {
+                return (
+                    <span key={idx}>
+                        {item}
+                        <br/>
+                    </span>
+                 )
+            })}
           </Typography>
         </ListItemIcon>
         <div className={styles.listItemContent}>
@@ -96,7 +104,14 @@ const BotMessage: React.FC<BotMessageProps> = ({
             <InfoIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
           )}
           <Typography variant="h6" className={styles.listItemHead}>
-            {message.content}
+            {message.content.split('\n').map(function(item, idx) {
+                return (
+                    <span key={idx}>
+                        {item}
+                        <br/>
+                    </span>
+                 )
+            })}
           </Typography>
         </ListItemIcon>
         {ratingAvailable && (

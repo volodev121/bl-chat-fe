@@ -11,17 +11,18 @@ interface MessageOverviewProps {
 
 const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   const styles = useStyles();
+  const eledgableMessages = messages.filter((message, _index) => (
+      message.role === 'bot' && !message.customInput && message.surveyQuestion
+    ))
 
   const getAnsweredMessageCount = () => {
-    return messages.filter((message, _index) => (
-      message.role === 'bot' && message.completed && !message.customInput
-    )).length - 1
+    return eledgableMessages.filter((message, _index) => (
+      message.completed
+    )).length
   };
 
   const getMessagesCount = () => {
-    return messages.filter((message, _index) => (
-      message.role === 'bot' && !message.customInput
-    )).length - 1
+    return eledgableMessages.length
   }
 
   return (

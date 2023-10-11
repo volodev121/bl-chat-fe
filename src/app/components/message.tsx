@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   FormControl,
   Typography,
+  Input
 } from "@mui/material";
 
 interface MessageProps {
@@ -60,6 +61,26 @@ const Message: React.FC<MessageProps> = ({
               </>
             ))}
           </RadioGroup>
+        </FormControl>
+      );
+    case "text":
+      return (
+        <FormControl sx={{ marginLeft: "16px", marginRight: "100px" }}>
+          <Input
+            type='text'
+            placeholder={message.placeholder}
+            onChange={(event) => {handleChange(message, event.target.value)}}
+            disableUnderline
+            autoFocus={true}
+            sx={{
+              fontSize: '16px',
+              background: '#F6F6FB !important',
+              borderColor: '#F2F2F2 !important',
+              '&:hover': {
+                background: '#EEF0F8 !important',
+              },
+            }}
+          />
         </FormControl>
       );
   }
