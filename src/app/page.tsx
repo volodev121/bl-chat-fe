@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
 import { getToken } from "./utils/authorization.tsx";
 import { getConfig } from "./utils/authorization.tsx";
+import apiClient from "./utils/apiClient.tsx";
 import ChatWidget from "./components/chatWidget.tsx";
 import customThemeFactory from "./utils/customThemeFactory.tsx"
 
@@ -15,9 +16,11 @@ export default function App() {
   const config = {
     logo_url: "",
   };
+  const token = "";
 
   const [hasConfig, setHasConfig] = useState(false);
   const [fetchedConfig, setFetchedConfig] = useState<any>(config);
+  const [fetchedToken, setFetchedToken] = useState<any>(token);
   useEffect(() => {
     const fetchConfig = async () => {
       const authResponse = await getToken({});
@@ -29,6 +32,7 @@ export default function App() {
           },
         };
 
+        setFetchedToken(authResponse.data.auth_token)
         const configResponse = await getConfig(
           {},
           headers
@@ -68,6 +72,7 @@ export default function App() {
             setShowChatWidget={setShowChatWidget}
             setShowToolTip={setShowToolTip}
             config={fetchedConfig}
+            apiClient={apiClient(fetchedToken)}
           />
         ) : (
           <></>

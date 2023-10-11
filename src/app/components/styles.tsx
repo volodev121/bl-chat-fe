@@ -91,6 +91,7 @@ const useStyles = makeStyles((theme: Theme) => {
     messageOverviewWrapper: {
       paddingTop: 'unset !important',
       gridArea: 'list',
+      overflow: 'scroll',
     },
     messageOverview: {
       backgroundColor: '#FFFFFF',

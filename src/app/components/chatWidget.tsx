@@ -12,12 +12,14 @@ interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
   config: Config;
+  apiClient: Object;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   setShowChatWidget,
   setShowToolTip,
   config,
+  apiClient,
 }) => {
   const messagesFromConfig = (config: Config) => {
     const timeline = config.question_timeline;
@@ -35,6 +37,21 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,1));
+  const updateMessageFactory = function(key) {
+    return (content) => {
+      setMessages((messages) => {
+        console.log(content, messages);
+        messages = messages.map((msg) => {
+          if (msg.key == key) {
+            return { ...msg, ...content };
+          } else {
+            return msg;
+          }
+        });
+        return [...messages];
+      })
+    }
+  }
   const storeTimeLineMessages = (message: MessageType) => {
     setMessages((messages) => {
       let tempMessages = messages;
@@ -62,6 +79,17 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         }
       }
       // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
+      if (message.customInput && message.role == "user") {
+        // dispatch api call
+        const loadingKey = Date.now();
+        apiClient.chat(tempMessages).then(updateMessageFactory(loadingKey));
+        const loadingMessage = {
+          key: loadingKey,
+          role: "bot",
+          content: "thinking...",
+        };
+        tempMessages = [...tempMessages,loadingMessage]
+      }
       return [...tempMessages]
     });
   }
