@@ -17,7 +17,6 @@ const Header: FC<HeaderProps> = ({
   const styles = useStyles();
 
   const handleClick = () => {
-    console.log("header clicked");
     setShowChatWidget(false);
     setShowToolTip(true);
   };

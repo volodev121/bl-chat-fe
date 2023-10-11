@@ -7,6 +7,7 @@ import ToolTip from "./components/toolTip.tsx";
 import { getToken } from "./utils/authorization.tsx";
 import { getConfig } from "./utils/authorization.tsx";
 import ChatWidget from "./components/chatWidget.tsx";
+import customThemeFactory from "./utils/customThemeFactory.tsx"
 
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);
@@ -17,19 +18,6 @@ export default function App() {
 
   const [hasConfig, setHasConfig] = useState(false);
   const [fetchedConfig, setFetchedConfig] = useState<any>(config);
-  const theme = createTheme({
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 960,
-        lg: 1280,
-        xl: 1920,
-      },
-    },
-    // ... other theme customization
-  });
-
   useEffect(() => {
     const fetchConfig = async () => {
       const authResponse = await getToken({});
@@ -58,14 +46,13 @@ export default function App() {
 
     fetchConfig();
   }, []);
-
   // don't show the chat widget until we have the config
   if (!hasConfig) {
     return <></>;
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
       {showToolTip ? (
         <ToolTip
           setShowChatWidget={setShowChatWidget}
