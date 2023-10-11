@@ -34,9 +34,9 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       return {
         key: item.name, 
         title: item.title, 
-        content: "", 
+        content: item.description || "", 
         role: "bot", 
-        completed: false, 
+        completed: item.type == "image" || item.type == "expression", 
         element: item, 
         surveyQuestion: true,
         time: (new Date()).toISOString(),
@@ -45,8 +45,8 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   };
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
-  const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,1));
-  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates);
+  const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,messageTemplates.findIndex((msg) => !msg.completed) + 1));
+  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
   useEffect(() => {
     apiClient.updateHistory(messages);
     setTimeline((timeline) => {

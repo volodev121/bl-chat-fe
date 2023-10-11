@@ -40,7 +40,8 @@ const BotMessage: React.FC<BotMessageProps> = ({
     message.element &&
     message.role === "bot" &&
     (message.element.type === "radiogroup" || 
-    message.element.type === "text")
+    message.element.type === "text"
+    )
   ) {
     return (
       <ListItem
@@ -100,7 +101,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
     <>
       <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "40em" }}>
         <ListItemIcon className={styles.listItemHeadIcon}>
-          {!message.customInput && (
+          {!message.customInput &&message.element && message.element.type !== "image" && (
             <InfoIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
           )}
           <Typography variant="h6" className={styles.listItemHead}>
@@ -113,6 +114,9 @@ const BotMessage: React.FC<BotMessageProps> = ({
                  )
             })}
           </Typography>
+          {message.element && message.element.type == "image" && message.element.imageLink && (
+            <img src={message.element.imageLink} alt={message.element.altText} style={ { height: message.element.imageHeight || "100%", width: message.element.imageWidth || "auto" }} />
+          )}
         </ListItemIcon>
         {ratingAvailable && (
           <div className={styles.feedbackContainer}>

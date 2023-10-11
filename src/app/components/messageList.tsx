@@ -69,7 +69,7 @@ const MessageList: React.FC<MessageListProps> = ({
               return (
                 <MessageBot
                   message={message}
-                  ratingAvailable={true}
+                  ratingAvailable={!message.surveyQuestion}
                   elementDisabled={false}
                   handleChange={handleChange}
                   handleClick={handleClick}
