@@ -44,6 +44,7 @@ const MessageList: React.FC<MessageListProps> = ({
       name: message.key,
       customInput: false,
       surveyQuestion: message.surveyQuestion,
+      time: (new Date()).toISOString(),
     };
     storeTimeLineMessages(msg);
     setElementDisabled(true);

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
@@ -31,19 +31,32 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       return mockMessageList;
     }
     return list.map((item: QuestionTimelineRadiogroupElement) => {
-      return {key: item.name, title: item.title, content: "", role: "bot", completed: false, element: item, surveyQuestion: true}
+      return {
+        key: item.name, 
+        title: item.title, 
+        content: "", 
+        role: "bot", 
+        completed: false, 
+        element: item, 
+        surveyQuestion: true,
+        time: (new Date()).toISOString(),
+      }
     });
   };
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,1));
+  useEffect(() => {
+    apiClient.updateHistory(messages)
+  }, [messages])
+
   const updateMessageFactory = function(key) {
     return (content) => {
       setMessages((messages) => {
         console.log(content, messages);
         messages = messages.map((msg) => {
           if (msg.key == key) {
-            return { ...msg, ...content };
+            return { ...msg, ...content, time: (new Date()).toISOString() };
           } else {
             return msg;
           }
@@ -75,7 +88,8 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       if (!newMessageTemplate) {
         const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
         if (remainingTemplates.length) {
-          tempMessages = [...tempMessages, remainingTemplates[0]]
+          const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
+          tempMessages = [...tempMessages, newMessage]
         }
       }
       // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
@@ -87,6 +101,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           key: loadingKey,
           role: "bot",
           content: "thinking...",
+          time: (new Date()).toISOString(),
         };
         tempMessages = [...tempMessages,loadingMessage]
       }

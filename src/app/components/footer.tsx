@@ -18,7 +18,13 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
   const handleSubmit = () => {
     if (!inputMessage) return;
 
-    const msg = { key: `${Date.now()}-user`, role: 'user', content: inputMessage, customInput: true }
+    const msg = { 
+      key: `${Date.now()}-user`, 
+      role: 'user', 
+      content: inputMessage, 
+      customInput: true, 
+      time: (new Date()).toISOString(),
+    }
     storeTimeLineMessages(msg)
     setInputMessage('');
   };

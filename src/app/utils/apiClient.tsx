@@ -1,8 +1,23 @@
-import { apiPost } from './axiosClient';
-import { chatEndpoint } from './apiConstants';
+import { apiPost, apiPut } from './axiosClient';
+import { chatEndpoint, historyEndpoint } from './apiConstants';
 
 const getChat = async (data: any, headers: any): Promise<any> =>{
     return await apiPost(chatEndpoint, data, headers).then((response) => {
+        return {
+            status: response.status,
+            data: response.data
+        }
+    }).catch((error) =>{
+        console.log(error)
+        return {
+            status: error.status,
+            data: error.response
+        }
+    })
+}
+
+const setHistory = async (data: any, headers: any): Promise<any> =>{
+    return await apiPut(historyEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
             data: response.data
@@ -25,7 +40,7 @@ const apiClient = function(token) {
         { 
           prompts: chatHistory.map(
             (msg) => { 
-              return { content: msg.content, role: (msg.role == "user" ? "user" : "assistant")}
+              return { content: msg.content || msg.title , role: (msg.role == "user" ? "user" : "assistant")}
             }
           ) 
         },
@@ -42,6 +57,18 @@ const apiClient = function(token) {
       } else {
         return { role: 'bot', type: 'escalateToHuman', content: "I am very sorry, something had to be gone wrong on my end. Shall I try and connect you to a human?", raw: chat.data }
       }
+    },
+    updateHistory: async function(chatHistory: Array<MessageType>) {
+      const chat = await setHistory(
+        { 
+          prompts: chatHistory,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
     }
   }
 }

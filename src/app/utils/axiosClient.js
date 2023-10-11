@@ -40,8 +40,8 @@ export function apiPatch(path, data) {
   return axios.patch(path, data, config);
 }
 
-export function apiPut(path, data) {
-  return axios.put(path, data, config);
+export function apiPut(path, data, headers) {
+  return axios.put(path, data, {...config, ...headers});
 }
 
 export function apiDelete(path, data) {
