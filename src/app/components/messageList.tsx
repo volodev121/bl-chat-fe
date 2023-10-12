@@ -35,7 +35,8 @@ const MessageList: React.FC<MessageListProps> = ({
   };
 
   const handleClick = (message: MessageType) => {
-    const msg = {
+    const msg = { 
+      ...message, // extend original message for back reference to the question
       key: `${message.key} answer`,
       role: "user",
       content: selectedValue,
