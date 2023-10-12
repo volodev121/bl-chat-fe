@@ -46,6 +46,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,messageTemplates.findIndex((msg) => !msg.completed) + 1));
+  const [surveyData, setSurveyData] = useState({});
   const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
   useEffect(() => {
     apiClient.updateHistory(messages);
@@ -59,6 +60,10 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       });
       return timeline
     });
+  }, [messages])
+
+  useEffect(() => {
+    setSurveyData((surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {}))
   }, [messages])
 
   const updateMessageFactory = function(key) {
@@ -101,6 +106,24 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         if (remainingTemplates.length) {
           const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
           tempMessages = [...tempMessages, newMessage]
+          console.log(newMessage)
+          if (newMessage.element.type == "expression" && newMessage.element.expression) {
+            const loadingKey = Date.now();
+            const fakeUserMessage = {
+              key: `${loadingKey}-fake-input`,
+              role: "user",
+              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => { surveyData[group] }),
+              time: (new Date()).toISOString(),
+            };
+            apiClient.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
+            const loadingMessage = {
+              key: loadingKey,
+              role: "bot",
+              content: "thinking...",
+              time: (new Date()).toISOString(),
+            };
+            tempMessages = [...tempMessages,loadingMessage]
+          }
         }
       }
       // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
@@ -137,7 +160,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={config.icon_url}
         />
         <MessageOverview messages={timeline} />
-        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages} />
+        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages}  />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
             setMessage={setMessage}
