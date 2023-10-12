@@ -112,7 +112,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
             const fakeUserMessage = {
               key: `${loadingKey}-fake-input`,
               role: "user",
-              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => { surveyData[group] }),
+              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => surveyData[group]),
               time: (new Date()).toISOString(),
             };
             apiClient.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
