@@ -45,6 +45,9 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   };
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
+  const updateSurveyDataFuction = (messages) => {
+    return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
+  };
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,messageTemplates.findIndex((msg) => !msg.completed) + 1));
   const [surveyData, setSurveyData] = useState({});
   const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
@@ -63,7 +66,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   }, [messages])
 
   useEffect(() => {
-    setSurveyData((surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {}))
+    setSurveyData(updateSurveyDataFuction(messages))
   }, [messages])
 
   const updateMessageFactory = function(key) {
@@ -98,8 +101,10 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         })
       }
       tempMessages = [...tempMessages, message]
+      
       // then add the new message
       // should all survey bot message be completed, check if messageTemplates has a new message and add it to the set
+
       const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
       if (!newMessageTemplate) {
         const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
@@ -108,11 +113,13 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           tempMessages = [...tempMessages, newMessage]
           console.log(newMessage)
           if (newMessage.element.type == "expression" && newMessage.element.expression) {
+            // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
+            const tempSurveyData = updateSurveyDataFuction(tempMessages)()
             const loadingKey = Date.now();
             const fakeUserMessage = {
               key: `${loadingKey}-fake-input`,
               role: "user",
-              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => surveyData[group]),
+              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => tempSurveyData[group]),
               time: (new Date()).toISOString(),
             };
             apiClient.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
