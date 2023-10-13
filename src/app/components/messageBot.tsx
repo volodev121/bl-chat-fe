@@ -1,6 +1,6 @@
 import React from "react";
 import { MessageType } from "./../utils/types.tsx";
-import { ListItem, ListItemIcon, Typography } from "@mui/material";
+import { ListItem, ListItemIcon, Typography, Box } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import useStyles from "./styles";
 import { ThumbUpOffAlt } from "@mui/icons-material";
@@ -10,6 +10,11 @@ import FeedbackModel from "./feedbackModel.tsx";
 import { Button } from "@mui/material";
 import Message from "./message.tsx";
 import HelpIcon from "@mui/icons-material/Help";
+import Accordion from '@mui/material/Accordion'; //accordion dependencies
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 interface BotMessageProps {
   message: MessageType;
@@ -31,6 +36,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
   const handleThumbUp = (message: MessageType) => {};
   const handleThumbDown = (message: MessageType) => {};
   const [openModel, setOpenModel] = React.useState(false);
+  const [openContext, setOpenContext] = React.useState(false);
 
   if (handleChange == null) {
     handleChange = (msg, lbl) => {};
@@ -135,6 +141,34 @@ const BotMessage: React.FC<BotMessageProps> = ({
           openModel={false}
           action={"test"}
         />
+        { message.context && message.context.length && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={ `${message.key}-context-content`}
+              id={ `${message.key}-context-header` }
+            >
+              <Typography>Context</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              { message.context.map((contextItem, index) => {
+                  console.log(contextItem) 
+                  return (
+                    <Box>
+                      <Typography variant="caption" >
+                        {contextItem.source}
+                      </Typography>
+                      <Typography variant="body2" >
+                        {contextItem.content}
+                      </Typography>
+                      <progress id={ `${message.key}-context-${index}` } value={contextItem.score} max="1.0"> { contextItem.score * 100 }% </progress>
+                    </Box>
+                  );
+                }
+              )}
+            </AccordionDetails>
+          </Accordion>
+        )}
       </ListItem>
     </>
   );

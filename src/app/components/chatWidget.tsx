@@ -69,6 +69,37 @@ const ChatWidget: FC<ChatWidgetProps> = ({
     setSurveyData(updateSurveyDataFuction(messages))
   }, [messages])
 
+  const insertNextSurveyQuestion = function(tempMessages) {
+    const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
+    if (!newMessageTemplate) {
+      const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
+      if (remainingTemplates.length) {
+        const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
+        tempMessages = [...tempMessages, newMessage]
+        console.log(newMessage)
+        if (newMessage.element.type == "expression" && newMessage.element.expression) {
+          // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
+          const tempSurveyData = updateSurveyDataFuction(tempMessages)()
+          const loadingKey = Date.now();
+          const fakeUserMessage = {
+            key: `${loadingKey}-fake-input`,
+            role: "user",
+            content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => tempSurveyData[group]),
+            time: (new Date()).toISOString(),
+          };
+          apiClient.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
+          const loadingMessage = {
+            key: loadingKey,
+            role: "bot",
+            content: "thinking...",
+            time: (new Date()).toISOString(),
+          };
+          tempMessages = [...tempMessages,loadingMessage]
+        }
+      }
+    }
+    return tempMessages;
+  };
   const updateMessageFactory = function(key) {
     return (content) => {
       setMessages((messages) => {
@@ -104,35 +135,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       
       // then add the new message
       // should all survey bot message be completed, check if messageTemplates has a new message and add it to the set
-
-      const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
-      if (!newMessageTemplate) {
-        const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
-        if (remainingTemplates.length) {
-          const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
-          tempMessages = [...tempMessages, newMessage]
-          console.log(newMessage)
-          if (newMessage.element.type == "expression" && newMessage.element.expression) {
-            // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
-            const tempSurveyData = updateSurveyDataFuction(tempMessages)()
-            const loadingKey = Date.now();
-            const fakeUserMessage = {
-              key: `${loadingKey}-fake-input`,
-              role: "user",
-              content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => tempSurveyData[group]),
-              time: (new Date()).toISOString(),
-            };
-            apiClient.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
-            const loadingMessage = {
-              key: loadingKey,
-              role: "bot",
-              content: "thinking...",
-              time: (new Date()).toISOString(),
-            };
-            tempMessages = [...tempMessages,loadingMessage]
-          }
-        }
-      }
+      tempMessages = insertNextSurveyQuestion(tempMessages)
       // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
       if (message.customInput && message.role == "user") {
         // dispatch api call
