@@ -161,7 +161,13 @@ const BotMessage: React.FC<BotMessageProps> = ({
                       <Typography variant="body2" >
                         {contextItem.content}
                       </Typography>
-                      <progress id={ `${message.key}-context-${index}` } value={contextItem.score} max="1.0"> { contextItem.score * 100 }% </progress>
+                      <progress 
+                        id={ `${message.key}-context-${index}` } 
+                        value={contextItem.score} 
+                        max="1.0" 
+                        title={ contextItem.score.toFixed(4) } > 
+                          { (contextItem.score * 100).toFixed(2) }% 
+                        </progress>
                     </Box>
                   );
                 }
