@@ -125,7 +125,8 @@ const chatToHistoryFormat = function(chatHistory: Array<MessageType>) {
         time: "2023-08-22 11:47:21",
         question_id: `${msg.key}`.split('-')[0],
         question_text: msg.role == "user" ? msg.content : "",
-        answer: msg.role == "bot" ? msg.content : "", //add rating
+        answer: msg.role == "bot" ? msg.content : "",
+        rating: msg.rating,
       })
     }
   })
