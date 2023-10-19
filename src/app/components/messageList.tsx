@@ -8,12 +8,16 @@ import UserMessage from "./messageUser.tsx";
 
 interface MessageListProps {
   messages: Array<MessageType>;
+  apiClient: Object;
   storeTimeLineMessages: (message: MessageType) => void;
+  updateMessageFactory: (key: String) => (message: MessageType) => void;
 }
 
 const MessageList: React.FC<MessageListProps> = ({
   messages,
+  apiClient,
   storeTimeLineMessages,
+  updateMessageFactory,
 }) => {
   const styles = useStyles();
   const [selectedValue, setSelectedValue] = useState("");
@@ -62,8 +66,10 @@ const MessageList: React.FC<MessageListProps> = ({
                   message={message}
                   ratingAvailable={false}
                   elementDisabled={false}
+                  updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}
+                  apiClient={apiClient}
                 />
               );
             } else if (message.role === "bot") {
@@ -72,8 +78,10 @@ const MessageList: React.FC<MessageListProps> = ({
                   message={message}
                   ratingAvailable={!message.surveyQuestion}
                   elementDisabled={false}
+                  updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}
+                  apiClient={apiClient}
                 />
               );
             } else if (message.role === "user") {

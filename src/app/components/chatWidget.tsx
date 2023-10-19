@@ -170,7 +170,12 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={config.icon_url}
         />
         <MessageOverview messages={timeline} />
-        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages}  />
+        <MessageList 
+          messages={messages} 
+          storeTimeLineMessages={storeTimeLineMessages} 
+          apiClient={apiClient}
+          updateMessageFactory={updateMessageFactory} 
+        />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
             setMessage={setMessage}

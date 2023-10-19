@@ -1,5 +1,5 @@
 import { apiPost, apiPut } from './axiosClient';
-import { chatEndpoint, historyEndpoint } from './apiConstants';
+import { chatEndpoint, historyEndpoint, ratingEndpoint } from './apiConstants';
 
 const getChat = async (data: any, headers: any): Promise<any> =>{
     return await apiPost(chatEndpoint, data, headers).then((response) => {
@@ -17,6 +17,20 @@ const getChat = async (data: any, headers: any): Promise<any> =>{
 
 const setHistory = async (data: any, headers: any): Promise<any> =>{
     return await apiPut(historyEndpoint, data, headers).then((response) => {
+        return {
+            status: response.status,
+            data: response.data
+        }
+    }).catch((error) =>{
+        return {
+            status: error.status,
+            data: error.response
+        }
+    })
+
+}
+const setRating = async (data: any, headers: any): Promise<any> =>{
+    return await apiPut(ratingEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
             data: response.data
@@ -137,7 +151,7 @@ const apiClient = function(token) {
       )
       if (chat.status == 200) {
         // this should also have 'context' and 'topics' to use
-        return { role: 'bot', type: 'botanswer', content: chat.data.text, context: chat.data.context || [], raw: chat.data }
+        return { role: 'bot', type: 'botanswer', content: chat.data.text, context: chat.data.context || [], raw: chat.data, question: chatHistory[chatHistory.length - 1] }
       } else {
         return { role: 'bot', type: 'escalateToHuman', content: "I am very sorry, something had to be gone wrong on my end. Shall I try and connect you to a human?", raw: chat.data }
       }
@@ -145,6 +159,22 @@ const apiClient = function(token) {
     updateHistory: async function(chatHistory: Array<MessageType>) {
       const chat = await setHistory(
         chatToHistoryFormat(chatHistory),
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+    },
+    sendRating: async function(message) {
+      console.log(message)
+      let body = {
+        rating: message.rating.value,
+        question: message.question["content"],
+        answer: message.content,
+        reasons: message.rating.reasons,
+      }
+      setRating(body, 
         {
           headers: {
             Authorization: token,
