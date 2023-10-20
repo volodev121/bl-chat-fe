@@ -168,7 +168,6 @@ const apiClient = function(token) {
       )
     },
     sendRating: async function(message) {
-      console.log(message)
       let body = {
         rating: message.rating.value,
         question: message.question["content"],

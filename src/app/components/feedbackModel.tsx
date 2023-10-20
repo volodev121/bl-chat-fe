@@ -33,7 +33,6 @@ const FeedbackModel: FC<feedbackModelProps> = ({ message, setOpenModel, openMode
     // Read the form data
     const form = event.target.form;
     const formData = new FormData(form);
-    console.log(formData);
     const formJson = Object.fromEntries(formData.entries());
     const freeText = formJson.reasons;
     delete formJson.reasons
@@ -78,7 +77,7 @@ const FeedbackModel: FC<feedbackModelProps> = ({ message, setOpenModel, openMode
             {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </Typography> */}
-            <form onSubmit={formSubmit} method="post">
+            <form method="post">
               <FormGroup>
                   <div style={{ margin: '1em 0em 2em 0em'}}>
                       <Input
