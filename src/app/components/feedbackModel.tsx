@@ -6,7 +6,6 @@ import { MessageType } from './../utils/types';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ThumbDownOffAlt from '@mui/icons-material/ThumbDownOffAlt';
-import ThumbUpOffAlt from '@mui/icons-material/ThumbUpOffAlt';
 import useStyles from './styles';
 import { Button, Input } from "@mui/material";
 import FormGroup from '@mui/material/FormGroup';
@@ -21,7 +20,7 @@ interface feedbackModelProps {
   action: string;
 }
 
-const FeedbackModel: FC<feedbackModelProps> = ({ setOpenModel, openModel, action, handleSubmit }) => {
+const FeedbackModel: FC<feedbackModelProps> = ({ setOpenModel, openModel, handleSubmit }) => {
   const styles = useStyles();
 
   const handleClose = () => {
@@ -56,8 +55,7 @@ const FeedbackModel: FC<feedbackModelProps> = ({ setOpenModel, openModel, action
         sx={{ zIndex: 999999 }}
         >
         <Box className={styles.modelStyle}>
-            { action === 'down' && (<ThumbDownOffAlt sx={{ color: '#A51818', background: '#F6E6E6', width: '25px',  padding: '7px', borderRadius: '50%' }} />)}
-            { action === 'up' && (<ThumbUpOffAlt sx={{ color: '#A51818', background: '#F6E6E6', width: '25px',  padding: '7px', borderRadius: '50%' }} />)}
+            <ThumbDownOffAlt sx={{ color: '#A51818', background: '#F6E6E6', width: '25px',  padding: '7px', borderRadius: '50%' }} />
             
             <IconButton
                 aria-label="close"

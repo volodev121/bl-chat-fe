@@ -165,7 +165,6 @@ const BotMessage: React.FC<BotMessageProps> = ({
           message={message}
           setOpenModel={setOpenModel}
           openModel={openModel}
-          action={"test"}
           handleSubmit={(reasons) => handleFeedbackSubmit(message, reasons)}
         />
         { message.context && message.context.length && (
