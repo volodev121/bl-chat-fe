@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Grid, Typography, Button } from "@mui/material";
 import useStyles from './styles.tsx';
-import AppleIcon from '@mui/icons-material/Apple';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Config } from "../utils/types.tsx";
 
 interface ToolTipProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
-  config: any;
+  config: Config;
 }
 
 const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }) => {

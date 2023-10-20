@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -21,7 +21,7 @@ interface feedbackModelProps {
   action: string;
 }
 
-const FeedbackModel: FC<feedbackModelProps> = ({ message, setOpenModel, openModel, action, handleSubmit }) => {
+const FeedbackModel: FC<feedbackModelProps> = ({ setOpenModel, openModel, action, handleSubmit }) => {
   const styles = useStyles();
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ const FeedbackModel: FC<feedbackModelProps> = ({ message, setOpenModel, openMode
     const formJson = Object.fromEntries(formData.entries());
     const freeText = formJson.reasons;
     delete formJson.reasons
-    let reasons = Object.keys(formJson);
+    const reasons = Object.keys(formJson);
     if(freeText != "") reasons.push(freeText)
 
     handleSubmit(reasons)

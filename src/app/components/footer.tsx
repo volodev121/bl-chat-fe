@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import useStyles from './styles';
 import { Button, Input } from "@mui/material";
 import { MessageType } from './../utils/types';
@@ -10,7 +10,7 @@ interface FooterProps {
   storeTimeLineMessages: (message: MessageType) => void;
 }
 
-const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
+const Footer: FC<FooterProps> = ({ storeTimeLineMessages }) => {
   const styles = useStyles();
 
   const [inputMessage, setInputMessage] = useState('');

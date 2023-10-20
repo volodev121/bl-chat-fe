@@ -63,6 +63,18 @@ export interface ElementDataValue {
   value: string;
 }
 
+export interface ContextItem {
+  content: string;
+  score: number;
+  source: string
+}
+
+export interface RatingStruct {
+  value: boolean | null;
+  reasons: Array<string>;
+  time: string;
+}
+
 export interface MessageType {
   title?: string;
   type?: string;
@@ -75,10 +87,18 @@ export interface MessageType {
   default?: boolean;
   customInput?: boolean;
   surveyQuestion?: boolean;
+  context?: Array<ContextItem>;
+  raw?: object;
+  rating?: RatingStruct;
 }
 
-interface MessagesListProps {
+export interface MessagesListProps {
   messages: Array<MessageType>;
   setMessage: (message: MessageType) => void;
+}
+
+export interface ApiResponse {
+  status: number;
+  data: object;
 }
 

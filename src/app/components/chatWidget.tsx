@@ -6,13 +6,14 @@ import { MessageType, Config, QuestionTimelineRadiogroupElement } from "./../uti
 import Footer from './footer.tsx'
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
-import {mockMessagesList} from './../utils/mocks.tsx'
+import ApiClient from "./../utils/apiClient.tsx"
+
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
   config: Config;
-  apiClient: Object;
+  apiClient: ApiClient;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
@@ -46,10 +47,12 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const updateSurveyDataFuction = (messages) => {
-    return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
+    // this should ingest surveyData but doesn't use it. I'm sure I forgot something here
+    return () => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
   };
+  // SurveyData is not used. Do we still need this?
+
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,messageTemplates.findIndex((msg) => !msg.completed) + 1));
-  const [surveyData, setSurveyData] = useState({});
   const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
   useEffect(() => {
     apiClient.updateHistory(messages);
@@ -65,10 +68,6 @@ const ChatWidget: FC<ChatWidgetProps> = ({
     });
   }, [messages, apiClient])
 
-  useEffect(() => {
-    setSurveyData(updateSurveyDataFuction(messages))
-  }, [messages])
-
   const insertNextSurveyQuestion = function(tempMessages) {
     const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
     if (!newMessageTemplate) {
@@ -76,7 +75,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       if (remainingTemplates.length) {
         const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
         tempMessages = [...tempMessages, newMessage]
-        console.log(newMessage)
+
         if (newMessage.element.type == "expression" && newMessage.element.expression) {
           // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
           const tempSurveyData = updateSurveyDataFuction(tempMessages)()
@@ -152,7 +151,6 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       return [...tempMessages]
     });
   }
-  const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
 
   return (
     <>
@@ -178,7 +176,6 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
-            setMessage={setMessage}
           />
       </Grid>
     </>

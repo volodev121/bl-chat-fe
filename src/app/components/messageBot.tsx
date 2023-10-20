@@ -55,10 +55,9 @@ const BotMessage: React.FC<BotMessageProps> = ({
       updateSelf(message);
   }
   const [openModel, setOpenModel] = React.useState(false);
-  const [openContext, setOpenContext] = React.useState(false);
 
   if (handleChange == null) {
-    handleChange = (msg, lbl) => {};
+    handleChange = () => {};
   }
   const finalText = message.title || message.content;
   if (

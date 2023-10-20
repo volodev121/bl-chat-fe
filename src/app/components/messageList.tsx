@@ -5,12 +5,13 @@ import { MessageType } from "./../utils/types.tsx";
 import MessageBot from "./messageBot.tsx";
 import { useState } from "react";
 import UserMessage from "./messageUser.tsx";
+import { ApiClient } from "./../utils/apiClient.tsx";
 
 interface MessageListProps {
   messages: Array<MessageType>;
-  apiClient: Object;
+  apiClient: ApiClient;
   storeTimeLineMessages: (message: MessageType) => void;
-  updateMessageFactory: (key: String) => (message: MessageType) => void;
+  updateMessageFactory: (key: string) => (message: MessageType) => void;
 }
 
 const MessageList: React.FC<MessageListProps> = ({
@@ -58,14 +59,15 @@ const MessageList: React.FC<MessageListProps> = ({
   return (
     <>
       <List className={styles.chatWidgetMessageList}>
-        {messages.map((message, _index) =>
+        {messages.map((message, index) =>
           (() => {
             if (message.role === "bot" && message.default) {
               return (
                 <MessageBot
+                  key={index}
                   message={message}
                   ratingAvailable={false}
-                  elementDisabled={false}
+                  elementDisabled={elementDisabled}
                   updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}
@@ -77,7 +79,7 @@ const MessageList: React.FC<MessageListProps> = ({
                 <MessageBot
                   message={message}
                   ratingAvailable={!message.surveyQuestion}
-                  elementDisabled={false}
+                  elementDisabled={elementDisabled}
                   updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}

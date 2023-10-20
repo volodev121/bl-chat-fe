@@ -1,7 +1,8 @@
 import { apiPost, apiPut } from './axiosClient';
 import { chatEndpoint, historyEndpoint, ratingEndpoint } from './apiConstants';
+import { MessageType, ApiResponse } from "./types.tsx"
 
-const getChat = async (data: any, headers: any): Promise<any> =>{
+const getChat = async (data, headers): Promise<ApiResponse> => {
     return await apiPost(chatEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
@@ -15,7 +16,7 @@ const getChat = async (data: any, headers: any): Promise<any> =>{
     })
 }
 
-const setHistory = async (data: any, headers: any): Promise<any> =>{
+const setHistory = async (data, headers): Promise<ApiResponse> => {
     return await apiPut(historyEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
@@ -29,7 +30,7 @@ const setHistory = async (data: any, headers: any): Promise<any> =>{
     })
 
 }
-const setRating = async (data: any, headers: any): Promise<any> =>{
+const setRating = async (data, headers): Promise<ApiResponse> => {
     return await apiPut(ratingEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
@@ -158,7 +159,7 @@ const apiClient = function(token) {
       }
     },
     updateHistory: async function(chatHistory: Array<MessageType>) {
-      const chat = await setHistory(
+      await setHistory(
         chatToHistoryFormat(chatHistory),
         {
           headers: {
@@ -167,8 +168,8 @@ const apiClient = function(token) {
         }
       )
     },
-    sendRating: async function(message) {
-      let body = {
+    sendRating: async function(message: MessageType) {
+      const body = {
         rating: message.rating.value,
         question: message.question["content"],
         answer: message.content,
@@ -183,6 +184,13 @@ const apiClient = function(token) {
       )
     }
   }
+}
+
+
+export interface ApiClient {
+  chat: (chatHistory: Array<MessageType>) => Promise<MessageType>;
+  updateHistory: (chatHistory: Array<MessageType>) => Promise<void>;
+  sendRating: (message: MessageType) => Promise<void>;
 }
 
 export default apiClient;
