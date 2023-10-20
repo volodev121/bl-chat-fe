@@ -63,7 +63,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       });
       return timeline
     });
-  }, [messages])
+  }, [messages, apiClient])
 
   useEffect(() => {
     setSurveyData(updateSurveyDataFuction(messages))

@@ -180,9 +180,8 @@ const BotMessage: React.FC<BotMessageProps> = ({
             </AccordionSummary>
             <AccordionDetails>
               { message.context.map((contextItem, index) => {
-                  console.log(contextItem) 
                   return (
-                    <Box>
+                    <Box key={index}>
                       <Typography variant="caption" >
                         {contextItem.source}
                       </Typography>
