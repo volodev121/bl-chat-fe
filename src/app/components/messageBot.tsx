@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MessageType } from "./../utils/types.tsx";
 import { ListItem, ListItemIcon, Typography, Box } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
@@ -14,7 +14,7 @@ import Accordion from '@mui/material/Accordion'; //accordion dependencies
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import ApiClientContext from "./apiContext.tsx";
 
 interface BotMessageProps {
   message: MessageType;
@@ -27,13 +27,13 @@ interface BotMessageProps {
 
 const BotMessage: React.FC<BotMessageProps> = ({
   message,
-  apiClient,
   updateSelf, 
   ratingAvailable,
   handleClick = null,
   handleChange = null,
   elementDisabled = false,
 }) => {
+  const apiClient = useContext(ApiClientContext);
   const styles = useStyles();
 
   const handleThumbUp = (message: MessageType) => { 

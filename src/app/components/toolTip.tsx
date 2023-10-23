@@ -1,21 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Grid, Typography, Button } from "@mui/material";
 import useStyles from './styles.tsx';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Config } from "../utils/types.tsx";
+import ConfigContext from "./configContext.tsx";
 
 interface ToolTipProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
-  config: Config;
 }
 
-const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }) => {
+const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip }) => {
   const styles = useStyles();
   const handleClick = () => {
     setShowChatWidget(true);
     setShowToolTip(false);
   };
+  const config = useContext(ConfigContext);
   const termsLink = <a href={config.terms_of_service_link || '#'} className={styles.termsConditionsLink}>Terms&Conditions</a>;
 
   return (

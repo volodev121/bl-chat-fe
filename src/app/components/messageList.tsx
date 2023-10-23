@@ -5,18 +5,15 @@ import { MessageType } from "./../utils/types.tsx";
 import MessageBot from "./messageBot.tsx";
 import { useState } from "react";
 import UserMessage from "./messageUser.tsx";
-import { ApiClient } from "./../utils/apiClient.tsx";
 
 interface MessageListProps {
   messages: Array<MessageType>;
-  apiClient: ApiClient;
   storeTimeLineMessages: (message: MessageType) => void;
   updateMessageFactory: (key: string) => (message: MessageType) => void;
 }
 
 const MessageList: React.FC<MessageListProps> = ({
   messages,
-  apiClient,
   storeTimeLineMessages,
   updateMessageFactory,
 }) => {
@@ -71,7 +68,6 @@ const MessageList: React.FC<MessageListProps> = ({
                   updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}
-                  apiClient={apiClient}
                 />
               );
             } else if (message.role === "bot") {
@@ -83,7 +79,6 @@ const MessageList: React.FC<MessageListProps> = ({
                   updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}
-                  apiClient={apiClient}
                 />
               );
             } else if (message.role === "user") {

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
@@ -6,22 +6,20 @@ import { MessageType, Config, QuestionTimelineRadiogroupElement } from "./../uti
 import Footer from './footer.tsx'
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
-import ApiClient from "./../utils/apiClient.tsx"
-
+import ApiClientContext from "./apiContext.tsx";
+import ConfigContext from "./configContext.tsx";
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
-  config: Config;
-  apiClient: ApiClient;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   setShowChatWidget,
   setShowToolTip,
-  config,
-  apiClient,
 }) => {
+  const config = useContext(ConfigContext);
+  const apiClient = useContext(ApiClientContext);
   const messagesFromConfig = (config: Config) => {
     const timeline = config.question_timeline;
     if (!timeline) {
