@@ -1,7 +1,7 @@
 "use client"; // This is a client component 👈🏽
 
 import React, { useState, useEffect } from "react";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
 import { getToken } from "./utils/authorization.tsx";
@@ -9,6 +9,9 @@ import { getConfig } from "./utils/authorization.tsx";
 import apiClient from "./utils/apiClient.tsx";
 import ChatWidget from "./components/chatWidget.tsx";
 import customThemeFactory from "./utils/customThemeFactory.tsx"
+import ApiClientContext from "./components/apiContext.tsx";
+import ConfigContext from "./components/configContext.tsx";
+import { Config } from "./utils/types.tsx";
 
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);
@@ -19,8 +22,8 @@ export default function App() {
   const token = "";
 
   const [hasConfig, setHasConfig] = useState(false);
-  const [fetchedConfig, setFetchedConfig] = useState<any>(config);
-  const [fetchedToken, setFetchedToken] = useState<any>(token);
+  const [fetchedConfig, setFetchedConfig] = useState<Config>(config);
+  const [fetchedToken, setFetchedToken] = useState<string>(token);
   useEffect(() => {
     const fetchConfig = async () => {
       const authResponse = await getToken({});
@@ -56,29 +59,30 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
-      {showToolTip ? (
-        <ToolTip
-          setShowChatWidget={setShowChatWidget}
-          setShowToolTip={setShowToolTip}
-          config={fetchedConfig}
-        />
-      ) : (
-        <></>
-      )}
-      {
-        showChatWidget ? (
-          <ChatWidget
-            setShowChatWidget={setShowChatWidget}
-            setShowToolTip={setShowToolTip}
-            config={fetchedConfig}
-            apiClient={apiClient(fetchedToken)}
-          />
-        ) : (
-          <></>
-        )
-      }
-    </ThemeProvider>
+    <ConfigContext.Provider value={fetchedConfig}>
+      <ApiClientContext.Provider value={apiClient(fetchedToken)}>
+        <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
+          {showToolTip ? (
+            <ToolTip
+              setShowChatWidget={setShowChatWidget}
+              setShowToolTip={setShowToolTip}
+            />
+          ) : (
+            <></>
+          )}
+          {
+            showChatWidget ? (
+              <ChatWidget
+                setShowChatWidget={setShowChatWidget}
+                setShowToolTip={setShowToolTip}
+              />
+            ) : (
+              <></>
+            )
+          }
+        </ThemeProvider>
+      </ApiClientContext.Provider>
+    </ConfigContext.Provider>
   );
 }
 

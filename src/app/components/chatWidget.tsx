@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
@@ -6,21 +6,20 @@ import { MessageType, Config, QuestionTimelineRadiogroupElement } from "./../uti
 import Footer from './footer.tsx'
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
-import {mockMessagesList} from './../utils/mocks.tsx'
+import ApiClientContext from "./apiContext.tsx";
+import ConfigContext from "./configContext.tsx";
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
-  config: Config;
-  apiClient: Object;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   setShowChatWidget,
   setShowToolTip,
-  config,
-  apiClient,
 }) => {
+  const config = useContext(ConfigContext);
+  const apiClient = useContext(ApiClientContext);
   const messagesFromConfig = (config: Config) => {
     const timeline = config.question_timeline;
     if (!timeline) {
@@ -46,10 +45,12 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
   const messageTemplates = messagesFromConfig(config);
   const updateSurveyDataFuction = (messages) => {
-    return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
+    // this should ingest surveyData but doesn't use it. I'm sure I forgot something here
+    return () => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
   };
+  // SurveyData is not used. Do we still need this?
+
   const [messages, setMessages] = useState<Array<MessageType>>(messageTemplates.slice(0,messageTemplates.findIndex((msg) => !msg.completed) + 1));
-  const [surveyData, setSurveyData] = useState({});
   const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
   useEffect(() => {
     apiClient.updateHistory(messages);
@@ -63,11 +64,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       });
       return timeline
     });
-  }, [messages])
-
-  useEffect(() => {
-    setSurveyData(updateSurveyDataFuction(messages))
-  }, [messages])
+  }, [messages, apiClient])
 
   const insertNextSurveyQuestion = function(tempMessages) {
     const newMessageTemplate = tempMessages.filter((tmp) => tmp.surveyQuestion && tmp.role == "bot").some((tmp) => !tmp.completed )
@@ -76,7 +73,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       if (remainingTemplates.length) {
         const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
         tempMessages = [...tempMessages, newMessage]
-        console.log(newMessage)
+
         if (newMessage.element.type == "expression" && newMessage.element.expression) {
           // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
           const tempSurveyData = updateSurveyDataFuction(tempMessages)()
@@ -152,7 +149,6 @@ const ChatWidget: FC<ChatWidgetProps> = ({
       return [...tempMessages]
     });
   }
-  const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
 
   return (
     <>
@@ -170,10 +166,14 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={config.icon_url}
         />
         <MessageOverview messages={timeline} />
-        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages}  />
+        <MessageList 
+          messages={messages} 
+          storeTimeLineMessages={storeTimeLineMessages} 
+          apiClient={apiClient}
+          updateMessageFactory={updateMessageFactory} 
+        />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
-            setMessage={setMessage}
           />
       </Grid>
     </>

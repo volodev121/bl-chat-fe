@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, List, ListItem, ListItemIcon, Typography } from "@mui/material";
+import { List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import InfoIcon from "@mui/icons-material/Info";
 import useStyles from "./styles";
@@ -11,12 +11,12 @@ interface MessageOverviewProps {
 
 const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   const styles = useStyles();
-  const eledgableMessages = messages.filter((message, _index) => (
+  const eledgableMessages = messages.filter((message) => (
       message.role === 'bot' && !message.customInput && message.surveyQuestion
     ))
 
   const getAnsweredMessageCount = () => {
-    return eledgableMessages.filter((message, _index) => (
+    return eledgableMessages.filter((message) => (
       message.completed
     )).length
   };
@@ -28,11 +28,12 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   return (
     <div className={styles.messageOverviewWrapper}>
       <List className={styles.messageOverview}>
-        {messages.map((message, _index) =>
+        {messages.map((message, index) =>
           (() => {
             if (message.default && message.role == "bot") {
               return (
                 <ListItem
+                  key={index}
                   sx={{
                     width: "100%",
                     borderRight: message.completed

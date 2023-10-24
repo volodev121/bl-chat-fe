@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MessageType } from "./../utils/types.tsx";
 import { ListItem, ListItemIcon, Typography, Box } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import useStyles from "./styles";
-import { ThumbUpOffAlt } from "@mui/icons-material";
+import { ThumbUpOffAlt, ThumbUpAlt } from "@mui/icons-material";
 import { Divider } from "@mui/material";
-import { ThumbDownOffAlt } from "@mui/icons-material";
+import { ThumbDownOffAlt, ThumbDownAlt } from "@mui/icons-material";
 import FeedbackModel from "./feedbackModel.tsx";
 import { Button } from "@mui/material";
 import Message from "./message.tsx";
@@ -14,32 +14,50 @@ import Accordion from '@mui/material/Accordion'; //accordion dependencies
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import ApiClientContext from "./apiContext.tsx";
 
 interface BotMessageProps {
   message: MessageType;
   elementDisabled: boolean;
   ratingAvailable: boolean;
+  updateSelf: (message: MessageType) => void;
   handleClick: (message: MessageType) => void;
   handleChange: (message: MessageType, label: string) => void;
 }
 
 const BotMessage: React.FC<BotMessageProps> = ({
   message,
+  updateSelf, 
   ratingAvailable,
   handleClick = null,
   handleChange = null,
   elementDisabled = false,
 }) => {
+  const apiClient = useContext(ApiClientContext);
   const styles = useStyles();
 
-  const handleThumbUp = (message: MessageType) => {};
-  const handleThumbDown = (message: MessageType) => {};
+  const handleThumbUp = (message: MessageType) => { 
+    if (!message.rating || message.rating.value === null) {
+      message["rating"] = {time: (new Date()).toISOString(), value: true}; 
+      apiClient.sendRating(message);
+      updateSelf(message);
+    }
+  };
+  const handleThumbDown = (message: MessageType) => {
+    if (!message.rating || message.rating.value === null) {
+      setOpenModel(() => true)
+    }
+  };
+  const handleFeedbackSubmit = (message: MessageType, reasons: Array) => {
+      setOpenModel(() => false)
+      message["rating"] = {time: (new Date()).toISOString(), value: false, reasons: reasons}; 
+      apiClient.sendRating(message);
+      updateSelf(message);
+  }
   const [openModel, setOpenModel] = React.useState(false);
-  const [openContext, setOpenContext] = React.useState(false);
 
   if (handleChange == null) {
-    handleChange = (msg, lbl) => {};
+    handleChange = () => {};
   }
   const finalText = message.title || message.content;
   if (
@@ -127,19 +145,27 @@ const BotMessage: React.FC<BotMessageProps> = ({
         {ratingAvailable && (
           <div className={styles.feedbackContainer}>
             <div className={styles.thumbUp}>
-              <ThumbUpOffAlt onClick={() => handleThumbUp(message)} />
+              { message.rating && message.rating.value === true && (
+                <ThumbUpAlt onClick={() => handleThumbUp(message)} />
+              ) || (
+                <ThumbUpOffAlt onClick={() => handleThumbUp(message)} />
+              ) }
             </div>
             <Divider orientation="vertical" variant="middle" flexItem />
             <div className={styles.thumbDown}>
-              <ThumbDownOffAlt onClick={() => handleThumbDown(message)} />
+              { message.rating && message.rating.value === false && (
+                <ThumbDownAlt onClick={() => handleThumbDown(message)} />
+              ) || (
+                <ThumbDownOffAlt onClick={() => handleThumbDown(message)} />
+              ) }
             </div>
           </div>
         )}
         <FeedbackModel
           message={message}
           setOpenModel={setOpenModel}
-          openModel={false}
-          action={"test"}
+          openModel={openModel}
+          handleSubmit={(reasons) => handleFeedbackSubmit(message, reasons)}
         />
         { message.context && message.context.length && (
           <Accordion>
@@ -152,9 +178,8 @@ const BotMessage: React.FC<BotMessageProps> = ({
             </AccordionSummary>
             <AccordionDetails>
               { message.context.map((contextItem, index) => {
-                  console.log(contextItem) 
                   return (
-                    <Box>
+                    <Box key={index}>
                       <Typography variant="caption" >
                         {contextItem.source}
                       </Typography>
