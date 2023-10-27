@@ -88,6 +88,21 @@ const useStyles = makeStyles((theme: Theme) => {
       left: '50%',
       transform: 'translateX(-50%)',
     },
+    buttonCircle: {
+      width: '32px',
+      height: '32px',
+      borderRadius: '50%',
+      backgroundColor: '#ABABBE',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: '10px',
+    },
+    outlineSend:{
+      color: 'white', 
+      fontSize: '24px', 
+      borderRadius: '24px',
+    },
     buttonCollapse: {
       background: '#F6F7FC !important',
       marginLeft: '110em !important',

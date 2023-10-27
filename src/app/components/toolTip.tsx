@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SendIcon from '@mui/icons-material/Send';
 import { isEmpty } from 'lodash';
 import ChatIcon from '@mui/icons-material/Chat';
+import { AiOutlineSend } from "react-icons/ai";
 
 
 
@@ -45,9 +46,11 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
             className={styles.inputStyle}
             disableUnderline
             endAdornment={
-              <Button style= {{borderRadius: '100%', borderColor: '#ABABBE', width: '32px', height:'32px'}}>
-                <SendIcon style={{ color: 'black' }} />
-              </Button>
+              <div className={styles.buttonCircle}>
+                <Button>
+                  <AiOutlineSend className={styles.outlineSend} />
+                </Button>
+              </div>
             }
           />
       </Grid>
@@ -56,5 +59,4 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
     </>
   );
 };
-
 export default ToolTip;

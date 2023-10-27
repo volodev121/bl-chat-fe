@@ -21,6 +21,7 @@
     "next": "^13.5.4",
     "react": "latest",
     "react-dom": "latest",
+    "react-icons": "^4.11.0",
     "tsc": "^2.0.4"
   },
   "devDependencies": {
