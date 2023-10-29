@@ -1,15 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Grid, Typography, Button, Input, Paper } from "@mui/material"; // Import Input component
+import { Grid, Typography, Button, Input } from "@mui/material";
 import useStyles from './styles.tsx';
-import AppleIcon from '@mui/icons-material/Apple';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import InputAdornment from '@mui/material/InputAdornment';
-import SendIcon from '@mui/icons-material/Send';
 import { isEmpty } from 'lodash';
-import ChatIcon from '@mui/icons-material/Chat';
 import { AiOutlineSend } from "react-icons/ai";
-
-
 
 interface ToolTipProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -29,9 +22,8 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
   const [inputMessage, setInputMessage] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value); // Update input value when it changes
+    setInputValue(event.target.value);
   };
-
   const termsLink = <a href={config.terms_of_service_link || '#'} className={styles.termsConditionsLink}>Terms&Conditions</a>;
 
   return (
@@ -46,7 +38,7 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
             className={styles.inputStyle}
             disableUnderline
             endAdornment={
-              <div className={styles.buttonCircle}>
+              <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputValue) ? '#b6b6ba' : '#000000' }}>
                 <Button>
                   <AiOutlineSend className={styles.outlineSend} />
                 </Button>
@@ -54,7 +46,7 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
             }
           />
       </Grid>
-        <Typography className={styles.termsConditions}>By continuing you agree to {termsLink}</Typography>
+      <Typography className={styles.termsConditions}>By continuing you agree to {termsLink}</Typography>
     </Grid>
     </>
   );

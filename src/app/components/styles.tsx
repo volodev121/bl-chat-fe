@@ -89,8 +89,8 @@ const useStyles = makeStyles((theme: Theme) => {
       transform: 'translateX(-50%)',
     },
     buttonCircle: {
-      width: '32px',
-      height: '32px',
+      width: '2em',
+      height: '2em',
       borderRadius: '50%',
       backgroundColor: '#ABABBE',
       display: 'flex',
