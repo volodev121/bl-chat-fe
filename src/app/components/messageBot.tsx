@@ -35,6 +35,8 @@ const BotMessage: React.FC<BotMessageProps> = ({
 }) => {
   const apiClient = useContext(ApiClientContext);
   const styles = useStyles();
+  
+  const enableContext = false;
 
   const handleThumbUp = (message: MessageType) => { 
     if (!message.rating || message.rating.value === null) {
@@ -167,7 +169,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
           openModel={openModel}
           handleSubmit={(reasons) => handleFeedbackSubmit(message, reasons)}
         />
-        { message.context && message.context.length && (
+        { enableContext && message.context && message.context.length && (
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
