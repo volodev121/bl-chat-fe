@@ -3,12 +3,17 @@ import { Theme } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    show: {
+        transform: 'translateY(-100%) !important',
+    },
     chatWidget: {
+      transition: 'transform 1.2s ease-in-out',
+      transform: 'translateY(100%)',
       position: 'fixed',
-      top: '0 !important',
+      bottom: '0 !important',  // changed from top to bottom
       background: '#FCFCFF !important',
       width: '100vw !important',
-      zIndex: '9999 !important',
+      zIndex: '400 !important',
       height: '100vh',
       alignContent: 'start',
       paddingBottom: '2em',
@@ -17,15 +22,7 @@ const useStyles = makeStyles((theme: Theme) => {
                      ".       list    .     messages .    " 1fr \
                      ".        .      .      input   .    " auto / \
                       minmax(0px, calc((100vw - 1180px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
-      [theme.breakpoints.down('md')]: {
-        gridTemplate: '"header" 112px \
-                       "list" auto\
-                       "messages" 1fr\
-                       "input" auto /\
-                        1fr',
-        overflowY: 'scroll',
-      }
-      },
+    },
     floatingChatButton: {
       position: 'fixed',
       bottom: '20px',
@@ -63,11 +60,11 @@ const useStyles = makeStyles((theme: Theme) => {
       position: 'fixed',
       bottom: '0',
       left: '50%',
+      zIndex: '9999 !important',
       transform: 'translateX(-50%)',
       'border-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)',
       borderRadius: '24px 24px 0 0',
       backgroundColor: '#FFFFFF',
-      zIndex: 1000,
       transition: 'all 250ms ease-out',
       'box-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)'
     },
@@ -117,9 +114,9 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       wordWrap: 'break-word',
       gridArea: 'messages',
-      [theme.breakpoints.down('md')]: {
-        overflow: 'visible',
-      }
+      // [theme.breakpoints.down('md')]: {
+      //   overflow: 'visible',
+      // }
     },
     messageOverviewWrapper: {
       paddingTop: 'unset !important',
@@ -296,9 +293,9 @@ const useStyles = makeStyles((theme: Theme) => {
       padding: '10px',
       height: '400px',
       'overflow-y': 'auto',
-      [theme.breakpoints.down('md')]: {
-        overflowY: 'visible',
-      }
+      // [theme.breakpoints.down('md')]: {
+      //   overflowY: 'visible',
+      // }
     },
     chatMessageUl: {
       padding: '10px',

@@ -1,5 +1,6 @@
 import { apiPost, apiPut } from './axiosClient';
 import { chatEndpoint, historyEndpoint } from './apiConstants';
+import { MessageType } from  './types'
 
 const getChat = async (data: any, headers: any): Promise<any> =>{
     return await apiPost(chatEndpoint, data, headers).then((response) => {
@@ -118,7 +119,7 @@ const chatToHistoryFormat = function(chatHistory: Array<MessageType>) {
 }
 
 // TODO: we will need to pass the expiration time of the token and refresh it in the background for long running sessions!
-const apiClient = function(token) {
+const createApiClint = function(token: any) {
   return {
     chat: async function(chatHistory: Array<MessageType>) {
       const chat = await getChat(
@@ -155,4 +156,4 @@ const apiClient = function(token) {
   }
 }
 
-export default apiClient;
+export default createApiClint;

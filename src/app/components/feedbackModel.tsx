@@ -141,4 +141,4 @@ const FeedbackModel: FC<feedbackModelProps> = ({ message, setOpenModel, openMode
   );
 };
 
-export default FeedbackModel;
+export default React.memo(FeedbackModel);

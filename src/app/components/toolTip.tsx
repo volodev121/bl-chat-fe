@@ -1,30 +1,30 @@
 import React, { FC, useState } from 'react';
 import { Grid, Typography, Button, Input } from "@mui/material";
 import useStyles from './styles.tsx';
-import { isEmpty } from 'lodash';
 import { AiOutlineSend } from "react-icons/ai";
+import { isEmpty } from "lodash";
 
 interface ToolTipProps {
+  setInputValue: (value: string) => void;
+  inputValue: string;
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
+  handleChange: (event: any) => void;
+  handleSubmit: () => void;
   config: any;
 }
 
-const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }) => {
+const ToolTip: FC<ToolTipProps> = ({ config, inputValue, handleChange, handleSubmit}) => {
   const styles = useStyles();
-  const [inputValue, setInputValue] = useState(''); // State to manage input value
 
-  const handleClick = () => {
-    setShowChatWidget(true);
-    setShowToolTip(false);
-  };
-
-  const [inputMessage, setInputMessage] = useState('');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
   const termsLink = <a href={config.terms_of_service_link || '#'} className={styles.termsConditionsLink}>Terms&Conditions</a>;
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (!isEmpty(inputValue)) handleSubmit();
+    }
+  };
 
   return (
     <>
@@ -36,10 +36,12 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
             onChange={handleChange}
             placeholder="Let's start the converstation!"
             className={styles.inputStyle}
+            multiline maxRows={3}
+            onKeyPress={handleKeyPress}
             disableUnderline
             endAdornment={
               <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputValue) ? '#b6b6ba' : '#000000' }}>
-                <Button>
+                <Button onClick={handleSubmit}>       
                   <AiOutlineSend className={styles.outlineSend} />
                 </Button>
               </div>
@@ -51,4 +53,4 @@ const ToolTip: FC<ToolTipProps> = ({ setShowChatWidget, setShowToolTip, config }
     </>
   );
 };
-export default ToolTip;
+export default React.memo(ToolTip);
