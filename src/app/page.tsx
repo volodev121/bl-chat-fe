@@ -24,11 +24,9 @@ export default function App() {
   const config = {
     logo_url: "",
   };
-  const token = "";
-
   const [hasConfig, setHasConfig] = useState(false);
   const [fetchedConfig, setFetchedConfig] = useState<any>(config);
-  const [fetchedToken, setFetchedToken] = useState<any>(token);
+  const [fetchedToken, setFetchedToken] = useState<any>("");
 
   const [apiClient, setApiClient] = useState<any>(null);
   const [inputValue, setInputValue] = useState("");
@@ -39,7 +37,6 @@ export default function App() {
     setInputValue(value);
     setShowChatWidget(value !== "");
   };
-
 
   const messagesFromConfig = (config: Config) => {
     const timeline = config.question_timeline;
@@ -64,22 +61,24 @@ export default function App() {
     });
   };
 
-  const [messageTemplates, setMessageTemplates] = useState<Array<MessageType>>(messagesFromConfig(fetchedConfig))
-
-  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
-  const [surveyData, setSurveyData] = useState({});
-
   const initialMessages = (templates) => {
     return templates.slice(
       0,
       templates.findIndex((msg) => !msg.completed) + 1
     )
   }
+
+  const [messageTemplates, setMessageTemplates] = useState<Array<MessageType>>(messagesFromConfig(fetchedConfig))
+  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
+  const [surveyData, setSurveyData] = useState({});
   const [messages, setMessages] = useState<Array<MessageType>>(initialMessages(messageTemplates));
 
-  useEffect( () => 
-    setMessages((messages) => [...messages, ...initialMessages(messageTemplates)])
-  , [messageTemplates])
+  useEffect(() =>
+    setMessages((messages) =>
+      [...messages, ...initialMessages(messageTemplates)]
+    ),
+    [messageTemplates]
+  )
 
   const updateSurveyDataFuction = (messages) => {
     return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
