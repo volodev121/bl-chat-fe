@@ -69,12 +69,22 @@ export default function App() {
   const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
   const [surveyData, setSurveyData] = useState({});
 
+  const initialMessages = (templates) => {
+    return templates.slice(
+      0,
+      templates.findIndex((msg) => !msg.completed) + 1
+    )
+  }
   const [messages, setMessages] = useState<Array<MessageType>>(
     messageTemplates.slice(
       0,
       messageTemplates.findIndex((msg) => !msg.completed) + 1
     )
   );
+
+  useEffect( () => 
+    setMessages(initialMessages(messageTemplates))
+  , [messageTemplates])
 
   const updateSurveyDataFuction = (messages) => {
     return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
@@ -215,6 +225,7 @@ export default function App() {
         if (configResponse.status === 200) {
           setFetchedConfig(configResponse.data);
           setMessageTemplates(messagesFromConfig(configResponse.data));
+          setTimeline(messagesFromConfig(configResponse.data).filter((msg) => !!msg.title))
           setHasConfig(true);
         } else {
           console.error("Failed to fetch config:", configResponse.data);
@@ -226,6 +237,7 @@ export default function App() {
 
     fetchConfig();
   }, []);
+
   // don't show the chat widget until we have the config
   if (!hasConfig) {
     return <></>;
