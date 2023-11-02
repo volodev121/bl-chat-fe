@@ -75,15 +75,10 @@ export default function App() {
       templates.findIndex((msg) => !msg.completed) + 1
     )
   }
-  const [messages, setMessages] = useState<Array<MessageType>>(
-    messageTemplates.slice(
-      0,
-      messageTemplates.findIndex((msg) => !msg.completed) + 1
-    )
-  );
+  const [messages, setMessages] = useState<Array<MessageType>>(initialMessages(messageTemplates));
 
   useEffect( () => 
-    setMessages(initialMessages(messageTemplates))
+    setMessages((messages) => [...messages, ...initialMessages(messageTemplates)])
   , [messageTemplates])
 
   const updateSurveyDataFuction = (messages) => {
