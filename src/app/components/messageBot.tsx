@@ -141,40 +141,6 @@ const BotMessage: React.FC<BotMessageProps> = ({
           openModel={false}
           action={"test"}
         />
-        { message.context && message.context.length && (
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={ `${message.key}-context-content`}
-              id={ `${message.key}-context-header` }
-            >
-              <Typography>Context</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              { message.context.map((contextItem, index) => {
-                  console.log(contextItem) 
-                  return (
-                    <Box>
-                      <Typography variant="caption" >
-                        {contextItem.source}
-                      </Typography>
-                      <Typography variant="body2" >
-                        {contextItem.content}
-                      </Typography>
-                      <progress 
-                        id={ `${message.key}-context-${index}` } 
-                        value={contextItem.score} 
-                        max="1.0" 
-                        title={ contextItem.score.toFixed(4) } > 
-                          { (contextItem.score * 100).toFixed(2) }% 
-                        </progress>
-                    </Box>
-                  );
-                }
-              )}
-            </AccordionDetails>
-          </Accordion>
-        )}
       </ListItem>
     </>
   );
