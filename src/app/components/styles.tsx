@@ -4,23 +4,26 @@ import { Theme } from '@mui/material';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     show: {
-        transform: 'translateY(-100%) !important',
+        transform: 'translateY(0%) !important',
+        background: '#000000 !important',
     },
     chatWidget: {
       transition: 'transform 1.2s ease-in-out',
       transform: 'translateY(100%)',
       position: 'fixed',
+      left: '10vw',
       bottom: '0 !important',  // changed from top to bottom
-      background: '#FCFCFF !important',
-      width: '100vw !important',
+      background: '#FFFFFF !important',
+      width: '80vw !important',
+      height: '90vh !important', 
       zIndex: '400 !important',
-      height: '100vh',
+      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
       alignContent: 'start',
       paddingBottom: '2em',
       gridGap: '2em',
-      gridTemplate: '"header header header  header  header" 112px \
+      gridTemplate: '"header header header  header  header" 60px \
                      ".       list    .     messages .    " 1fr \
-                     ".        .      .      input   .    " auto / \
+                     ".        .      .      input   .    " 5em / \
                       minmax(0px, calc((100vw - 1180px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
     },
     floatingChatButton: {
@@ -45,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => {
     header: {
       width: '100%',
       'background-color': '#FFFFFF',
-      height: '112px',
+      //height: '112px',
       display: 'flex',
       'align-items': 'center',
       'border-bottom-style': 'groove',
@@ -62,11 +65,11 @@ const useStyles = makeStyles((theme: Theme) => {
       left: '50%',
       zIndex: '9999 !important',
       transform: 'translateX(-50%)',
-      'border-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)',
+      //'border-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)',
       borderRadius: '24px 24px 0 0',
       backgroundColor: '#FFFFFF',
       transition: 'all 250ms ease-out',
-      'box-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)'
+      //'box-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)'
     },
     inputStyle: {
       flexGrow: 1,

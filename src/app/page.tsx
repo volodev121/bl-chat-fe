@@ -62,88 +62,114 @@ export default function App() {
   };
 
   const initialMessages = (templates) => {
-    return templates.slice(
-      0,
-      templates.findIndex((msg) => !msg.completed) + 1
-    )
-  }
+    return templates.slice(0, templates.findIndex((msg) => !msg.completed) + 1);
+  };
 
-  const [messageTemplates, setMessageTemplates] = useState<Array<MessageType>>(messagesFromConfig(fetchedConfig))
-  const [timeline, setTimeline] = useState<Array<MessageType>>(messageTemplates.filter((msg) => !!msg.title));
+  const [messageTemplates, setMessageTemplates] = useState<Array<MessageType>>(
+    messagesFromConfig(fetchedConfig)
+  );
+  const [timeline, setTimeline] = useState<Array<MessageType>>(
+    messageTemplates.filter((msg) => !!msg.title)
+  );
   const [surveyData, setSurveyData] = useState({});
-  const [messages, setMessages] = useState<Array<MessageType>>(initialMessages(messageTemplates));
+  const [messages, setMessages] = useState<Array<MessageType>>(
+    initialMessages(messageTemplates)
+  );
 
-  useEffect(() =>
-    setMessages((messages) =>
-      [...messages, ...initialMessages(messageTemplates)]
-    ),
+  useEffect(
+    () =>
+      setMessages((messages) => [
+        ...messages,
+        ...initialMessages(messageTemplates),
+      ]),
     [messageTemplates]
-  )
+  );
 
   const updateSurveyDataFuction = (messages) => {
-    return (surveyData) => messages.filter((msg) => msg.role == "user" && msg.surveyQuestion).reduce((data, msg) => { data[msg.name] = msg.content; return data; }, {})
+    return (surveyData) =>
+      messages
+        .filter((msg) => msg.role == "user" && msg.surveyQuestion)
+        .reduce((data, msg) => {
+          data[msg.name] = msg.content;
+          return data;
+        }, {});
   };
 
   useEffect(() => {
     apiClient?.updateHistory(messages);
     setTimeline((timeline) => {
       timeline = timeline.map((timelineItem) => {
-        const msg = messages.find((msg) => msg.key == timelineItem.key)
+        const msg = messages.find((msg) => msg.key == timelineItem.key);
         if (msg) {
-          return msg
+          return msg;
         }
-        return timelineItem
+        return timelineItem;
       });
-      return timeline
+      return timeline;
     });
-  }, [messages])
+  }, [messages]);
 
   useEffect(() => {
-    setSurveyData(updateSurveyDataFuction(messages))
-  }, [messages])
+    setSurveyData(updateSurveyDataFuction(messages));
+  }, [messages]);
 
-  const updateMessageFactory = function(key) {
+  const updateMessageFactory = function (key) {
     return (content) => {
       setMessages((messages) => {
         console.log(content, messages);
         messages = messages.map((msg) => {
           if (msg.key == key) {
-            return { ...msg, ...content, time: (new Date()).toISOString() };
+            return { ...msg, ...content, time: new Date().toISOString() };
           } else {
             return msg;
           }
         });
         return [...messages];
-      })
-    }
-  }
+      });
+    };
+  };
 
-  const insertNextSurveyQuestion = function(tempMessages: any) {
-    const newMessageTemplate = tempMessages.filter((tmp: any) => tmp.surveyQuestion && tmp.role == "bot").some((tmp: any) => !tmp.completed )
+  const insertNextSurveyQuestion = function (tempMessages: any) {
+    const newMessageTemplate = tempMessages
+      .filter((tmp: any) => tmp.surveyQuestion && tmp.role == "bot")
+      .some((tmp: any) => !tmp.completed);
     if (!newMessageTemplate) {
-      const remainingTemplates = messageTemplates.filter((template) => !tempMessages.some((msg) => msg.key == template.key))
+      const remainingTemplates = messageTemplates.filter(
+        (template) => !tempMessages.some((msg) => msg.key == template.key)
+      );
       if (remainingTemplates.length) {
-        const newMessage = { ...remainingTemplates[0], time: (new Date()).toISOString() }
-        tempMessages = [...tempMessages, newMessage]
-        console.log(newMessage)
-        if (newMessage.element.type == "expression" && newMessage.element.expression) {
+        const newMessage = {
+          ...remainingTemplates[0],
+          time: new Date().toISOString(),
+        };
+        tempMessages = [...tempMessages, newMessage];
+        console.log(newMessage);
+        if (
+          newMessage.element.type == "expression" &&
+          newMessage.element.expression
+        ) {
           // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
-          const tempSurveyData = updateSurveyDataFuction(tempMessages)()
+          const tempSurveyData = updateSurveyDataFuction(tempMessages)();
           const loadingKey = Date.now();
           const fakeUserMessage = {
             key: `${loadingKey}-fake-input`,
             role: "user",
-            content: newMessage.element.expression.replaceAll(/\{([a-z0-9A-Z]+)\}/gm, (match, group) => tempSurveyData[group]),
-            time: (new Date()).toISOString(),
+            content: newMessage.element.expression.replaceAll(
+              /\{([a-z0-9A-Z]+)\}/gm,
+              (match, group) => tempSurveyData[group]
+            ),
+            time: new Date().toISOString(),
           };
-          apiClient?.chat([...tempMessages, fakeUserMessage]).then(updateMessageFactory(loadingKey));
+          apiClient
+            ?.chat([...tempMessages, fakeUserMessage])
+            .then(updateMessageFactory(loadingKey));
           const loadingMessage = {
             key: loadingKey,
             role: "bot",
             content: "thinking...",
-            time: (new Date()).toISOString(),
+            time: new Date().toISOString(),
           };
-          tempMessages = [...tempMessages,loadingMessage]
+          tempMessages = [...tempMessages, loadingMessage];
         }
       }
     }
@@ -219,7 +245,9 @@ export default function App() {
         if (configResponse.status === 200) {
           setFetchedConfig(configResponse.data);
           setMessageTemplates(messagesFromConfig(configResponse.data));
-          setTimeline(messagesFromConfig(configResponse.data).filter((msg) => !!msg.title))
+          setTimeline(
+            messagesFromConfig(configResponse.data).filter((msg) => !!msg.title)
+          );
           setHasConfig(true);
         } else {
           console.error("Failed to fetch config:", configResponse.data);
@@ -237,6 +265,8 @@ export default function App() {
     return <></>;
   }
 
+  let classNames = `${styles.chatWidget} ${showChatWidget ? styles.show : ""}`
+  console.log(classNames)
   return (
     <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
       {showToolTip ? (
@@ -253,22 +283,17 @@ export default function App() {
         <></>
       )}
       {
-        <div
-          className={`${styles.chatWidget} ${
-            showChatWidget ? styles.show : ""
-          }`}
-        >
-          <ChatWidget
-            messageTemplates={messageTemplates}
-            setShowChatWidget={setShowChatWidget}
-            setShowToolTip={setShowToolTip}
-            messages={messages}
-            setMessages={setMessages}
-            storeTimeLineMessages={storeTimeLineMessages}
-            config={fetchedConfig}
-            timeline={timeline}
-          />
-        </div>
+        <ChatWidget
+          classNames={classNames}
+          messageTemplates={messageTemplates}
+          setShowChatWidget={setShowChatWidget}
+          setShowToolTip={setShowToolTip}
+          messages={messages}
+          setMessages={setMessages}
+          storeTimeLineMessages={storeTimeLineMessages}
+          config={fetchedConfig}
+          timeline={timeline}
+        />
       }
     </ThemeProvider>
   );

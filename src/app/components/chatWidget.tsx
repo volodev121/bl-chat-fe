@@ -16,11 +16,13 @@ interface ChatWidgetProps {
   setMessages: (messages: Array<MessageType>) => void;
   config: Config;
   timeline: Array<MessageType>;
+  classNames: string;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   setShowChatWidget,
   setShowToolTip,
+  classNames,
   config,
   messageTemplates,
   storeTimeLineMessages,
@@ -31,19 +33,12 @@ const ChatWidget: FC<ChatWidgetProps> = ({
 
   const styles = useStyles();
 
-  const [surveyData, setSurveyData] = useState({});
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
 
   return (
     <>
-      <style >
-        {`
-          html { overflow: hidden; height: 100vh; scroll-padding: 0 }
-          body { overflow: hidden }
-        `}
-      </style>
       <Grid container sx={{ display: 'grid' }}
-            className={styles.chatWidget}>
+            className={classNames}>
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}
