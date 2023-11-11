@@ -117,10 +117,12 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     chatWidgetMessageList: {
       width: '100%',
-      overflow: 'auto', 
+      overflowY: 'scroll', // Enables vertical scrolling
       '&::-webkit-scrollbar': {
-        width: 0
+        display: 'none', // For Chrome, Safari, and Opera
       },
+      scrollbarWidth: 'none', // For Firefox
+      msOverflowStyle: 'none', // For Internet Explorer and Edge
       wordWrap: 'break-word',
       gridArea: 'messages',
       // [theme.breakpoints.down('md')]: {
@@ -130,7 +132,12 @@ const useStyles = makeStyles((theme: Theme) => {
     messageOverviewWrapper: {
       paddingTop: 'unset !important',
       gridArea: 'list',
-      overflow: 'scroll',
+      overflowY: 'scroll', // Enables vertical scrolling
+      '&::-webkit-scrollbar': {
+        display: 'none', // For Chrome, Safari, and Opera
+      },
+      scrollbarWidth: 'none', // For Firefox
+      msOverflowStyle: 'none', // For Internet Explorer and Edge
     },
     messageOverview: {
       backgroundColor: '#FFFFFF',
