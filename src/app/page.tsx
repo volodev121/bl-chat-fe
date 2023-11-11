@@ -79,7 +79,6 @@ export default function App() {
   useEffect(
     () =>
       setMessages((messages) => [
-        ...messages,
         ...initialMessages(messageTemplates),
       ]),
     [messageTemplates]
@@ -246,7 +245,8 @@ export default function App() {
           setFetchedConfig(configResponse.data);
           setMessageTemplates(messagesFromConfig(configResponse.data));
           setTimeline(
-            messagesFromConfig(configResponse.data).filter((msg) => !!msg.title)
+            // only take first message
+            messagesFromConfig(configResponse.data).filter((msg) => msg.completed)
           );
           setHasConfig(true);
         } else {
