@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles";
 import { Button } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 interface HeaderProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -23,11 +24,16 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <Grid container direction="row" className={styles.header}>
-      <Grid item >
+      <Grid item>
         <span className={styles.headerIcon}>
           <img
             src={iconUrl}
-            style={{ height: "64px", width: "64px", borderRadius: "50%" }}
+            style={{
+              height: "50px",
+              width: "50px",
+              borderRadius: "50%",
+              border: "1px solid grey", // Added grey border
+            }}
             role="presentation"
             alt=""
           />

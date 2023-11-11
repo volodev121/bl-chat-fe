@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme: Theme) => {
         background: '#000000 !important',
     },
     chatWidget: {
+      borderTopLeftRadius: '2em',
+      borderTopRightRadius: '2em',
+
       transition: 'transform 1.2s ease-in-out',
       transform: 'translateY(100%)',
       position: 'fixed',
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => {
       alignContent: 'start',
       paddingBottom: '2em',
       gridGap: '2em',
-      gridTemplate: '"header header header  header  header" 60px \
+      gridTemplate: '"header header header  header  header" 70px \
                      ".       list    .     messages .    " 1fr \
                      ".        .      .      input   .    " 5em / \
                       minmax(0px, calc((100vw - 1180px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
@@ -46,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) => {
       src: "url('https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2')"
     },
     header: {
+      borderTopLeftRadius: '2em',
+      borderTopRightRadius: '2em',
+
       width: '100%',
       'background-color': '#FFFFFF',
       //height: '112px',

@@ -31,6 +31,8 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   timeline
 }) => {
 
+  const iconUrl = "/kaia_small.png"
+
   const styles = useStyles();
 
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
@@ -42,7 +44,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}
-          iconUrl={config.icon_url}
+          iconUrl={iconUrl}
         />
         <MessageOverview messages={timeline} />
         <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages}  />
