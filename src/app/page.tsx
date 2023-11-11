@@ -191,6 +191,7 @@ export default function App() {
           }
         });
       }
+      message.completed = true;
       tempMessages = [...tempMessages, message];
 
       // then add the new message
