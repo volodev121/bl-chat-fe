@@ -17,6 +17,7 @@ import {
 import createApiClient from "./utils/apiClient.tsx";
 
 import useStyles from "./components/styles.tsx";
+import { time } from "console";
 
 export default function App() {
   const [showChatWidget, setShowChatWidget] = useState(false);
@@ -246,9 +247,12 @@ export default function App() {
           setFetchedConfig(configResponse.data);
           setMessageTemplates(messagesFromConfig(configResponse.data));
           setTimeline(
-            // only take first message
+            // only take first message and take slice 
             messagesFromConfig(configResponse.data).filter((msg) => msg.completed)
           );
+
+          // only take first two msg
+          setTimeline(timeLine => timeLine.slice(0, 1))
           setHasConfig(true);
         } else {
           console.error("Failed to fetch config:", configResponse.data);
