@@ -138,6 +138,8 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       scrollbarWidth: 'none', // For Firefox
       msOverflowStyle: 'none', // For Internet Explorer and Edge
+      border: '1px solid lightgrey', // Changes the border to light grey
+      borderRadius: '1em', // Rounds the corners (adjust as needed)
     },
     messageOverview: {
       backgroundColor: '#FFFFFF',
