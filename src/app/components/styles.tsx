@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingBottom: '2em',
       gridGap: '2em',
       gridTemplate: '"header header header  header  header" 70px \
-                     ".       list    .     messages .    " 1fr \
+                     "list       messages    messages     messages .    " 1fr \
                      ".        .      .      input   .    " 5em / \
-                      minmax(0px, calc((100vw - 1180px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
+                      minmax(0px, calc((100vw - 900px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
     },
     floatingChatButton: {
       position: 'fixed',
@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme: Theme) => {
       msOverflowStyle: 'none', // For Internet Explorer and Edge
       border: '1px solid lightgrey', // Changes the border to light grey
       borderRadius: '1em', // Rounds the corners (adjust as needed)
+      marginLeft: '39px', // Adds padding to the left of the message list
     },
     messageOverview: {
       backgroundColor: '#FFFFFF',
