@@ -55,25 +55,6 @@ const Header: FC<HeaderProps> = ({
           }}
           onClick={() => handleClick()}
         >
-          Full Screen
-        </Button>
-      </Grid>
-      <Grid item className={styles.buttonGridContainer}>
-        <Button
-          sx={{
-            backgroundColor: "#F6F7FC !important",
-            justifyContent: "center",
-            color: "#000000",
-            textTransform: "none",
-            ":hover": {
-              backgroundColor: "#EEF0F8 !important",
-              borderColor: "#0062cc",
-              boxShadow: "none",
-            },
-            borderRadius: "8px",
-          }}
-          onClick={() => handleClick()}
-        >
           Collapse
         </Button>
       </Grid>

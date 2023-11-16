@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderTopRightRadius: '2em',
 
       transition: 'transform 1.2s ease-in-out',
-      transform: 'translateY(100%)',
+      transform: 'translateY(110%)',
       position: 'fixed',
       left: '10vw',
       bottom: '0 !important',  // changed from top to bottom
@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme: Theme) => {
       width: '80vw !important',
       height: '90vh !important', 
       zIndex: '400 !important',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+      boxShadow: '0px -15px 15px rgba(0,0,0,0.1), 0px 15px 15px rgba(0,0,0,0.1), 15px 0px 15px rgba(0,0,0,0.1), -15px 0px 15px rgba(0,0,0,0.1)',
       alignContent: 'start',
       paddingBottom: '2em',
       gridGap: '2em',
-      gridTemplate: '"header header header  header  header" 70px \
-                     "list       messages    messages     messages .    " 1fr \
-                     ".        .      .      input   .    " 5em / \
-                      minmax(0px, calc((100vw - 900px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
+      gridTemplate: '"header header header  header  header header" 70px \
+                     "list       messages    messages     messages messages   . " 1fr \
+                     ".        footer      footer      footer   footer   .  " 50px / \
+                      minmax(0px, calc((100vw - 60vw) /2))     4fr     2fr     10fr  1fr  minmax(0px, calc((100vw - 96vw) /2))',
       // [theme.breakpoints.down('md')]: {
       //   gridTemplate: '"header" 112px \
       //                   "list" auto\
@@ -132,6 +132,7 @@ const useStyles = makeStyles((theme: Theme) => {
       '&::-webkit-scrollbar': {
         display: 'none', // For Chrome, Safari, and Opera
       },
+
       scrollbarWidth: 'none', // For Firefox
       msOverflowStyle: 'none', // For Internet Explorer and Edge
       wordWrap: 'break-word',
@@ -299,7 +300,9 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     footer: {
       display: 'flex',
-      gridArea: 'input',
+      gridArea: 'footer',
+      width: '100%',
+      'background-color': '#FFFFFF',
     },
     submitButton: {
       fontFamily: 'poppins !important',
