@@ -51,7 +51,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
             setMessage={setMessage}
-          />
+        />
       </Grid>
     </>
   );

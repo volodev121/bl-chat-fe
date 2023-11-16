@@ -40,47 +40,41 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
     }
   };
 
-  //  commented out from below
-  
-  //   <div className={styles.footer}>
-  //     <Input
-  //       type='text'
-  //       value={inputMessage}
-  //       onChange={handleInputChange}
-  //       className={styles.footerTextBox}
-  //       multiline maxRows={3}
-  //       onKeyPress={handleKeyPress}
-  //       disableUnderline
-  //       sx={{
-  //         fontSize: '16px',
-  //         background: '#F6F6FB !important',
-  //         borderColor: '#F2F2F2 !important',
-  //         '&:hover': {
-  //           background: '#EEF0F8 !important',
-  //         },
-  //       }}
-  //       endAdornment={
-  //         <Button
-  //           className={styles.submitButton}
-  //           onClick={handleSubmit}
-  //           disabled={isEmpty(inputMessage)}
-  //           sx={{
-  //           ':hover': {
-  //             background: 'none !important',
-  //           }
-  //           }}
-  //         >
-  //           <SendIcon style={{ color: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }} />
-  //         </Button>
-  //       }
-  //     />
-  //   </div>
-
-  return (
-    <>
-      <div></div>
-    </>
-  );
+  return (<>
+    <div className={styles.footer}>
+      <Input
+        type='text'
+        value={inputMessage}
+        onChange={handleInputChange}
+        className={styles.footerTextBox}
+        multiline maxRows={3}
+        onKeyPress={handleKeyPress}
+        disableUnderline
+        sx={{
+          fontSize: '16px',
+          background: '#F6F6FB !important',
+          borderColor: '#F2F2F2 !important',
+          '&:hover': {
+            background: '#EEF0F8 !important',
+          },
+        }}
+        endAdornment={
+          <Button
+            className={styles.submitButton}
+            onClick={handleSubmit}
+            disabled={isEmpty(inputMessage)}
+            sx={{
+            ':hover': {
+              background: 'none !important',
+            }
+            }}
+          >
+            <SendIcon style={{ color: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }} />
+          </Button>
+        }
+      />
+    </div>
+   </>);
 };
 
 export default Footer;

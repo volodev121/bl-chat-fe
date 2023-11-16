@@ -77,7 +77,7 @@ export default function App() {
   );
   const [surveyData, setSurveyData] = useState({});
   const [messages, setMessages] = useState<Array<MessageType>>(
-    initialMessages(messageTemplates)
+    messageTemplates
   );
 
   useEffect(
@@ -95,6 +95,7 @@ export default function App() {
     },
     [messageTemplates]
   );
+
 
   const updateSurveyDataFuction = (messages) => {
     return (surveyData) =>
@@ -200,7 +201,6 @@ export default function App() {
         tempMessages = tempMessages.map((msg) => {
           if (msg.key == message.name) {
             msg.completed = true;
-            msg.disabled = true;
             msg.content = message.content;
             return msg;
           } else {
