@@ -5,16 +5,18 @@ import { AiOutlineSend } from "react-icons/ai";
 import { isEmpty } from "lodash";
 
 interface ToolTipProps {
+  classNames: string;
   setInputValue: (value: string) => void;
   inputValue: string;
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
+  showToolTip: boolean;
   handleChange: (event: any) => void;
   handleSubmit: () => void;
   config: any;
 }
 
-const ToolTip: FC<ToolTipProps> = ({ config, inputValue, handleChange, handleSubmit}) => {
+const ToolTip: FC<ToolTipProps> = ({ classNames, config, inputValue, handleChange, showToolTip, handleSubmit}) => {
   const styles = useStyles();
 
   const termsLink = <a href={config.terms_of_service_link || '#'} className={styles.termsConditionsLink}>Terms&Conditions</a>;
@@ -28,7 +30,7 @@ const ToolTip: FC<ToolTipProps> = ({ config, inputValue, handleChange, handleSub
 
   return (
     <>
-    <Grid className={styles.toolTip}>
+    <Grid className={classNames}>
       <Grid item className={styles.toolTipWhite}>
         <Input
             type='text'

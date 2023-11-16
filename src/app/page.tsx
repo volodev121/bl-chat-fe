@@ -37,6 +37,7 @@ export default function App() {
     const value = event.target.value;
     setInputValue(value);
     setShowChatWidget(value !== "");
+    setShowToolTip(value === "");
   };
 
   const messagesFromConfig = (config: Config) => {
@@ -246,8 +247,9 @@ export default function App() {
         if (configResponse.status === 200) {
           setFetchedConfig(configResponse.data);
           setMessageTemplates(messagesFromConfig(configResponse.data));
+          console.log(configResponse.data)
           setTimeline(
-            // only take first message and take slice 
+            // only take completed messages
             messagesFromConfig(configResponse.data).filter((msg) => msg.completed)
           );
 
@@ -271,11 +273,13 @@ export default function App() {
   }
 
   let classNames = `${styles.chatWidget} ${showChatWidget ? styles.show : ""}`
+  let classNamesTooltip = `${styles.toolTip} ${!showToolTip ? styles.show2 : ""}`
   console.log(classNames)
   return (
     <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
-      {showToolTip ? (
         <ToolTip
+          classNames={classNamesTooltip}
+          showToolTip={showToolTip}
           handleChange={handleChange}
           inputValue={inputValue}
           setInputValue={setInputValue}
@@ -284,10 +288,6 @@ export default function App() {
           setShowToolTip={setShowToolTip}
           config={fetchedConfig}
         />
-      ) : (
-        <></>
-      )}
-      {
         <ChatWidget
           classNames={classNames}
           messageTemplates={messageTemplates}
@@ -299,7 +299,6 @@ export default function App() {
           config={fetchedConfig}
           timeline={timeline}
         />
-      }
     </ThemeProvider>
   );
 }

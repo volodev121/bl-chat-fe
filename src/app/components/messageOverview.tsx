@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Grid, List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import InfoIcon from "@mui/icons-material/Info";
@@ -11,26 +11,26 @@ interface MessageOverviewProps {
 
 const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   const styles = useStyles();
-  const eledgableMessages = messages.filter((message, _index) => (
-      message.role === 'bot' && !message.customInput && message.surveyQuestion
-    ))
+  const eledgableMessages = messages.filter(
+    (message, _index) =>
+      message.role === "bot" && !message.customInput && message.surveyQuestion
+  );
 
   const getAnsweredMessageCount = () => {
-    return eledgableMessages.filter((message, _index) => (
-      message.completed
-    )).length
+    return eledgableMessages.filter((message, _index) => message.completed)
+      .length;
   };
 
   const getMessagesCount = () => {
-    return eledgableMessages.length
-  }
+    return eledgableMessages.length;
+  };
 
   return (
     <div className={styles.messageOverviewWrapper}>
       <List className={styles.messageOverview}>
         {messages.map((message, _index) =>
           (() => {
-            if (message.default && message.role == "bot") {
+            if (message.role == "bot") {
               return (
                 <ListItem
                   sx={{
@@ -48,40 +48,18 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
                   </Typography>
                 </ListItem>
               );
-            } else if (message.role == "bot" && !message.customInput) {
-              return (
-                <ListItem
-                  sx={{
-                    width: "100%",
-                    borderRight: message.completed
-                      ? "6px solid #D02DF5"
-                      : "unset",
-                  }}
-                >
-                  <ListItemIcon className={styles.listItemIcon}>
-                    <HelpIcon fontSize="small" sx={{ color: "#D02DF5" }} />
-                  </ListItemIcon>
-                  <Typography className={styles.messageOverviewState}>
-                    {message.title || message.content}
-                  </Typography>
-                </ListItem>
-              );
             }
-            return null;
           })()
         )}
         <Typography
           className={styles.timeLineStepText}
           sx={{ paddingLeft: "12px" }}
         >
-          {`${getAnsweredMessageCount()} out of ${
-            getMessagesCount()
-          }`}
+          {`${getAnsweredMessageCount()} out of ${getMessagesCount()}`}
         </Typography>
       </List>
     </div>
   );
 };
-
 
 export default MessageOverview;

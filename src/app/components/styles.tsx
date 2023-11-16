@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme: Theme) => {
         transform: 'translateY(0%) !important',
         background: '#000000 !important',
     },
+    show2: {
+       transform: 'translate(-50%, 50vw) !important',
+    },
     chatWidget: {
       borderTopLeftRadius: '2em',
       borderTopRightRadius: '2em',
@@ -28,6 +31,14 @@ const useStyles = makeStyles((theme: Theme) => {
                      "list       messages    messages     messages .    " 1fr \
                      ".        .      .      input   .    " 5em / \
                       minmax(0px, calc((100vw - 900px) /2))     4fr     2fr     10fr    minmax(0px, calc((100vw - 1180px) /2))',
+      // [theme.breakpoints.down('md')]: {
+      //   gridTemplate: '"header" 112px \
+      //                   "list" auto\
+      //                   "messages" 1fr\
+      //                   "input" auto /\
+      //                   1fr',
+      //   overflowY: 'scroll',
+      // }
     },
     floatingChatButton: {
       position: 'fixed',
@@ -69,12 +80,12 @@ const useStyles = makeStyles((theme: Theme) => {
       position: 'fixed',
       bottom: '0',
       left: '50%',
+      transition: 'transform 1.2s ease-in-out',
       zIndex: '9999 !important',
       transform: 'translateX(-50%)',
       //'border-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)',
       borderRadius: '24px 24px 0 0',
       backgroundColor: '#FFFFFF',
-      transition: 'all 250ms ease-out',
       //'box-shadow': '0 2px 5px rgba(0, 0, 0, 0.3)'
     },
     inputStyle: {
