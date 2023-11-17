@@ -1,10 +1,9 @@
-import React, { FC, useState, useRef, useEffect } from "react";
+import React, { FC, useState } from "react";
 import useStyles from './styles';
 import { Button, Input } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import { isEmpty } from "lodash";
 import { AiOutlineSend } from "react-icons/ai";
-import SendIcon from "@mui/icons-material/Send";
 
 interface FooterProps {
   setMessage: (message: MessageType) => void;

@@ -1,7 +1,7 @@
 "use client"; // This is a client component 👈🏽
 
 import React, { useState, useEffect } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { createRoot } from "react-dom/client";
 import ToolTip from "./components/toolTip.tsx";
 import { getToken } from "./utils/authorization.tsx";
@@ -29,7 +29,6 @@ export default function App({ baseUrl }) {
   };
   const [hasConfig, setHasConfig] = useState(false);
   const [fetchedConfig, setFetchedConfig] = useState<any>(config);
-  const [fetchedToken, setFetchedToken] = useState<any>("");
 
   const [apiClient, setApiClient] = useState<any>(null);
   const [inputValue, setInputValue] = useState("");
@@ -259,7 +258,6 @@ export default function App({ baseUrl }) {
           },
         };
 
-        setFetchedToken(authResponse.data.auth_token);
         setApiClient(createApiClient(authResponse.data.auth_token));
         const configResponse = await getConfig({}, headers);
         if (configResponse.status === 200) {
@@ -290,9 +288,9 @@ export default function App({ baseUrl }) {
     return <></>;
   }
 
-  let classNames = `${styles.chatWidget} ${showChatWidget ? styles.show : ""}`
-  let classNamesTooltip = `${styles.toolTip} ${!showToolTip ? styles.show2 : ""}`
-  console.log(classNames)
+  const classNames = `${styles.chatWidget} ${showChatWidget ? styles.show : ""}`
+  const classNamesTooltip = `${styles.toolTip} ${!showToolTip ? styles.show2 : ""}`
+
   return (
     <ConfigContext.Provider value={fetchedConfig}>
       <ApiClientContext.Provider value={apiClient}>

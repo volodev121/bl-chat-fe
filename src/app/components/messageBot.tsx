@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { MessageType } from "./../utils/types.tsx";
-import { ListItem, ListItemIcon, Typography, Box } from "@mui/material";
+import { ListItem, ListItemIcon, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import useStyles from "./styles";
 import { ThumbUpOffAlt, ThumbUpAlt } from "@mui/icons-material";
@@ -10,10 +10,6 @@ import FeedbackModel from "./feedbackModel.tsx";
 import { Button } from "@mui/material";
 import Message from "./message.tsx";
 import HelpIcon from "@mui/icons-material/Help";
-import Accordion from '@mui/material/Accordion'; //accordion dependencies
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ApiClientContext from "./apiContext.tsx";
 
 interface BotMessageProps {
@@ -27,7 +23,7 @@ interface BotMessageProps {
 
 const BotMessage: React.FC<BotMessageProps> = ({
   message,
-  updateSelf, 
+  updateSelf,
   ratingAvailable,
   handleClick = null,
   handleChange = null,
@@ -35,12 +31,10 @@ const BotMessage: React.FC<BotMessageProps> = ({
 }) => {
   const apiClient = useContext(ApiClientContext);
   const styles = useStyles();
-  
-  const enableContext = false;
 
-  const handleThumbUp = (message: MessageType) => { 
+  const handleThumbUp = (message: MessageType) => {
     if (!message.rating || message.rating.value === null) {
-      message["rating"] = {time: (new Date()).toISOString(), value: true}; 
+      message["rating"] = {time: (new Date()).toISOString(), value: true};
       apiClient.sendRating(message);
       updateSelf(message);
     }
@@ -52,7 +46,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
   };
   const handleFeedbackSubmit = (message: MessageType, reasons: Array) => {
       setOpenModel(() => false)
-      message["rating"] = {time: (new Date()).toISOString(), value: false, reasons: reasons}; 
+      message["rating"] = {time: (new Date()).toISOString(), value: false, reasons: reasons};
       apiClient.sendRating(message);
       updateSelf(message);
   }
@@ -65,7 +59,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
   if (
     message.element &&
     message.role === "bot" &&
-    (message.element.type === "radiogroup" || 
+    (message.element.type === "radiogroup" ||
     message.element.type === "text"
     )
   ) {

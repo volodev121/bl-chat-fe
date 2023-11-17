@@ -1,9 +1,8 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Grid, Typography, Button, Input } from "@mui/material";
 import useStyles from './styles.tsx';
 import { AiOutlineSend } from "react-icons/ai";
 import { isEmpty } from "lodash";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ConfigContext from "./configContext.tsx";
 
 interface ToolTipProps {
@@ -12,12 +11,11 @@ interface ToolTipProps {
   inputValue: string;
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
-  showToolTip: boolean;
   handleChange: (event: any) => void;
   handleSubmit: () => void;
 }
 
-const ToolTip: FC<ToolTipProps> = ({ classNames, inputValue, handleChange, showToolTip, handleSubmit}) => {
+const ToolTip: FC<ToolTipProps> = ({ classNames, inputValue, handleChange, handleSubmit}) => {
   const styles = useStyles();
 
   const config = useContext(ConfigContext);

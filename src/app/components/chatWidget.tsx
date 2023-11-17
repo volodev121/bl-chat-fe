@@ -1,13 +1,11 @@
-import React, { FC, useState, useEffect, useContext } from "react";
+import React, { FC, useState, useContext } from "react";
 import { Grid } from "@mui/material";
-import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
-import { MessageType, Config, QuestionTimelineRadiogroupElement } from "./../utils/types.tsx";
+import { MessageType } from "./../utils/types.tsx";
 import Footer from './footer.tsx'
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
 import ApiClientContext from "./apiContext.tsx";
-import ConfigContext from "./configContext.tsx";
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -16,7 +14,6 @@ interface ChatWidgetProps {
   messageTemplates: Array<MessageType>;
   messages: Array<MessageType>;
   setMessages: (messages: Array<MessageType>) => void;
-  config: Config;
   timeline: Array<MessageType>;
   classNames: string;
   baseUrl: string;
@@ -25,11 +22,9 @@ interface ChatWidgetProps {
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   classNames,
-  messageTemplates,
   setShowChatWidget,
   setShowToolTip,
   messages,
-  setMessages,
   storeTimeLineMessages,
   timeline,
   baseUrl,
@@ -38,10 +33,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
 
   const iconUrl = `${baseUrl}/public/kaia_small.png`
 
-  const styles = useStyles();
-
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
-  const config = useContext(ConfigContext);
   const apiClient = useContext(ApiClientContext);
 
   return (
