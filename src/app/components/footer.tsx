@@ -3,6 +3,7 @@ import useStyles from "./styles";
 import { Button, Input } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import { isEmpty } from "lodash";
+import { AiOutlineSend } from "react-icons/ai";
 import SendIcon from "@mui/icons-material/Send";
 
 interface FooterProps {
@@ -51,26 +52,28 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
         onKeyPress={handleKeyPress}
         disableUnderline
         sx={{
-          fontSize: '16px',
-          background: '#F6F6FB !important',
-          borderColor: '#F2F2F2 !important',
           '&:hover': {
             background: '#EEF0F8 !important',
           },
         }}
         endAdornment={
-          <Button
-            className={styles.submitButton}
-            onClick={handleSubmit}
-            disabled={isEmpty(inputMessage)}
-            sx={{
-            ':hover': {
-              background: 'none !important',
-            }
-            }}
-          >
-            <SendIcon style={{ color: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }} />
+          <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }}>
+          <Button onClick={handleSubmit}>       
+            <AiOutlineSend className={styles.outlineSend} />
           </Button>
+        </div>
+          // <Button
+          //   className={styles.submitButton}
+          //   onClick={handleSubmit}
+          //   disabled={isEmpty(inputMessage)}
+          //   sx={{
+          //   ':hover': {
+          //     background: 'none !important',
+          //   }
+          //   }}
+          // >
+          //   <SendIcon style={{ color: isEmpty(inputMessage) ? '#b6b6ba' : '#000000'}} />
+          // </Button>
         }
       />
     </div>
