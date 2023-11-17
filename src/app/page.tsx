@@ -19,7 +19,7 @@ import createApiClient from "./utils/apiClient.tsx";
 import useStyles from "./components/styles.tsx";
 import { time } from "console";
 
-export default function App() {
+export default function App({ baseUrl }) {
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
   const config = {
@@ -299,6 +299,7 @@ export default function App() {
           storeTimeLineMessages={storeTimeLineMessages}
           config={fetchedConfig}
           timeline={timeline}
+          baseUrl={baseUrl}
         />
     </ThemeProvider>
   );
@@ -306,9 +307,13 @@ export default function App() {
 
 // make the component available for the window
 if (document != null) {
+  const baseUrl = (() => {
+    const scriptUrl = document.currentScript.src;
+    return scriptUrl.slice(0,scriptUrl.lastIndexOf('/'))
+  })();
   const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
   if (navDomNode != null) {
     const navRoot = createRoot(navDomNode);
-    navRoot.render(<App />);
+    navRoot.render(<App baseUrl={baseUrl} />);
   }
 }

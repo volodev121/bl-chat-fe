@@ -17,6 +17,7 @@ interface ChatWidgetProps {
   config: Config;
   timeline: Array<MessageType>;
   classNames: string;
+  baseUrl: string;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
@@ -28,10 +29,11 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   storeTimeLineMessages,
   messages,
   setMessages,
-  timeline
+  timeline,
+  baseUrl
 }) => {
 
-  const iconUrl = "/kaia_small.png"
+  const iconUrl = `${baseUrl}/public/kaia_small.png`
 
   const styles = useStyles();
 
