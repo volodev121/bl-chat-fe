@@ -28,11 +28,12 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
   return (
     <div className={styles.messageOverviewWrapper}>
       <List className={styles.messageOverview}>
-        {messages.map((message, _index) =>
+        {messages.map((message, index) =>
           (() => {
             if (message.role == "bot") {
               return (
                 <ListItem
+                  key={index}
                   sx={{
                     width: "100%",
                     borderRight: message.completed

@@ -1,8 +1,8 @@
 import { apiPost, apiPut } from './axiosClient';
-import { chatEndpoint, historyEndpoint } from './apiConstants';
-import { MessageType } from  './types'
+import { chatEndpoint, historyEndpoint, ratingEndpoint } from './apiConstants';
+import { MessageType, ApiResponse } from "./types.tsx"
 
-const getChat = async (data: any, headers: any): Promise<any> =>{
+const getChat = async (data, headers): Promise<ApiResponse> => {
     return await apiPost(chatEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
@@ -16,8 +16,22 @@ const getChat = async (data: any, headers: any): Promise<any> =>{
     })
 }
 
-const setHistory = async (data: any, headers: any): Promise<any> =>{
+const setHistory = async (data, headers): Promise<ApiResponse> => {
     return await apiPut(historyEndpoint, data, headers).then((response) => {
+        return {
+            status: response.status,
+            data: response.data
+        }
+    }).catch((error) =>{
+        return {
+            status: error.status,
+            data: error.response
+        }
+    })
+
+}
+const setRating = async (data, headers): Promise<ApiResponse> => {
+    return await apiPut(ratingEndpoint, data, headers).then((response) => {
         return {
             status: response.status,
             data: response.data
@@ -103,7 +117,7 @@ const chatToHistoryFormat = function(chatHistory: Array<MessageType>) {
           break;
         default:
         // I don't know what to put here
-      }  
+      }
     } else { // not survey questions
       return({
         question_type: "text",
@@ -112,7 +126,8 @@ const chatToHistoryFormat = function(chatHistory: Array<MessageType>) {
         time: "2023-08-22 11:47:21",
         question_id: `${msg.key}`.split('-')[0],
         question_text: msg.role == "user" ? msg.content : "",
-        answer: msg.role == "bot" ? msg.content : "", //add rating
+        answer: msg.role == "bot" ? msg.content : "",
+        rating: msg.rating,
       })
     }
   })
@@ -123,12 +138,12 @@ const createApiClint = function(token: any) {
   return {
     chat: async function(chatHistory: Array<MessageType>) {
       const chat = await getChat(
-        { 
+        {
           prompts: chatHistory.map(
-            (msg) => { 
+            (msg) => {
               return { content: msg.content || msg.title , role: (msg.role == "user" ? "user" : "assistant")}
             }
-          ) 
+          )
         },
         {
           headers: {
@@ -138,14 +153,29 @@ const createApiClint = function(token: any) {
       )
       if (chat.status == 200) {
         // this should also have 'context' and 'topics' to use
-        return { role: 'bot', type: 'botanswer', content: chat.data.text, context: chat.data.context || [], raw: chat.data }
+        return { role: 'bot', type: 'botanswer', content: chat.data.text, context: chat.data.context || [], raw: chat.data, question: chatHistory[chatHistory.length - 1] }
       } else {
         return { role: 'bot', type: 'escalateToHuman', content: "I am very sorry, something had to be gone wrong on my end. Shall I try and connect you to a human?", raw: chat.data }
       }
     },
     updateHistory: async function(chatHistory: Array<MessageType>) {
-      const chat = await setHistory(
+      await setHistory(
         chatToHistoryFormat(chatHistory),
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+    },
+    sendRating: async function(message: MessageType) {
+      const body = {
+        rating: message.rating.value,
+        question: message.question["content"],
+        answer: message.content,
+        reasons: message.rating.reasons,
+      }
+      setRating(body,
         {
           headers: {
             Authorization: token,
@@ -154,6 +184,12 @@ const createApiClint = function(token: any) {
       )
     }
   }
+}
+
+export interface ApiClient {
+  chat: (chatHistory: Array<MessageType>) => Promise<MessageType>;
+  updateHistory: (chatHistory: Array<MessageType>) => Promise<void>;
+  sendRating: (message: MessageType) => Promise<void>;
 }
 
 export default createApiClint;

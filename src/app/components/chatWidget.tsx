@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Grid } from "@mui/material";
 import useStyles from "./styles.tsx";
 import Header from "./header.tsx";
@@ -6,6 +6,8 @@ import { MessageType, Config, QuestionTimelineRadiogroupElement } from "./../uti
 import Footer from './footer.tsx'
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
+import ApiClientContext from "./apiContext.tsx";
+import ConfigContext from "./configContext.tsx";
 
 interface ChatWidgetProps {
   setShowChatWidget: (flag: boolean) => void;
@@ -18,19 +20,20 @@ interface ChatWidgetProps {
   timeline: Array<MessageType>;
   classNames: string;
   baseUrl: string;
+  updateMessageFactory: (key: string) => (message: MessageType) => void;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
   setShowChatWidget,
   setShowToolTip,
   classNames,
-  config,
   messageTemplates,
   storeTimeLineMessages,
   messages,
   setMessages,
   timeline,
-  baseUrl
+  baseUrl,
+  updateMessageFactory,
 }) => {
 
   const iconUrl = `${baseUrl}/public/kaia_small.png`
@@ -38,6 +41,8 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   const styles = useStyles();
 
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
+  const config = useContext(ConfigContext);
+  const apiClient = useContext(ApiClientContext);
 
   return (
     <>
@@ -49,7 +54,12 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={iconUrl}
         />
         <MessageOverview messages={timeline} />
-        <MessageList messages={messages} storeTimeLineMessages={storeTimeLineMessages}  />
+        <MessageList
+          messages={messages}
+          storeTimeLineMessages={storeTimeLineMessages}
+          apiClient={apiClient}
+          updateMessageFactory={updateMessageFactory}
+        />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
             setMessage={setMessage}

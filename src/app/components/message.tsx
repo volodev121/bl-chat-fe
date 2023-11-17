@@ -28,10 +28,11 @@ const Message: React.FC<MessageProps> = ({
             aria-labelledby={ `${message.name}-label` }
             name={message.name}
           >
-            {message.element.choices.map((choice, _index) => (
+            {message.element.choices.map((choice, index) => (
               <>
                 {choice != null && choice.constructor.name === "Object" && (
                   <FormControlLabel
+                    key={index}
                     value={choice.value}
                     control={
                       <Radio

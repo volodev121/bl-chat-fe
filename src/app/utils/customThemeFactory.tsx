@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { Config } from "./../utils/types.tsx";
 
 const customThemeFactory = function(config: Config) {

@@ -15,6 +15,8 @@ import {
   QuestionTimelineRadiogroupElement,
 } from "./utils/types.tsx";
 import createApiClient from "./utils/apiClient.tsx";
+import ApiClientContext from "./components/apiContext.tsx";
+import ConfigContext from "./components/configContext.tsx";
 
 import useStyles from "./components/styles.tsx";
 import { time } from "console";
@@ -292,31 +294,34 @@ export default function App({ baseUrl }) {
   let classNamesTooltip = `${styles.toolTip} ${!showToolTip ? styles.show2 : ""}`
   console.log(classNames)
   return (
-    <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
-        <ToolTip
-          classNames={classNamesTooltip}
-          showToolTip={showToolTip}
-          handleChange={handleChange}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          handleSubmit={handleSubmit}
-          setShowChatWidget={setShowChatWidget}
-          setShowToolTip={setShowToolTip}
-          config={fetchedConfig}
-        />
-        <ChatWidget
-          classNames={classNames}
-          messageTemplates={messageTemplates}
-          setShowChatWidget={setShowChatWidget}
-          setShowToolTip={setShowToolTip}
-          messages={messages}
-          setMessages={setMessages}
-          storeTimeLineMessages={storeTimeLineMessages}
-          config={fetchedConfig}
-          timeline={timeline}
-          baseUrl={baseUrl}
-        />
-    </ThemeProvider>
+    <ConfigContext.Provider value={fetchedConfig}>
+      <ApiClientContext.Provider value={apiClient}>
+        <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
+            <ToolTip
+              classNames={classNamesTooltip}
+              showToolTip={showToolTip}
+              handleChange={handleChange}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              handleSubmit={handleSubmit}
+              setShowChatWidget={setShowChatWidget}
+              setShowToolTip={setShowToolTip}
+            />
+            <ChatWidget
+              classNames={classNames}
+              messageTemplates={messageTemplates}
+              setShowChatWidget={setShowChatWidget}
+              setShowToolTip={setShowToolTip}
+              messages={messages}
+              setMessages={setMessages}
+              storeTimeLineMessages={storeTimeLineMessages}
+              timeline={timeline}
+              baseUrl={baseUrl}
+              updateMessageFactory={updateMessageFactory}
+            />
+          </ThemeProvider>
+      </ApiClientContext.Provider>
+    </ConfigContext.Provider>
   );
 }
 

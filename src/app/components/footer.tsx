@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef, useEffect } from "react";
-import useStyles from "./styles";
+import useStyles from './styles';
 import { Button, Input } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import { isEmpty } from "lodash";
@@ -11,7 +11,7 @@ interface FooterProps {
   storeTimeLineMessages: (message: MessageType) => void;
 }
 
-const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
+const Footer: FC<FooterProps> = ({ storeTimeLineMessages }) => {
   const styles = useStyles();
 
   const [inputMessage, setInputMessage] = useState("");
@@ -58,7 +58,7 @@ const Footer: FC<FooterProps> = ({ setMessage, storeTimeLineMessages }) => {
         }}
         endAdornment={
           <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }}>
-          <Button onClick={handleSubmit}>       
+          <Button onClick={handleSubmit}>
             <AiOutlineSend className={styles.outlineSend} />
           </Button>
         </div>
