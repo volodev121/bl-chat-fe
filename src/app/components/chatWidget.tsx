@@ -24,13 +24,13 @@ interface ChatWidgetProps {
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
-  setShowChatWidget,
-  setShowToolTip,
   classNames,
   messageTemplates,
-  storeTimeLineMessages,
+  setShowChatWidget,
+  setShowToolTip,
   messages,
   setMessages,
+  storeTimeLineMessages,
   timeline,
   baseUrl,
   updateMessageFactory,
