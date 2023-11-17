@@ -92,6 +92,7 @@ export default function App({ baseUrl }) {
       setMessages((messages) => [
         ...initialMsgs
       ]);
+      setTimeline(initialMsgs.filter((msg) => !!msg.title))
     },
     [messageTemplates]
   );
