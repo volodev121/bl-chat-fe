@@ -19,7 +19,7 @@ import createApiClient from "./utils/apiClient.tsx";
 import useStyles from "./components/styles.tsx";
 import { time } from "console";
 
-export default function App() {
+export default function App({ baseUrl }) {
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
   const config = {
@@ -55,7 +55,7 @@ export default function App() {
         title: item.title,
         content: item.description || "",
         role: "bot",
-        completed: item.type == "image" || item.type == "expression",
+        completed: item.type == "image" || (item.type == "expression" && !item.expression),
         element: item,
         surveyQuestion: true,
         time: new Date().toISOString(),
@@ -64,7 +64,9 @@ export default function App() {
   };
 
   const initialMessages = (templates) => {
-    return templates.slice(0, templates.findIndex((msg) => !msg.completed) + 1);
+    let firstUnansweredIndex = templates.findIndex((msg) => !msg.completed)
+    if (firstUnansweredIndex == -1) firstUnansweredIndex = templates.length
+    return templates.slice(0, firstUnansweredIndex + 1);
   };
 
   const [messageTemplates, setMessageTemplates] = useState<Array<MessageType>>(
@@ -79,11 +81,18 @@ export default function App() {
   );
 
   useEffect(
-    () =>
+    () => {
+      let initialMsgs = initialMessages(messageTemplates)
+      const lastMsg = initialMsgs[initialMsgs.length - 1]
+
+      // if the last uncompleted template message is an expression, we need to automatically call the chat API to fake a user input
+      if (!lastMsg.completed && lastMsg.element && lastMsg.element.type == 'expression') {
+        initialMsgs = [...initialMsgs, handleExpressionExecution(initialMsgs, lastMsg)]
+      }
       setMessages((messages) => [
-        ...messages,
-        ...initialMessages(messageTemplates),
-      ]),
+        ...initialMsgs
+      ]);
+    },
     [messageTemplates]
   );
 
@@ -132,6 +141,32 @@ export default function App() {
     };
   };
 
+  const handleExpressionExecution = function(tempMessages, newMessage) {
+    // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
+    const tempSurveyData = updateSurveyDataFuction(tempMessages)();
+    const loadingKey = Date.now();
+    const fakeUserMessage = {
+      key: `${loadingKey}-fake-input`,
+      role: "user",
+      content: newMessage.element.expression.replaceAll(
+        /\{([a-z0-9A-Z]+)\}/gm,
+        (match, group) => tempSurveyData[group]
+      ),
+      time: new Date().toISOString(),
+    };
+    apiClient
+      ?.chat([...tempMessages, fakeUserMessage])
+      .then(updateMessageFactory(loadingKey))
+      .then(() => updateMessageFactory(newMessage.key)({completed: true}));
+    const loadingMessage = {
+      key: loadingKey,
+      role: "bot",
+      content: "thinking...",
+      time: new Date().toISOString(),
+    };
+    return loadingMessage;
+  }
+
   const insertNextSurveyQuestion = function (tempMessages: any) {
     const newMessageTemplate = tempMessages
       .filter((tmp: any) => tmp.surveyQuestion && tmp.role == "bot")
@@ -151,28 +186,7 @@ export default function App() {
           newMessage.element.type == "expression" &&
           newMessage.element.expression
         ) {
-          // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
-          const tempSurveyData = updateSurveyDataFuction(tempMessages)();
-          const loadingKey = Date.now();
-          const fakeUserMessage = {
-            key: `${loadingKey}-fake-input`,
-            role: "user",
-            content: newMessage.element.expression.replaceAll(
-              /\{([a-z0-9A-Z]+)\}/gm,
-              (match, group) => tempSurveyData[group]
-            ),
-            time: new Date().toISOString(),
-          };
-          apiClient
-            ?.chat([...tempMessages, fakeUserMessage])
-            .then(updateMessageFactory(loadingKey));
-          const loadingMessage = {
-            key: loadingKey,
-            role: "bot",
-            content: "thinking...",
-            time: new Date().toISOString(),
-          };
-          tempMessages = [...tempMessages, loadingMessage];
+          tempMessages = [...tempMessages, handleExpressionExecution(tempMessages, newMessage)];
         }
       }
     }
@@ -299,6 +313,7 @@ export default function App() {
           storeTimeLineMessages={storeTimeLineMessages}
           config={fetchedConfig}
           timeline={timeline}
+          baseUrl={baseUrl}
         />
     </ThemeProvider>
   );
@@ -306,9 +321,13 @@ export default function App() {
 
 // make the component available for the window
 if (document != null) {
+  const baseUrl = (() => {
+    const scriptUrl = document.currentScript.src;
+    return scriptUrl.slice(0,scriptUrl.lastIndexOf('/'))
+  })();
   const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
   if (navDomNode != null) {
     const navRoot = createRoot(navDomNode);
-    navRoot.render(<App />);
+    navRoot.render(<App baseUrl={baseUrl} />);
   }
 }
