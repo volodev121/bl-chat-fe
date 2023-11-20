@@ -23,7 +23,7 @@ const Message: React.FC<MessageProps> = ({
   switch (message.element.type) {
     case "radiogroup":
       return (
-        <FormControl sx={{ marginLeft: "16px", marginRight: "100px" }}>
+        <FormControl sx={{ marginLeft: "0px", marginRight: "100px" }}>
           <RadioGroup
             aria-labelledby={ `${message.name}-label` }
             name={message.name}
@@ -66,7 +66,7 @@ const Message: React.FC<MessageProps> = ({
       );
     case "text":
       return (
-        <FormControl sx={{ marginLeft: "16px", marginRight: "100px" }}>
+        <FormControl sx={{ marginLeft: "0px", marginRight: "100px" }}>
           <Input
             type='text'
             placeholder={message.placeholder}

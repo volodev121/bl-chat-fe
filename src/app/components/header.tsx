@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = ({
               height: "50px",
               width: "50px",
               borderRadius: "50%",
-              border: "1px solid grey", // Added grey border
+              border: "1px solid #E3E3ED", // Added grey border
             }}
             role="presentation"
             alt=""

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => {
       width: '80vw !important',
       height: '90vh !important', 
       zIndex: '400 !important',
-      boxShadow: '0px -15px 15px rgba(0,0,0,0.1), 0px 15px 15px rgba(0,0,0,0.1), 15px 0px 15px rgba(0,0,0,0.1), -15px 0px 15px rgba(0,0,0,0.1)',
+      boxShadow: '0px -15px 15px rgba(0,0,0,0.06), 0px 15px 15px rgba(0,0,0,0.06), 15px 0px 15px rgba(0,0,0,0.06), -15px 0px 15px rgba(0,0,0,0.06)',
       alignContent: 'start',
       paddingBottom: '2em',
       gridGap: '2em',
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       'align-items': 'center',
       'border-bottom-style': 'groove',
-      'border-color': '#F6F7FC',
+      'border-color': '#EAEBF0',
       'border-width': 'thin',
       justifyContent: 'space-between',
       padding: '0px 39px',
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: '1em',
       borderColor: '#D02DF5',
       backgroundColor: '#F4F4FF',
-      paddingLeft: '16px !important',
+      paddingLeft: '0px !important',
       fontFamily: 'poppins !important',
       fontSize: '16px',
       margin: 'auto',
@@ -153,7 +153,7 @@ const useStyles = makeStyles((theme: Theme) => {
       marginLeft: '39px', // Adds padding to the left of the message list
     },
     messageOverview: {
-      border: '1px solid lightgrey', // Changes the border to light grey
+      border: '1px solid #E3E3ED', // Changes the border to light grey
       borderRadius: '1em', // Rounds the corners (adjust as needed)
       backgroundColor: '#FFFFFF',
       color: '#000000',
@@ -209,6 +209,9 @@ const useStyles = makeStyles((theme: Theme) => {
       maxWidth: '40em',
       width: 'fit-content',
     },
+    listItem: {
+      paddingLeft: '0px !important',
+    },
     chatContent: {
       paddingTop: '0px !important',
       marginLeft: '5em !important'
@@ -255,7 +258,7 @@ const useStyles = makeStyles((theme: Theme) => {
       padding: '2px 15px 2px 10px',
       border: '1px solid white',
       marginTop: '10px',
-      borderRadius: '16px',
+      borderRadius: '0px',
     },
     thumbUp: {
       padding: '4px 12px 4px 8px',
@@ -274,7 +277,7 @@ const useStyles = makeStyles((theme: Theme) => {
       backgroundColor: 'white',
       padding: '20px',
       border: '1px solid white',
-      borderRadius: '16px',
+      borderRadius: '0px',
     },
     headertitle: {
       margin: 0,
@@ -302,6 +305,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       gridArea: 'footer',
       width: '100%',
+      paddingLeft: '18px',
       'background-color': '#FFFFFF',
     },
     submitButton: {

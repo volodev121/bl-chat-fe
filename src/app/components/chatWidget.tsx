@@ -31,7 +31,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   updateMessageFactory,
 }) => {
 
-  const iconUrl = `${baseUrl}/public/kaia_small.png`
+  const iconUrl = `${baseUrl}/kaia_small.png`
 
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
   const apiClient = useContext(ApiClientContext);

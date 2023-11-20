@@ -65,10 +65,12 @@ const BotMessage: React.FC<BotMessageProps> = ({
   ) {
     return (
       <ListItem
+        classes="listItem"
         sx={{
           flexWrap: "wrap",
           flexDirection: "column",
           alignItems: "flex-start",
+          paddingLeft: "0px important!",
         }}
       >
         <ListItemIcon className={styles.listItemHeadIcon}>

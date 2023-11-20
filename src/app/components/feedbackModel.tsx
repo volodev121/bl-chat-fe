@@ -100,7 +100,7 @@ const FeedbackModel: FC<feedbackModelProps> = ({ setOpenModel, openModel, handle
                               padding: '5px',
                               border: 'solid',
                               borderRadius: '12px',
-                              paddingLeft: '16px !important',
+                              paddingLeft: '0px',
                               fontFamily: 'poppins !important',
                           }}
                       />

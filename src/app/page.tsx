@@ -22,6 +22,11 @@ import useStyles from "./components/styles.tsx";
 import { time } from "console";
 
 export default function App({ baseUrl }) {
+  if (baseUrl == null) {
+    baseUrl = "."
+  } else {
+    baseUrl = "public/" + baseUrl
+  }
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
   const config = {
