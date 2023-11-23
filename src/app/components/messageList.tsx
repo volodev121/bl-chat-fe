@@ -10,12 +10,14 @@ interface MessageListProps {
   messages: Array<MessageType>;
   storeTimeLineMessages: (message: MessageType) => void;
   updateMessageFactory: (key: string) => (message: MessageType) => void;
+  iconUrl: string;
 }
 
 const MessageList: React.FC<MessageListProps> = ({
   messages,
   storeTimeLineMessages,
   updateMessageFactory,
+  iconUrl
 }) => {
   const styles = useStyles();
   const [selectedValue, setSelectedValue] = useState("");
@@ -76,6 +78,7 @@ const MessageList: React.FC<MessageListProps> = ({
                   message={message}
                   ratingAvailable={false}
                   elementDisabled={elementDisabled}
+                  imgSource={iconUrl}
                   updateSelf={updateMessageFactory(message.key)}
                   handleChange={handleChange}
                   handleClick={handleClick}

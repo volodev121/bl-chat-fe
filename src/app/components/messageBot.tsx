@@ -19,6 +19,7 @@ interface BotMessageProps {
   updateSelf: (message: MessageType) => void;
   handleClick: (message: MessageType) => void;
   handleChange: (message: MessageType, label: string) => void;
+  imgSource: string;
 }
 
 const BotMessage: React.FC<BotMessageProps> = ({
@@ -28,6 +29,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
   handleClick = null,
   handleChange = null,
   elementDisabled = false,
+  imgSource
 }) => {
   const apiClient = useContext(ApiClientContext);
   const styles = useStyles();
@@ -124,7 +126,13 @@ const BotMessage: React.FC<BotMessageProps> = ({
       <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "40em" }}>
         <ListItemIcon className={styles.listItemHeadIcon}>
           {!message.customInput &&message.element && message.element.type !== "image" && (
-            <InfoIcon fontSize="medium" sx={{ color: "#D02DF5" }} />
+            // use image as icon from kaia_small.png and use 24px as height and width
+            <img src={imgSource} style={{
+              height: "24px",
+              width: "24px",
+              borderRadius: "50%",
+              border: "1px solid #E3E3ED", // Added grey border
+            }} role="presentation" />
           )}
           <Typography variant="h6" className={styles.listItemHead}>
             {message.content.split('\n').map(function(item, idx) {

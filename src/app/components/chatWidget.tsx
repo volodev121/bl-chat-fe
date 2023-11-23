@@ -51,6 +51,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           storeTimeLineMessages={storeTimeLineMessages}
           apiClient={apiClient}
           updateMessageFactory={updateMessageFactory}
+          iconUrl={iconUrl}
         />
         <Footer
           storeTimeLineMessages={storeTimeLineMessages}
