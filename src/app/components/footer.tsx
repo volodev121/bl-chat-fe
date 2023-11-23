@@ -56,7 +56,7 @@ const Footer: FC<FooterProps> = ({ storeTimeLineMessages }) => {
           },
         }}
         endAdornment={
-          <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputMessage) ? '#b6b6ba' : '#000000' }}>
+          <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputMessage) ? '#000000' : '#000000' }}>
           <Button onClick={handleSubmit}>
             <AiOutlineSend className={styles.outlineSend} />
           </Button>
