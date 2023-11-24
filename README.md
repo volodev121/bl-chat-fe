@@ -2,6 +2,12 @@
 
 This repository contains a frontend for the AI chat component.
 
+## Deploy current build to stagin/production (manually)
+* Log into [minio](https://minio-sg.brandslisten.com/login) with the credentials for `ATF`. Ask for the password if you don't have it.
+* Browse to [llm-widget](https://minio-sg.brandslisten.com/browser/llm-widget). The folder index might be broken, this doesn't prohibit the update from working.
+* Upload out.js. If you don't have this file, you can create it by running the `build:widget` npm task, `./makeStagingLocal.sh` or `./updateStagingLocal.sh`
+* Upload the contents of the public folder to [llm-widget/public](https://minio-sg.brandslisten.com/browser/llm-widget/public).
+
 ## Running locally
 
 First of all you have to make sure to use the right node version. We currently use `18.13.0`. You can install it with `nvm` (Node Version Manager).
