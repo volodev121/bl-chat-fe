@@ -25,7 +25,7 @@ export default function App({ baseUrl }) {
   if (baseUrl == null) {
     baseUrl = "."
   } else {
-    baseUrl = "public/" + baseUrl
+    baseUrl = baseUrl + "/public"
   }
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
