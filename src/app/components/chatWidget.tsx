@@ -32,6 +32,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
 }) => {
 
   const iconUrl = `${baseUrl}/kaia_small.png`
+  const iconUrlSendButton = `${baseUrl}/kaia_arrow.svg`
 
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
   const apiClient = useContext(ApiClientContext);
@@ -54,7 +55,8 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={iconUrl}
         />
         <Footer
-          storeTimeLineMessages={storeTimeLineMessages}
+            iconUrl={iconUrlSendButton}
+            storeTimeLineMessages={storeTimeLineMessages}
             setMessage={setMessage}
         />
       </Grid>
