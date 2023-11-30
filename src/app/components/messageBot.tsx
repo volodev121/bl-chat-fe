@@ -123,7 +123,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
 
   return (
     <>
-      <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "40em" }}>
+      <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "45em" }}>
         <ListItemIcon className={styles.listItemHeadIcon}>
           {!message.customInput &&message.element && message.element.type !== "image" && (
             // use image as icon from kaia_small.png and use 24px as height and width
