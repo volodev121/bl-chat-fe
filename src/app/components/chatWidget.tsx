@@ -55,9 +55,10 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={iconUrl}
         />
         <Footer
-            iconUrl={iconUrlSendButton}
-            storeTimeLineMessages={storeTimeLineMessages}
-            setMessage={setMessage}
+          messages={messages}
+          iconUrl={iconUrlSendButton}
+          storeTimeLineMessages={storeTimeLineMessages}
+          setMessage={setMessage}
         />
       </Grid>
     </>

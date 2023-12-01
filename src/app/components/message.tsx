@@ -25,8 +25,8 @@ const Message: React.FC<MessageProps> = ({
       return (
         <FormControl sx={{ marginLeft: "0px", marginRight: "100px" }}>
           <RadioGroup
-            aria-labelledby={ `${message.name}-label` }
-            name={message.name}
+            aria-labelledby={ `${message.name || message.element.name}-label` }
+            name={message.name || message.element.name}
           >
             {message.element.choices.map((choice, index) => (
               <>

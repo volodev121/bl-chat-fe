@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import useStyles from './styles';
 import { Button, Input } from "@mui/material";
 import { MessageType } from "./../utils/types";
@@ -6,15 +6,25 @@ import { isEmpty } from "lodash";
 import { AiOutlineSend } from "react-icons/ai";
 
 interface FooterProps {
+  messages: Array<MessageType>;
   setMessage: (message: MessageType) => void;
   storeTimeLineMessages: (message: MessageType) => void;
   iconUrl: string;
 }
 
-const Footer: FC<FooterProps> = ({ storeTimeLineMessages, iconUrl }) => {
+const Footer: FC<FooterProps> = ({ messages, storeTimeLineMessages, iconUrl }) => {
   const styles = useStyles();
 
   const [inputMessage, setInputMessage] = useState("");
+  const [disableInput, setDisableInput] = useState(true);
+
+  useEffect(
+    () => {
+      const msg = messages[messages.length - 1];
+      setDisableInput(msg.role == 'bot' && (msg.id != null || msg.content == 'thinking...'));
+    },
+    [messages]
+  );
 
   const handleSubmit = () => {
     if (!inputMessage) return;
@@ -56,9 +66,10 @@ const Footer: FC<FooterProps> = ({ storeTimeLineMessages, iconUrl }) => {
             background: '#EEF0F8 !important',
           },
         }}
+        disabled={disableInput}
         endAdornment={
           <div className={styles.buttonCircle} style={{ backgroundColor: isEmpty(inputMessage) ? '#000000' : '#000000' }}>
-          <Button onClick={handleSubmit}>
+          <Button onClick={handleSubmit} disabled={disableInput}>
             <img src={iconUrl} style={{ height: '26px', width: '26px', borderRadius: '50%' }} role='presentation' alt='' />
           </Button>
         </div>
