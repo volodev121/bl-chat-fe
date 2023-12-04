@@ -141,7 +141,10 @@ const createApiClint = function(token: any) {
         {
           prompts: chatHistory.map(
             (msg) => {
-              return { content: msg.content || msg.title , role: (msg.role == "user" ? "user" : "assistant")}
+              let prompt = { content: msg.content || msg.title , role: (msg.role == "user" ? "user" : "assistant")}
+              if(msg.id != null && prompt.role == "user")
+                prompt['id'] = msg.id;
+              return prompt;
             }
           )
         },
@@ -153,7 +156,24 @@ const createApiClint = function(token: any) {
       )
       if (chat.status == 200) {
         // this should also have 'context' and 'topics' to use
-        return { role: 'bot', type: 'botanswer', content: chat.data.text, context: chat.data.context || [], raw: chat.data, question: chatHistory[chatHistory.length - 1] }
+        let id = chat.data.hasOwnProperty('id') ? chat.data.id : null;
+        let element = chat.data.element
+        if(element != null) {
+          element.choices = element.choices.map((choice, index) => {
+            return { text: choice, value: choice}
+          })
+        }
+
+        return { 
+                  role: 'bot', 
+                  type: 'botanswer', 
+                  content: chat.data.text, 
+                  context: chat.data.context || [], 
+                  raw: chat.data, 
+                  question: chatHistory[chatHistory.length - 1],
+                  id: id,
+                  element: element
+                }
       } else {
         return { role: 'bot', type: 'escalateToHuman', content: "I am very sorry, something had to be gone wrong on my end. Shall I try and connect you to a human?", raw: chat.data }
       }

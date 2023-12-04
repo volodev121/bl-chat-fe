@@ -18,6 +18,7 @@ interface ChatWidgetProps {
   classNames: string;
   baseUrl: string;
   updateMessageFactory: (key: string) => (message: MessageType) => void;
+  disableCustomInput: boolean;
 }
 
 const ChatWidget: FC<ChatWidgetProps> = ({
@@ -29,6 +30,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   timeline,
   baseUrl,
   updateMessageFactory,
+  disableCustomInput
 }) => {
 
   const iconUrl = `${baseUrl}/kaia_small.png`
@@ -55,9 +57,10 @@ const ChatWidget: FC<ChatWidgetProps> = ({
           iconUrl={iconUrl}
         />
         <Footer
-            iconUrl={iconUrlSendButton}
-            storeTimeLineMessages={storeTimeLineMessages}
-            setMessage={setMessage}
+          disableCustomInput={disableCustomInput}
+          iconUrl={iconUrlSendButton}
+          storeTimeLineMessages={storeTimeLineMessages}
+          setMessage={setMessage}
         />
       </Grid>
     </>

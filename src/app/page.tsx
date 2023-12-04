@@ -86,6 +86,17 @@ export default function App({ baseUrl }) {
     messageTemplates
   );
 
+  const [disableCustomInput, setDisableCustomInput] = useState(true);
+  useEffect(
+    () => {
+      const msg = messages[messages.length - 1];
+      setDisableCustomInput(msg.role == 'bot' && (msg.id != null || msg.content == 'thinking...'));
+    },
+    [messages]
+  );
+
+  const [requestSentForFirstExpression, setRequestSentForFirstExpression] = useState(false);
+
   useEffect(
     () => {
       let initialMsgs = initialMessages(messageTemplates)
@@ -94,11 +105,17 @@ export default function App({ baseUrl }) {
       // if the last uncompleted template message is an expression, we need to automatically call the chat API to fake a user input
       if (!lastMsg.completed && lastMsg.element && lastMsg.element.type == 'expression') {
         initialMsgs = [...initialMsgs, handleExpressionExecution(initialMsgs, lastMsg)]
+        
+        if(!requestSentForFirstExpression) {
+          setMessages((messages) => [
+            ...initialMsgs
+          ]);
+
+          setRequestSentForFirstExpression(true);
+        }
       }
-      setMessages((messages) => [
-        ...initialMsgs
-      ]);
-      setTimeline(initialMsgs.filter((msg) => !!msg.title))
+      
+      setTimeline(initialMsgs.filter((msg) => !!msg.title));
     },
     [messageTemplates]
   );
@@ -147,6 +164,28 @@ export default function App({ baseUrl }) {
       });
     };
   };
+
+  const addMessageTemplates = function(content) {
+    if(content.id == null) return;
+
+    const msgTemplate = messageTemplates.some((tmp: any) => tmp.title == content.content);
+    if (msgTemplate) return;
+
+    const tmpMessageTemplates = messageTemplates.map(item => ({...item, completed: true}));
+
+    const newMessageTemplate = {
+      key: `question${messageTemplates.length + 1}`,
+      title: content.content,
+      content: content.content,
+      role: 'bot',
+      completed: false,
+      element: content.element,
+      surveyQuestion: true,
+      time: new Date().toISOString()
+    }
+
+    setMessageTemplates([...tmpMessageTemplates, newMessageTemplate]);
+  }
 
   const handleExpressionExecution = function(tempMessages, newMessage) {
     // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
@@ -201,41 +240,44 @@ export default function App({ baseUrl }) {
   };
 
   const storeTimeLineMessages = (message: MessageType) => {
-    setMessages((messages) => {
-      let tempMessages = messages;
-      // TODO: check if message has a survey question attached to it and mark the question as completed
-      if (message.surveyQuestion) {
-        tempMessages = tempMessages.map((msg) => {
-          if (msg.key == message.name) {
-            msg.completed = true;
-            msg.content = message.content;
-            return msg;
-          } else {
-            return msg;
-          }
-        });
-      }
-      message.completed = true;
-      tempMessages = [...tempMessages, message];
+    let tempMessages = messages;
+    // TODO: check if message has a survey question attached to it and mark the question as completed
+    if (message.surveyQuestion) {
+      tempMessages = tempMessages.map((msg) => {
+        if (msg.key == message.name) {
+          msg.completed = true;
+          msg.content = message.content;
+          return msg;
+        } else {
+          return msg;
+        }
+      });
+    }
+    message.completed = true;
+    tempMessages = [...tempMessages, message];
 
-      // then add the new message
-      // should all survey bot message be completed, check if messageTemplates has a new message and add it to the set
-      tempMessages = insertNextSurveyQuestion(tempMessages);
-      // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
-      if (message.customInput && message.role == "user") {
-        // dispatch api call
-        const loadingKey = Date.now();
-        apiClient?.chat(tempMessages).then(updateMessageFactory(loadingKey));
-        const loadingMessage = {
-          key: loadingKey,
-          role: "bot",
-          content: "thinking...",
-          time: new Date().toISOString(),
-        };
-        tempMessages = [...tempMessages, loadingMessage];
-      }
-      return [...tempMessages];
-    });
+    // then add the new message
+    // should all survey bot message be completed, check if messageTemplates has a new message and add it to the set
+    // tempMessages = insertNextSurveyQuestion(tempMessages);
+    // should the message be marked as a custom input, send it's content to the chat service and add a loading element to the list
+    // if (message.customInput && message.role == "user") {
+    if (message.role == "user") {
+      // dispatch api call
+      const loadingKey = Date.now();
+      apiClient?.chat(tempMessages).then((content) => {
+        addMessageTemplates(content);
+        updateMessageFactory(loadingKey)(content);
+      });
+      const loadingMessage = {
+        key: loadingKey,
+        role: "bot",
+        content: "thinking...",
+        time: new Date().toISOString(),
+      };
+      tempMessages = [...tempMessages, loadingMessage];
+    }
+
+    setMessages([...tempMessages]);
   };
 
   const handleSubmit = () => {
@@ -267,11 +309,12 @@ export default function App({ baseUrl }) {
         const configResponse = await getConfig({}, headers);
         if (configResponse.status === 200) {
           setFetchedConfig(configResponse.data);
-          setMessageTemplates(messagesFromConfig(configResponse.data));
+          const configMessageData = messagesFromConfig(configResponse.data);
+          setMessageTemplates(configMessageData);
           console.log(configResponse.data)
           setTimeline(
             // only take completed messages
-            messagesFromConfig(configResponse.data).filter((msg) => msg.completed)
+            configMessageData.filter((msg) => msg.completed)
           );
 
           // only take first two msg
@@ -321,6 +364,7 @@ export default function App({ baseUrl }) {
               timeline={timeline}
               baseUrl={baseUrl}
               updateMessageFactory={updateMessageFactory}
+              disableCustomInput={disableCustomInput}
             />
           </ThemeProvider>
       </ApiClientContext.Provider>
