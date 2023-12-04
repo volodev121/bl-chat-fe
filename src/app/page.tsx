@@ -86,7 +86,16 @@ export default function App({ baseUrl }) {
     messageTemplates
   );
 
-  const [sentFristExpressionRequest, setSentFirstExpressionRequest] = useState(false);
+  const [disableCustomInput, setDisableCustomInput] = useState(true);
+  useEffect(
+    () => {
+      const msg = messages[messages.length - 1];
+      setDisableCustomInput(msg.role == 'bot' && (msg.id != null || msg.content == 'thinking...'));
+    },
+    [messages]
+  );
+
+  const [requestSentForFirstExpression, setRequestSentForFirstExpression] = useState(false);
 
   useEffect(
     () => {
@@ -97,12 +106,12 @@ export default function App({ baseUrl }) {
       if (!lastMsg.completed && lastMsg.element && lastMsg.element.type == 'expression') {
         initialMsgs = [...initialMsgs, handleExpressionExecution(initialMsgs, lastMsg)]
         
-        if(!sentFristExpressionRequest) {
+        if(!requestSentForFirstExpression) {
           setMessages((messages) => [
             ...initialMsgs
           ]);
 
-          setSentFirstExpressionRequest(true);
+          setRequestSentForFirstExpression(true);
         }
       }
       
@@ -355,6 +364,7 @@ export default function App({ baseUrl }) {
               timeline={timeline}
               baseUrl={baseUrl}
               updateMessageFactory={updateMessageFactory}
+              disableCustomInput={disableCustomInput}
             />
           </ThemeProvider>
       </ApiClientContext.Provider>
