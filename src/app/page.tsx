@@ -23,9 +23,9 @@ import { time } from "console";
 
 export default function App({ baseUrl }) {
   if (baseUrl == null) {
-    baseUrl = "."
+    baseUrl = ".";
   } else {
-    baseUrl = baseUrl + "/public"
+    baseUrl = baseUrl + "/public";
   }
   const [showChatWidget, setShowChatWidget] = useState(false);
   const [showToolTip, setShowToolTip] = useState(true);
@@ -61,7 +61,9 @@ export default function App({ baseUrl }) {
         title: item.title,
         content: item.description || "",
         role: "bot",
-        completed: item.type == "image" || (item.type == "expression" && !item.expression),
+        completed:
+          item.type == "image" ||
+          (item.type == "expression" && !item.expression),
         element: item,
         surveyQuestion: true,
         time: new Date().toISOString(),
@@ -70,8 +72,8 @@ export default function App({ baseUrl }) {
   };
 
   const initialMessages = (templates) => {
-    let firstUnansweredIndex = templates.findIndex((msg) => !msg.completed)
-    if (firstUnansweredIndex == -1) firstUnansweredIndex = templates.length
+    let firstUnansweredIndex = templates.findIndex((msg) => !msg.completed);
+    if (firstUnansweredIndex == -1) firstUnansweredIndex = templates.length;
     return templates.slice(0, firstUnansweredIndex + 1);
   };
 
@@ -82,44 +84,44 @@ export default function App({ baseUrl }) {
     messageTemplates.filter((msg) => !!msg.title)
   );
   const [surveyData, setSurveyData] = useState({});
-  const [messages, setMessages] = useState<Array<MessageType>>(
-    messageTemplates
-  );
+  const [messages, setMessages] =
+    useState<Array<MessageType>>(messageTemplates);
 
   const [disableCustomInput, setDisableCustomInput] = useState(true);
-  useEffect(
-    () => {
-      const msg = messages[messages.length - 1];
-      setDisableCustomInput(msg.role == 'bot' && (msg.id != null || msg.content == 'thinking...'));
-    },
-    [messages]
-  );
+  useEffect(() => {
+    const msg = messages[messages.length - 1];
+    setDisableCustomInput(
+      msg.role == "bot" && (msg.id != null || msg.content == "thinking...")
+    );
+  }, [messages]);
 
-  const [requestSentForFirstExpression, setRequestSentForFirstExpression] = useState(false);
+  const [requestSentForFirstExpression, setRequestSentForFirstExpression] =
+    useState(false);
 
-  useEffect(
-    () => {
-      let initialMsgs = initialMessages(messageTemplates)
-      const lastMsg = initialMsgs[initialMsgs.length - 1]
+  useEffect(() => {
+    let initialMsgs = initialMessages(messageTemplates);
+    const lastMsg = initialMsgs[initialMsgs.length - 1];
 
-      // if the last uncompleted template message is an expression, we need to automatically call the chat API to fake a user input
-      if (!lastMsg.completed && lastMsg.element && lastMsg.element.type == 'expression') {
-        initialMsgs = [...initialMsgs, handleExpressionExecution(initialMsgs, lastMsg)]
-        
-        if(!requestSentForFirstExpression) {
-          setMessages((messages) => [
-            ...initialMsgs
-          ]);
+    // if the last uncompleted template message is an expression, we need to automatically call the chat API to fake a user input
+    if (
+      !lastMsg.completed &&
+      lastMsg.element &&
+      lastMsg.element.type == "expression"
+    ) {
+      initialMsgs = [
+        ...initialMsgs,
+        handleExpressionExecution(initialMsgs, lastMsg),
+      ];
 
-          setRequestSentForFirstExpression(true);
-        }
+      if (!requestSentForFirstExpression) {
+        setMessages((messages) => [...initialMsgs]);
+
+        setRequestSentForFirstExpression(true);
       }
-      
-      setTimeline(initialMsgs.filter((msg) => !!msg.title));
-    },
-    [messageTemplates]
-  );
+    }
 
+    setTimeline(initialMsgs.filter((msg) => !!msg.title));
+  }, [messageTemplates]);
 
   const updateSurveyDataFuction = (messages) => {
     return (surveyData) =>
@@ -165,29 +167,34 @@ export default function App({ baseUrl }) {
     };
   };
 
-  const addMessageTemplates = function(content) {
-    if(content.id == null) return;
+  const addMessageTemplates = function (content) {
+    if (content.id == null) return;
 
-    const msgTemplate = messageTemplates.some((tmp: any) => tmp.title == content.content);
+    const msgTemplate = messageTemplates.some(
+      (tmp: any) => tmp.title == content.content
+    );
     if (msgTemplate) return;
 
-    const tmpMessageTemplates = messageTemplates.map(item => ({...item, completed: true}));
+    const tmpMessageTemplates = messageTemplates.map((item) => ({
+      ...item,
+      completed: true,
+    }));
 
     const newMessageTemplate = {
       key: `question${messageTemplates.length + 1}`,
       title: content.content,
       content: content.content,
-      role: 'bot',
+      role: "bot",
       completed: false,
       element: content.element,
       surveyQuestion: true,
-      time: new Date().toISOString()
-    }
+      time: new Date().toISOString(),
+    };
 
     setMessageTemplates([...tmpMessageTemplates, newMessageTemplate]);
-  }
+  };
 
-  const handleExpressionExecution = function(tempMessages, newMessage) {
+  const handleExpressionExecution = function (tempMessages, newMessage) {
     // generate latest surveyData, we will need it in the code below. Otherwise the last answer is null.
     const tempSurveyData = updateSurveyDataFuction(tempMessages)();
     const loadingKey = Date.now();
@@ -203,7 +210,7 @@ export default function App({ baseUrl }) {
     apiClient
       ?.chat([...tempMessages, fakeUserMessage])
       .then(updateMessageFactory(loadingKey))
-      .then(() => updateMessageFactory(newMessage.key)({completed: true}));
+      .then(() => updateMessageFactory(newMessage.key)({ completed: true }));
     const loadingMessage = {
       key: loadingKey,
       role: "bot",
@@ -211,7 +218,7 @@ export default function App({ baseUrl }) {
       time: new Date().toISOString(),
     };
     return loadingMessage;
-  }
+  };
 
   const insertNextSurveyQuestion = function (tempMessages: any) {
     const newMessageTemplate = tempMessages
@@ -232,7 +239,10 @@ export default function App({ baseUrl }) {
           newMessage.element.type == "expression" &&
           newMessage.element.expression
         ) {
-          tempMessages = [...tempMessages, handleExpressionExecution(tempMessages, newMessage)];
+          tempMessages = [
+            ...tempMessages,
+            handleExpressionExecution(tempMessages, newMessage),
+          ];
         }
       }
     }
@@ -311,14 +321,14 @@ export default function App({ baseUrl }) {
           setFetchedConfig(configResponse.data);
           const configMessageData = messagesFromConfig(configResponse.data);
           setMessageTemplates(configMessageData);
-          console.log(configResponse.data)
+          console.log(configResponse.data);
           setTimeline(
             // only take completed messages
             configMessageData.filter((msg) => msg.completed)
           );
 
           // only take first two msg
-          setTimeline(timeLine => timeLine.slice(0, 1))
+          setTimeline((timeLine) => timeLine.slice(0, 1));
           setHasConfig(true);
         } else {
           console.error("Failed to fetch config:", configResponse.data);
@@ -336,37 +346,41 @@ export default function App({ baseUrl }) {
     return <></>;
   }
 
-  const classNames = `${styles.chatWidget} ${showChatWidget ? styles.show : ""}`
-  const classNamesTooltip = `${styles.toolTip} ${!showToolTip ? styles.show2 : ""}`
+  const classNames = `${styles.chatWidget} ${
+    showChatWidget ? styles.show : ""
+  }`;
+  const classNamesTooltip = `${styles.toolTip} ${
+    !showToolTip ? styles.show2 : ""
+  }`;
 
   return (
     <ConfigContext.Provider value={fetchedConfig}>
       <ApiClientContext.Provider value={apiClient}>
         <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
-            <ToolTip
-              classNames={classNamesTooltip}
-              showToolTip={showToolTip}
-              handleChange={handleChange}
-              inputValue={inputValue}
-              setInputValue={setInputValue}
-              handleSubmit={handleSubmit}
-              setShowChatWidget={setShowChatWidget}
-              setShowToolTip={setShowToolTip}
-            />
-            <ChatWidget
-              classNames={classNames}
-              messageTemplates={messageTemplates}
-              setShowChatWidget={setShowChatWidget}
-              setShowToolTip={setShowToolTip}
-              messages={messages}
-              setMessages={setMessages}
-              storeTimeLineMessages={storeTimeLineMessages}
-              timeline={timeline}
-              baseUrl={baseUrl}
-              updateMessageFactory={updateMessageFactory}
-              disableCustomInput={disableCustomInput}
-            />
-          </ThemeProvider>
+          <ToolTip
+            classNames={classNamesTooltip}
+            showToolTip={showToolTip}
+            handleChange={handleChange}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            handleSubmit={handleSubmit}
+            setShowChatWidget={setShowChatWidget}
+            setShowToolTip={setShowToolTip}
+          />
+          <ChatWidget
+            classNames={classNames}
+            messageTemplates={messageTemplates}
+            setShowChatWidget={setShowChatWidget}
+            setShowToolTip={setShowToolTip}
+            messages={messages}
+            setMessages={setMessages}
+            storeTimeLineMessages={storeTimeLineMessages}
+            timeline={timeline}
+            baseUrl={baseUrl}
+            updateMessageFactory={updateMessageFactory}
+            disableCustomInput={disableCustomInput}
+          />
+        </ThemeProvider>
       </ApiClientContext.Provider>
     </ConfigContext.Provider>
   );
@@ -376,7 +390,7 @@ export default function App({ baseUrl }) {
 if (document != null) {
   const baseUrl = (() => {
     const scriptUrl = document.currentScript.src;
-    return scriptUrl.slice(0,scriptUrl.lastIndexOf('/'))
+    return scriptUrl.slice(0, scriptUrl.lastIndexOf("/"));
   })();
   const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
   if (navDomNode != null) {
