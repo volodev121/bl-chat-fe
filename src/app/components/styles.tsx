@@ -1,30 +1,36 @@
 import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
+import { Rotate90DegreesCcw, Translate } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    "@global": {
+      body: {
+        background: "#FCFCFF",
+      },
+    },
     show: {
-      transform: "translateY(0%) !important",
+      transform: "translate(-50%, 0%) !important",
       background: "#000000 !important",
     },
     show2: {
       transform: "translate(-50%, 50vw) !important",
     },
     chatWidget: {
-      borderTopLeftRadius: "2em",
-      borderTopRightRadius: "2em",
-
+      maxWidth: "1280px",
+      width: "100% !important",
+      maxHeight: "726px",
+      height: "100%",
+      borderTopLeftRadius: "18px",
+      borderTopRightRadius: "18px",
       transition: "transform 1.2s ease-in-out",
-      transform: "translateY(110%)",
       position: "fixed",
-      left: "10vw",
       bottom: "0 !important", // changed from top to bottom
-      background: "#FFFFFF !important",
-      width: "80vw !important",
-      height: "90vh !important",
+      background: "#E2E2F6 !important",
+      // transform: "translateY(110%)",
+      left: "50%",
+      transform: "translate(-50%, 110%)",
       zIndex: "400 !important",
-      boxShadow:
-        "0px -15px 15px rgba(0,0,0,0.06), 0px 15px 15px rgba(0,0,0,0.06), 15px 0px 15px rgba(0,0,0,0.06), -15px 0px 15px rgba(0,0,0,0.06)",
       alignContent: "start",
       paddingBottom: "2em",
       gridGap: "2em",
@@ -41,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => {
       //                   1fr',
       //   overflowY: 'scroll',
       // }
+      "&.show": {},
     },
     floatingChatButton: {
       position: "fixed",
@@ -52,11 +59,6 @@ const useStyles = makeStyles((theme: Theme) => {
       "font-size": "20px",
       cursor: "pointer",
     },
-    "@global": {
-      body: {
-        background: "#FCFCFF",
-      },
-    },
     "@font-face": {
       fontFamily: "Poppins",
       src: "url('https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2')",
@@ -64,17 +66,15 @@ const useStyles = makeStyles((theme: Theme) => {
     header: {
       borderTopLeftRadius: "2em",
       borderTopRightRadius: "2em",
-
+      paddingTop: "20px",
+      paddingBottom: "15px",
       width: "100%",
-      "background-color": "#FFFFFF",
-      //height: '112px',
+      "background-color": "#E2E2F6",
+      height: "84px",
       display: "flex",
       "align-items": "center",
-      "border-bottom-style": "groove",
-      "border-color": "#EAEBF0",
-      "border-width": "thin",
+      borderBottom: "1px solid #BC32CE",
       justifyContent: "space-between",
-      padding: "0px 39px",
       gridArea: "header",
     },
     toolTip: {
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: "18px 18px 0 0",
       backgroundColor: "#5C0271",
       boxShadow: "-4px -4px 40px 0px rgba(140, 40, 200, 0.16)",
-      overflow: 'hidden',
+      overflow: "hidden",
     },
     tootipBackground: {
       position: "absolute",
@@ -136,27 +136,27 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     borderAnimation: {
       position: "absolute",
-      display: 'none',
+      display: "none",
       width: "180px",
       height: "442px",
       transform: "rotate(45deg)",
       flexShrink: "0",
       opacity: "0.4",
       background: "#00F3D6",
-      top: '-15em',
+      top: "-15em",
       // left: '-25%',
       filter: "blur(62px)",
-      animation: `$borderAnimation 5000ms`
+      animation: `$borderAnimation 5000ms`,
     },
-    '@keyframes borderAnimation': {
+    "@keyframes borderAnimation": {
       "0%": {
-        left: '0',
-        top: '-15em'
+        left: "0",
+        top: "-15em",
       },
       "100%": {
-        left: '150%',
-        top: '-15em'
-      }
+        left: "150%",
+        top: "-15em",
+      },
     },
     chatWidgetMessageList: {
       width: "100%",
@@ -182,11 +182,10 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       scrollbarWidth: "none", // For Firefox
       msOverflowStyle: "none", // For Internet Explorer and Edge
-      marginLeft: "39px", // Adds padding to the left of the message list
     },
     messageOverview: {
       border: "1px solid #E3E3ED", // Changes the border to light grey
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#D8D8ED",
       color: "#000000",
       borderRadius: "24px 0 24px 24px",
       fontFamily: "poppins !important",
@@ -209,14 +208,15 @@ const useStyles = makeStyles((theme: Theme) => {
       marginBottom: "12px",
       margin: "revert !important",
     },
-    listItemIcon: {
+    listItemIcon: { 
       minWidth: "30px !important",
     },
     listItemContent: {
-      background: "#FFFFFF",
+      background: "#D8D8ED",
       marginBottom: "20px",
       borderRadius: "12px",
       margin: "15px",
+      marginLeft: 0,
     },
     listItemHead: {
       fontFamily: "poppins !important",
@@ -338,8 +338,8 @@ const useStyles = makeStyles((theme: Theme) => {
       display: "flex",
       gridArea: "footer",
       width: "100%",
-      paddingLeft: "18px",
-      "background-color": "#FFFFFF",
+      position: "relative",
+      // overflow: 'hidden',
     },
     submitButton: {
       fontFamily: "poppins !important",
@@ -350,18 +350,69 @@ const useStyles = makeStyles((theme: Theme) => {
       cursor: "pointer",
     },
     footerTextBox: {
+      "--border-radius": "1rem",
+      "--border-size": "0.5rem",
+      "--border-bg": "red",
+      "--padding": "1rem",
+      position: "relative",
+      width: "100%",
+      height: "100%",
       "flex-grow": 1,
-      padding: "5px",
-      border: "1px solid",
       borderRadius: "1em",
       color: "#000000",
-      borderColor: "#D02DF5",
+      border: "1px solid #CDCDDF",
       backgroundColor: "#F4F4FF",
       paddingLeft: "16px !important",
       fontFamily: "poppins !important",
       fontSize: "16px",
-      fontColor: "#000000",
+      transition: '0.5s',
+      "&:hover": {
+        borderColor: '#8213AA'
+      },
+      "&.Mui-focused": {
+        border: "1px solid #8213AA",
+        '& .MuiOutlinedInput-notchedOutline': {
+          border: 'none'
+        }
+      }
     },
+    changeBorder: {
+      "--angle": "90deg",
+      "--c1": "rgba(168, 239, 255, 1)",
+      "--c2": "rgba(168, 239, 255, 0.1)",
+      border: "0.35rem solid",
+      width: "100%",
+      height: "101%",
+      padding: "1px",
+      borderImage:
+        "conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30",
+      animation: "$borderRotate 3000ms linear infinite forwards",
+    },
+
+    "@keyframes borderRotate": {
+      "100%": {
+        "--angle": "420deg",
+      }
+    },
+
+    // changeBorder: {
+    //   "--a": "20deg",
+    //   width: "100%",
+    //   height: "101%",
+    //   padding: "1px",
+    //   borderRadius: "16px",
+    //   transition: "--a 0.5s",
+    //   animation: "$changeBorder 3000ms linear infinite",
+    //   background: "linear-gradient(var(--a), #8213AA, #D02DF500)",
+    // },
+    // "@keyframes changeBorder": {
+    //   from: {
+    //     "--a": "0",
+    //   },
+    //   to: {
+    //     "--a": "360deg",
+    //   },
+    // },
     messagesList: {
       padding: "10px",
       height: "400px",

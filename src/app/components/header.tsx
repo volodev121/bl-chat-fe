@@ -32,7 +32,6 @@ const Header: FC<HeaderProps> = ({
               height: "50px",
               width: "50px",
               borderRadius: "50%",
-              border: "1px solid #E3E3ED", // Added grey border
             }}
             role="presentation"
             alt=""
@@ -45,6 +44,9 @@ const Header: FC<HeaderProps> = ({
             backgroundColor: "#F6F7FC !important",
             justifyContent: "center",
             color: "#000000",
+            minWidth: "40px",
+            width: "40px !important",
+            height: "40px !important",
             textTransform: "none",
             ":hover": {
               backgroundColor: "#EEF0F8 !important",
@@ -55,7 +57,10 @@ const Header: FC<HeaderProps> = ({
           }}
           onClick={() => handleClick()}
         >
-          Collapse
+          <img 
+            src="/images/down_arrow.svg"
+            alt=""
+          />
         </Button>
       </Grid>
     </Grid>

@@ -17,7 +17,7 @@ import {
 import createApiClient from "./utils/apiClient.tsx";
 import ApiClientContext from "./components/apiContext.tsx";
 import ConfigContext from "./components/configContext.tsx";
-
+import './styles/global.css';
 import useStyles from "./components/styles.tsx";
 import { time } from "console";
 

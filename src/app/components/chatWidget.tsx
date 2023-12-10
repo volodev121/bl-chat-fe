@@ -33,7 +33,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   disableCustomInput
 }) => {
 
-  const iconUrl = `${baseUrl}/kaia_small.png`
+  const iconUrl = `${baseUrl}/images/avatar.png`
   const iconUrlSendButton = `${baseUrl}/kaia_arrow.svg`
 
   const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
@@ -41,8 +41,15 @@ const ChatWidget: FC<ChatWidgetProps> = ({
 
   return (
     <>
-      <Grid container sx={{ display: 'grid' }}
+      <Grid container sx={{ display: 'grid', padding: "0 24px 24px" }}
             className={classNames}>
+        <img 
+          src="/images/widget_background.png"
+          style={{
+            position: 'absolute',
+            mixBlendMode: 'screen'
+          }}
+        />
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}

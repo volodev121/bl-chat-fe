@@ -22,7 +22,7 @@ const UserMessage: React.FC<UserMessageProps> = ({
     >
       <Grid
         sx={{
-          background: "#F1DEF5",
+          background: "#C7C7E2",
           padding: "12px",
           maxWidth: "80%",
           borderRadius: "12px 12px 0px",
