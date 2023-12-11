@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme: Theme) => {
       "&::-webkit-scrollbar": {
         display: "none", // For Chrome, Safari, and Opera
       },
-
+      paddingTop: '0px !important',
       scrollbarWidth: "none", // For Firefox
       msOverflowStyle: "none", // For Internet Explorer and Edge
       wordWrap: "break-word",
@@ -185,7 +185,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     messageOverview: {
       border: "1px solid #E3E3ED", // Changes the border to light grey
-      backgroundColor: "#D8D8ED",
+      backgroundColor: "#E9E9F8",
       color: "#000000",
       borderRadius: "24px 0 24px 24px",
       fontFamily: "poppins !important",
@@ -212,7 +212,7 @@ const useStyles = makeStyles((theme: Theme) => {
       minWidth: "30px !important",
     },
     listItemContent: {
-      background: "#D8D8ED",
+      // background: "#D8D8ED",
       marginBottom: "20px",
       borderRadius: "12px",
       margin: "15px",

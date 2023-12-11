@@ -4,7 +4,6 @@ import { Button, Input } from "@mui/material";
 import { MessageType } from "./../utils/types";
 import { isEmpty } from "lodash";
 import { AiOutlineSend } from "react-icons/ai";
-import classes from './border.module.css'
 
 interface FooterProps {
   disableCustomInput: boolean;

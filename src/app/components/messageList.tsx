@@ -30,20 +30,14 @@ const MessageList: React.FC<MessageListProps> = ({
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
-  const handleChange = (message: MessageType, label: string) => {
-    if (!message.completed) {
-      setSelectedValue(label);
-      setElementDisabled(false);
-    }
-  };
-
-  const handleClick = (message: MessageType) => {
+  
+  const handleClick = (message: MessageType, label: string) => {
+    console.log(selectedValue, '---------value');
     const msg = {
       ...message, // extend original message for back reference to the question
       key: `${message.key} answer`,
       role: "user",
-      content: selectedValue,
+      content: label,
       completed: true,
       disabled: true,
       name: message.key,
@@ -54,6 +48,15 @@ const MessageList: React.FC<MessageListProps> = ({
     storeTimeLineMessages(msg);
     setElementDisabled(true);
   };
+
+  const handleChange = (message: MessageType, label: string) => {
+    console.log(label, '-------------> label')
+    if (!message.completed) {
+      setSelectedValue(label);
+      setElementDisabled(false);
+    }
+  };
+
 
   return (
     <>

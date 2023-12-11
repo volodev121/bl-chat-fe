@@ -26,7 +26,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
   message,
   updateSelf,
   ratingAvailable,
-  handleClick = null,
+  handleClick,
   handleChange = null,
   elementDisabled = false,
   imgSource,
@@ -104,9 +104,9 @@ const BotMessage: React.FC<BotMessageProps> = ({
           </Typography>
         </ListItemIcon>
         <div className={styles.listItemContent}>
-          <Message message={message} handleChange={handleChange} />
+          <Message message={message} handleChange={handleChange} handleClick={handleClick}/>
         </div>
-        <div>
+        {/* <div>
           <Button
             variant="contained"
             disabled={message.completed ? true : elementDisabled}
@@ -131,7 +131,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
           >
             Send answer
           </Button>
-        </div>
+        </div> */}
       </ListItem>
     );
   }

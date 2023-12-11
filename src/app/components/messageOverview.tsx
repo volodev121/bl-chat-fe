@@ -33,12 +33,6 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
               return (
                 <ListItem
                   key={index}
-                  // sx={{
-                  //   width: "100%",
-                  //   borderRight: message.completed
-                  //     ? "6px solid #D02DF5"
-                  //     : "unset",
-                  // }}
                 >
                   <ListItemIcon className={styles.listItemIcon}>
                     <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />

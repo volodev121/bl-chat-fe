@@ -12,9 +12,10 @@ import Divider from "@mui/material/Divider";
 interface MessageProps {
   message: MessageType;
   handleChange: (message: MessageType, label: string) => void;
+  handleClick: (message: MessageType, label: string) => void;
 }
 
-const Message: React.FC<MessageProps> = ({ message, handleChange }) => {
+const Message: React.FC<MessageProps> = ({ message, handleChange, handleClick }) => {
   if (!message.element) return;
 
   switch (message.element.type) {
@@ -51,6 +52,7 @@ const Message: React.FC<MessageProps> = ({ message, handleChange }) => {
                           }}
                           onChange={() => {
                             handleChange(message, choice.text);
+                            handleClick ? handleClick(message, choice.text) : null;
                           }}
                         />
                       }
@@ -64,17 +66,6 @@ const Message: React.FC<MessageProps> = ({ message, handleChange }) => {
                           {choice.text}
                         </Typography>
                       }
-                    />
-                    <Divider
-                      light
-                      sx={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "1px",
-                        backgroundColor: "#E2E2F6",
-                        left: 0,
-                        border: "none",
-                      }}
                     />
                   </div>
                 )}
