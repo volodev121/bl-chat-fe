@@ -33,6 +33,7 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
               return (
                 <ListItem
                   key={index}
+                  sx={{alignItems: "flex-start"}}
                 >
                   <ListItemIcon className={styles.listItemIcon}>
                     <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />

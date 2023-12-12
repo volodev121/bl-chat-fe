@@ -26,19 +26,17 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <Grid container direction="row" className={styles.header}>
-      <Grid item>
-        <span className={styles.headerIcon}>
-          <img
-            src={iconUrl}
-            style={{
-              height: "50px",
-              width: "50px",
-              borderRadius: "50%",
-            }}
-            role="presentation"
-            alt=""
-          />
-        </span>
+      <Grid item sx={{ width: "45px", height: "45px" }}>
+        <img
+          src={iconUrl}
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "50%",
+          }}
+          role="presentation"
+          alt=""
+        />
       </Grid>
       <Grid item className={styles.buttonGridContainer}>
         <Button

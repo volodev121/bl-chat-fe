@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MessageType } from "./../utils/types.tsx";
 import { ListItem, ListItemIcon, Typography } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
@@ -92,6 +92,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
             variant="h6"
             className={styles.listItemHead}
             id={`${message.name}-label`}
+            sx={{ fontWeight: 600 }}
           >
             {finalText.split("\n").map(function (item, idx) {
               return (
@@ -104,7 +105,11 @@ const BotMessage: React.FC<BotMessageProps> = ({
           </Typography>
         </ListItemIcon>
         <div className={styles.listItemContent}>
-          <Message message={message} handleChange={handleChange} handleClick={handleClick}/>
+          <Message
+            message={message}
+            handleChange={handleChange}
+            handleClick={handleClick}
+          />
         </div>
         {/* <div>
           <Button
@@ -136,6 +141,17 @@ const BotMessage: React.FC<BotMessageProps> = ({
     );
   }
 
+  const getFontWeight = () => {
+    if (
+      !message.customInput &&
+      message.element &&
+      message.element.type !== "image"
+    )
+      return 600;
+
+    return 400;
+  };
+
   return (
     <>
       <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "45em" }}>
@@ -155,16 +171,12 @@ const BotMessage: React.FC<BotMessageProps> = ({
                 role="presentation"
               />
             )}
-          <Typography variant="h6" className={styles.listItemHead}>
-            {message.content.split("\n").map(function (item, idx) {
-              console.log(item, "text");
-              return (
-                <span key={idx}>
-                  {item}
-                  <br />
-                </span>
-              );
-            })}
+          <Typography
+            variant="h6"
+            className={styles.listItemHead}
+            fontWeight={getFontWeight}
+          >
+            {message.content}
           </Typography>
           {message.element &&
             message.element.type == "image" &&
