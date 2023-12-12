@@ -4,6 +4,7 @@ import useStyles from "./styles.tsx";
 import { AiOutlineSend } from "react-icons/ai";
 import { isEmpty } from "lodash";
 import ConfigContext from "./configContext.tsx";
+import { setTimeout } from "timers";
 
 interface ToolTipProps {
   classNames: string;
@@ -44,19 +45,20 @@ const ToolTip: FC<ToolTipProps> = ({
 
   return (
     <>
-      <Grid className={classNames}
-        onMouseEnter={e => {
-          setStyle({display: 'block'});
+      <Grid
+        className={classNames}
+        sx={{
+          backgroundImage: `${baseUrl}/images/collapsed-bg.png`,
         }}
-        onMouseLeave={e => {
-          setStyle({display: 'none'})
-      }}
+        onMouseEnter={(e) => {
+          setStyle({ display: "block" });
+          setTimeout(() => {
+            setStyle({ display: "none" });
+          }, 2000);
+        }}
       >
         <Grid item className={styles.toolTipWhite}>
-          <div 
-            className={`${styles.borderAnimation}`}
-            style={style}
-          />
+          <div className={`${styles.borderAnimation}`} style={style} />
           <Input
             type="text"
             value={inputValue}
@@ -78,10 +80,7 @@ const ToolTip: FC<ToolTipProps> = ({
                   onClick={handleSubmit}
                   sx={{ minWidth: "32px", height: "32px", borderRadius: "50%" }}
                 >
-                  <img 
-                    src={`${baseUrl}/images/send_white.svg`}
-                    alt=""
-                  />
+                  <img src={`${baseUrl}/images/send_white.svg`} alt="" />
                 </Button>
               </div>
             }

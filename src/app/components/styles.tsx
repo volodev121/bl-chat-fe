@@ -144,7 +144,6 @@ const useStyles = makeStyles((theme: Theme) => {
       opacity: "0.4",
       background: "#00F3D6",
       top: "-15em",
-      // left: '-25%',
       filter: "blur(62px)",
       animation: `$borderAnimation 5000ms`,
     },
