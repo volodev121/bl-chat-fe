@@ -13,6 +13,7 @@ interface ToolTipProps {
   setShowToolTip: (flag: boolean) => void;
   handleChange: (event: any) => void;
   handleSubmit: () => void;
+  baseUrl: string;
 }
 
 const ToolTip: FC<ToolTipProps> = ({
@@ -20,6 +21,7 @@ const ToolTip: FC<ToolTipProps> = ({
   inputValue,
   handleChange,
   handleSubmit,
+  baseUrl,
 }) => {
   const styles = useStyles();
   const [style, setStyle] = useState({});
@@ -77,7 +79,7 @@ const ToolTip: FC<ToolTipProps> = ({
                   sx={{ minWidth: "32px", height: "32px", borderRadius: "50%" }}
                 >
                   <img 
-                    src="/images/send_white.svg"
+                    src={`${baseUrl}/images/send_white.svg`}
                     alt=""
                   />
                 </Button>

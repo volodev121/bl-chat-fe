@@ -366,6 +366,7 @@ export default function App({ baseUrl }) {
             handleSubmit={handleSubmit}
             setShowChatWidget={setShowChatWidget}
             setShowToolTip={setShowToolTip}
+            baseUrl={baseUrl}
           />
           <ChatWidget
             classNames={classNames}

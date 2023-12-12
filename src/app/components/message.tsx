@@ -7,6 +7,7 @@ import {
   FormControl,
   Typography,
   Input,
+  Checkbox,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 interface MessageProps {
@@ -15,8 +16,13 @@ interface MessageProps {
   handleClick: (message: MessageType, label: string) => void;
 }
 
-const Message: React.FC<MessageProps> = ({ message, handleChange, handleClick }) => {
+const Message: React.FC<MessageProps> = ({
+  message,
+  handleChange,
+  handleClick,
+}) => {
   if (!message.element) return;
+  console.log("message.element====>", message.element);
 
   switch (message.element.type) {
     case "radiogroup":
@@ -96,6 +102,20 @@ const Message: React.FC<MessageProps> = ({ message, handleChange, handleClick })
           />
         </FormControl>
       );
+    case "checkbox": {
+      return (
+        <FormControl
+          sx={{ marginLeft: "0px", marginRight: "100px", width: "100%" }}
+        >
+          {message.element.choices.map((choice, index) => (
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label={choice.text}
+            />
+          ))}
+        </FormControl>
+      );
+    }
   }
 };
 

@@ -8,12 +8,14 @@ interface HeaderProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
   iconUrl: string;
+  baseUrl: string;
 }
 
 const Header: FC<HeaderProps> = ({
   setShowChatWidget,
   setShowToolTip,
   iconUrl,
+  baseUrl,
 }) => {
   const styles = useStyles();
 
@@ -57,10 +59,7 @@ const Header: FC<HeaderProps> = ({
           }}
           onClick={() => handleClick()}
         >
-          <img 
-            src="/images/down_arrow.svg"
-            alt=""
-          />
+          <img src={`${baseUrl}/images/down_arrow.svg`} alt="" />
         </Button>
       </Grid>
     </Grid>

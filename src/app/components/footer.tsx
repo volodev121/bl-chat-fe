@@ -10,12 +10,14 @@ interface FooterProps {
   setMessage: (message: MessageType) => void;
   storeTimeLineMessages: (message: MessageType) => void;
   iconUrl: string;
+  baseUrl: string;
 }
 
 const Footer: FC<FooterProps> = ({
   disableCustomInput,
   storeTimeLineMessages,
   iconUrl,
+  baseUrl
 }) => {
   const styles = useStyles();
 
@@ -77,7 +79,7 @@ const Footer: FC<FooterProps> = ({
                 }}
               >
                 <Button onClick={handleSubmit} disabled={disableCustomInput}>
-                  <img src="/images/send_white.svg" alt="" />
+                  <img src={`${baseUrl}/images/send_white.svg`} alt="" />
                 </Button>
               </div>
               // <Button
