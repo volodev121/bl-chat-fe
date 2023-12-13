@@ -56,7 +56,7 @@ const Footer: FC<FooterProps> = ({
   const stopBorderAnimation = () => {
     setTimeout(() => {
       setVisibleBorderAnimation(false);
-    }, 2000);
+    }, 3000);
   };
 
   return (
