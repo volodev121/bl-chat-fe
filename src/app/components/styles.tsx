@@ -372,6 +372,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     footerGrayBorder: {
       border: "1px solid #CDCDDF",
+      borderRadius: "16px"
     },
     footerTextBox: {
       "--border-radius": "1rem",
