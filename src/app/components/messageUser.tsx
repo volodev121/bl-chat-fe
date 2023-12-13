@@ -18,14 +18,15 @@ const UserMessage: React.FC<UserMessageProps> = ({
       sx={{
         "flex-wrap": "wrap",
         "flex-direction": "row-reverse",
+        padding: "0px"
       }}
     >
       <Grid
         sx={{
           background: "#C7C7E2",
-          padding: "12px",
+          padding: "10px 14px 10px 16px",
           maxWidth: "80%",
-          borderRadius: "12px 12px 0px",
+          borderRadius: "16px 16px 0px",
         }}
       >
         <Typography className={styles.listItemReplyText}>

@@ -47,7 +47,7 @@ const Message: React.FC<MessageProps> = ({
                     <FormControlLabel
                       key={index}
                       value={choice.value}
-                      sx={{paddingLeft: '15px'}}
+                      sx={{ml: "12px"}}
                       control={
                         <Radio
                           sx={{
@@ -55,6 +55,7 @@ const Message: React.FC<MessageProps> = ({
                             "&.Mui-checked": {
                               color: "#D02DF5",
                             },
+                            padding: "4px 4px 4px 0px"
                           }}
                           onChange={() => {
                             handleChange(message, choice.text);
@@ -82,7 +83,7 @@ const Message: React.FC<MessageProps> = ({
       );
     case "text":
       return (
-        <FormControl sx={{ marginLeft: "0px", marginRight: "100px" }}>
+        <FormControl sx={{ margin: "12px 24px 12px 12px" }}>
           <Input
             type="text"
             placeholder={message.placeholder}

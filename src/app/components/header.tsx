@@ -26,7 +26,7 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <Grid container direction="row" className={styles.header}>
-      <Grid item sx={{ width: "45px", height: "45px" }}>
+      <Grid item sx={{ width: "48px", height: "48px" }}>
         <img
           src={iconUrl}
           style={{

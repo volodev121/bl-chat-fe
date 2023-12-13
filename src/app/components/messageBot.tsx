@@ -84,7 +84,9 @@ const BotMessage: React.FC<BotMessageProps> = ({
               height: "24px",
               width: "24px",
               borderRadius: "50%",
-              border: "1px solid #E3E3ED", // Added grey border
+              // border: "1px solid #E3E3ED", // Added grey border
+              margin: "0px 8px 4px 0px"
+
             }}
             role="presentation"
           />
@@ -92,7 +94,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
             variant="h6"
             className={styles.listItemHead}
             id={`${message.name}-label`}
-            sx={{ fontWeight: 600 }}
+            sx={{ fontWeight: 500 }}
           >
             {finalText.split("\n").map(function (item, idx) {
               return (
@@ -147,14 +149,25 @@ const BotMessage: React.FC<BotMessageProps> = ({
       message.element &&
       message.element.type !== "image"
     )
-      return 600;
+      return 500;
 
     return 400;
   };
 
+  const getMarginBottom = () => {
+    if (
+      !message.customInput &&
+      message.element &&
+      message.element.type !== "image"
+    )
+      return "0px";
+
+    return "32px";
+  };
+
   return (
     <>
-      <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "45em" }}>
+      <ListItem sx={{ "flex-wrap": "wrap", maxWidth: "45em", padding: "0px" }}>
         <ListItemIcon className={styles.listItemHeadIcon}>
           {!message.customInput &&
             message.element &&
@@ -166,7 +179,8 @@ const BotMessage: React.FC<BotMessageProps> = ({
                   height: "24px",
                   width: "24px",
                   borderRadius: "50%",
-                  border: "1px solid #E3E3ED", // Added grey border
+                  // border: "1px solid #E3E3ED", // Added grey border
+                  margin: "0px 8px 4px 0px"
                 }}
                 role="presentation"
               />
@@ -175,6 +189,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
             variant="h6"
             className={styles.listItemHead}
             fontWeight={getFontWeight}
+            sx={{marginBottom: getMarginBottom}}
           >
             {message.content}
           </Typography>
