@@ -10,6 +10,8 @@ import {
   Checkbox,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import { RadioCheckedIcon, RadioUncheckedIcon } from "./icon.tsx";
+
 interface MessageProps {
   message: MessageType;
   handleChange: (message: MessageType, label: string) => void;
@@ -47,7 +49,7 @@ const Message: React.FC<MessageProps> = ({
                     <FormControlLabel
                       key={index}
                       value={choice.value}
-                      sx={{ml: "12px"}}
+                      sx={{ ml: "12px" }}
                       control={
                         <Radio
                           sx={{
@@ -55,11 +57,16 @@ const Message: React.FC<MessageProps> = ({
                             "&.Mui-checked": {
                               color: "#D02DF5",
                             },
-                            padding: "4px 4px 4px 0px"
+                            padding: 0
                           }}
+                          disableRipple
+                          icon={<RadioCheckedIcon />}
+                          checkedIcon={<RadioUncheckedIcon />}
                           onChange={() => {
                             handleChange(message, choice.text);
-                            handleClick ? handleClick(message, choice.text) : null;
+                            handleClick
+                              ? handleClick(message, choice.text)
+                              : null;
                           }}
                         />
                       }

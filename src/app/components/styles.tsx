@@ -491,6 +491,31 @@ const useStyles = makeStyles((theme: Theme) => {
       "flex-direction": "row",
       "justify-content": "center",
     },
+    radioIconContainer: {
+      margin: "4px",
+      width: "24px",
+      height: "24px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    radioUncheckedIcon: {
+      width: "16px",
+      height: "16px",
+      borderRadius: "50%",
+      border: "2px solid #d02df5",
+      background: "#fff",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    radioCheckedIcon: {
+      display: "inline-block",
+      width: "10px",
+      height: "10px",
+      borderRadius: "50%",
+      background: "#d02df5",
+    }
   };
 });
 

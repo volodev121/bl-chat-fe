@@ -74,7 +74,7 @@ const BotMessage: React.FC<BotMessageProps> = ({
           flexWrap: "wrap",
           flexDirection: "column",
           alignItems: "flex-start",
-          paddingLeft: "0px important!",
+          paddingLeft: "0px !important",
         }}
       >
         <ListItemIcon className={styles.listItemHeadIcon}>
