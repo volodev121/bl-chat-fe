@@ -21,13 +21,15 @@ import './styles/global.css';
 import useStyles from "./components/styles.tsx";
 import { time } from "console";
 
-export default function App({ baseUrl }) {
+export default function App({ baseUrl, window }) {
   if (baseUrl == null) {
     baseUrl = ".";
   } else {
     baseUrl = baseUrl + "/public";
   }
-  const [showChatWidget, setShowChatWidget] = useState(false);
+
+
+  const [showChatWidget, setShowChatWidget] = useState(location.hash === "#kaia");
   const [showToolTip, setShowToolTip] = useState(true);
   const config = {
     logo_url: "",
@@ -346,6 +348,8 @@ export default function App({ baseUrl }) {
     return <></>;
   }
 
+  window.addEventListener("hashchange", (event) => { setShowChatWidget(location.hash === "#kaia")});
+
   const classNames = `${styles.chatWidget} ${
     showChatWidget ? styles.show : ""
   }`;
@@ -357,17 +361,6 @@ export default function App({ baseUrl }) {
     <ConfigContext.Provider value={fetchedConfig}>
       <ApiClientContext.Provider value={apiClient}>
         <ThemeProvider theme={customThemeFactory(fetchedConfig)}>
-          <ToolTip
-            classNames={classNamesTooltip}
-            showToolTip={showToolTip}
-            handleChange={handleChange}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            handleSubmit={handleSubmit}
-            setShowChatWidget={setShowChatWidget}
-            setShowToolTip={setShowToolTip}
-            baseUrl={baseUrl}
-          />
           <ChatWidget
             classNames={classNames}
             messageTemplates={messageTemplates}
@@ -396,6 +389,6 @@ if (document != null) {
   const navDomNode = document.querySelector("#bl-chat-widget-bubble-button");
   if (navDomNode != null) {
     const navRoot = createRoot(navDomNode);
-    navRoot.render(<App baseUrl={baseUrl} />);
+    navRoot.render(<App baseUrl={baseUrl} window={window} />);
   }
 }
