@@ -218,6 +218,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     listItemIcon: {
       minWidth: "30px !important",
+      paddingTop: "2px",
     },
     listItemContent: {
       // background: "#D8D8ED",
