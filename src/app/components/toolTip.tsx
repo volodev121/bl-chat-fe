@@ -4,7 +4,7 @@ import useStyles from "./styles.tsx";
 import { AiOutlineSend } from "react-icons/ai";
 import { isEmpty } from "lodash";
 import ConfigContext from "./configContext.tsx";
-import { setTimeout } from "timers";
+// import { setTimeout } from "timers";
 
 interface ToolTipProps {
   classNames: string;
