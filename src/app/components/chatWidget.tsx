@@ -46,7 +46,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
     <>
       <Grid
         container
-        sx={{ display: "grid", padding: "16px 24px 24px" }}
+        sx={{ display: "grid", padding: "16px 24px 24px", boxShadow: "0px -6px 48px 0px rgba(177, 177, 177, 0.40)" }}
         className={classNames}
       >
         <img
