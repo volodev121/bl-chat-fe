@@ -38,12 +38,13 @@ const useStyles = makeStyles((theme: Theme) => {
       alignContent: "start",
       paddingBottom: "2em",
       rowGap: "16px",
-      gridTemplateColumns: "324px",
-      gridTemplate:
-        '"header header header  header  header header" 61px \
-                     "list       messages    messages     messages messages   . " 1fr \
-                     ".        footer      footer      footer   footer   .  " 50px / \
-                      minmax(0px, calc((100vw - 60vw) /2))     4fr     2fr     10fr  1fr  minmax(0px, calc((100vw - 96vw) /2))',
+      gridTemplateColumns: "minmax(auto, 324px) 1fr",
+      gridTemplateRows: "auto 1fr auto",
+      gridColumnGap: '32px',
+      gridTemplate: "'header header' 61px \
+                      'list messages' \
+                      'list footer' \
+                    ",
       // [theme.breakpoints.down('md')]: {
       //   gridTemplate: '"header" 112px \
       //                   "list" auto\
@@ -171,8 +172,6 @@ const useStyles = makeStyles((theme: Theme) => {
       msOverflowStyle: "none", // For Internet Explorer and Edge
       wordWrap: "break-word",
       gridArea: "messages",
-      marginLeft: "32px !important",
-      maxWidth: "876px",
       // [theme.breakpoints.down('md')]: {
       //   overflow: 'visible',
       // }
@@ -250,7 +249,9 @@ const useStyles = makeStyles((theme: Theme) => {
       height: "auto",
       maxWidth: "708px",
       width: "100%",
-      width: "fit-content",
+      "@media (max-width: 1150px)": {
+        paddingRight: "24px",
+      }
     },
     listItem: {
       paddingLeft: "0px !important",
