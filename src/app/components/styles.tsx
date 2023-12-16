@@ -40,20 +40,20 @@ const useStyles = makeStyles((theme: Theme) => {
       rowGap: "16px",
       gridTemplateColumns: "minmax(auto, 324px) 1fr",
       gridTemplateRows: "auto 1fr auto",
-      gridColumnGap: '32px',
-      gridTemplate: "'header header' 61px \
+      gridColumnGap: "32px",
+      gridTemplate:
+        "'header header' 61px \
                       'list messages' \
                       'list footer' \
                     ",
-      // [theme.breakpoints.down('md')]: {
-      //   gridTemplate: '"header" 112px \
-      //                   "list" auto\
-      //                   "messages" 1fr\
-      //                   "input" auto /\
-      //                   1fr',
-      //   overflowY: 'scroll',
-      // }
       "&.show": {},
+      "@media (max-width: 700px)": {
+        gridTemplate:
+          "'header' 61px \
+          'messages' 1fr\
+          'footer' \
+          ",
+      },
     },
     floatingChatButton: {
       position: "fixed",
@@ -186,6 +186,9 @@ const useStyles = makeStyles((theme: Theme) => {
       scrollbarWidth: "none", // For Firefox
       msOverflowStyle: "none", // For Internet Explorer and Edge
       width: "324px",
+      "@media (max-width: 700px)": {
+        display: "none",
+      },
     },
     messageOverview: {
       border: "1px solid #E3E3ED", // Changes the border to light grey
@@ -251,7 +254,7 @@ const useStyles = makeStyles((theme: Theme) => {
       width: "100%",
       "@media (max-width: 1150px)": {
         paddingRight: "24px",
-      }
+      },
     },
     listItem: {
       paddingLeft: "0px !important",
@@ -354,7 +357,7 @@ const useStyles = makeStyles((theme: Theme) => {
       width: "100%",
       height: "48px",
       border: "1px solid transparent",
-      zIndex: 1
+      zIndex: 1,
     },
     footer: {
       display: "flex",
@@ -374,7 +377,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     footerGrayBorder: {
       border: "1px solid #CDCDDF",
-      borderRadius: "16px"
+      borderRadius: "16px",
     },
     footerTextBox: {
       "--border-radius": "1rem",
@@ -499,7 +502,7 @@ const useStyles = makeStyles((theme: Theme) => {
       height: "24px",
       display: "flex",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
     },
     radioUncheckedIcon: {
       width: "16px",
@@ -509,7 +512,7 @@ const useStyles = makeStyles((theme: Theme) => {
       background: "#fff",
       display: "flex",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
     },
     radioCheckedIcon: {
       display: "inline-block",
@@ -517,7 +520,7 @@ const useStyles = makeStyles((theme: Theme) => {
       height: "10px",
       borderRadius: "50%",
       background: "#d02df5",
-    }
+    },
   };
 });
 
