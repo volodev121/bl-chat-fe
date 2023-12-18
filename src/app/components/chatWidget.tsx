@@ -2,7 +2,7 @@ import React, { FC, useState, useContext } from "react";
 import { Grid } from "@mui/material";
 import Header from "./header.tsx";
 import { MessageType } from "./../utils/types.tsx";
-import Footer from './footer.tsx'
+import Footer from "./footer.tsx";
 import MessageOverview from "./messageOverview";
 import MessageList from "./messageList";
 import ApiClientContext from "./apiContext.tsx";
@@ -30,22 +30,36 @@ const ChatWidget: FC<ChatWidgetProps> = ({
   timeline,
   baseUrl,
   updateMessageFactory,
-  disableCustomInput
+  disableCustomInput,
 }) => {
+  const iconUrl = `${baseUrl}/images/avatar.png`;
+  const iconUrlSendButton = `${baseUrl}/kaia_arrow.svg`;
 
-  const iconUrl = `${baseUrl}/kaia_small.png`
-  const iconUrlSendButton = `${baseUrl}/kaia_arrow.svg`
-
-  const [message, setMessage] = useState<MessageType>({ role: 'user', content: '', customInput: true });
+  const [message, setMessage] = useState<MessageType>({
+    role: "user",
+    content: "",
+    customInput: true,
+  });
   const apiClient = useContext(ApiClientContext);
 
   return (
     <>
-      <Grid container sx={{ display: 'grid' }}
-            className={classNames}>
+      <Grid
+        container
+        sx={{ display: "grid", padding: "16px 24px 24px", boxShadow: "0px -6px 48px 0px rgba(177, 177, 177, 0.40)" }}
+        className={classNames}
+      >
+        <img
+          src={`${baseUrl}/images/widget_background.png`}
+          style={{
+            position: "absolute",
+            mixBlendMode: "screen",
+          }}
+        />
         <Header
           setShowChatWidget={setShowChatWidget}
           setShowToolTip={setShowToolTip}
+          baseUrl={baseUrl}
           iconUrl={iconUrl}
         />
         <MessageOverview messages={timeline} />
@@ -59,6 +73,7 @@ const ChatWidget: FC<ChatWidgetProps> = ({
         <Footer
           disableCustomInput={disableCustomInput}
           iconUrl={iconUrlSendButton}
+          baseUrl={baseUrl}
           storeTimeLineMessages={storeTimeLineMessages}
           setMessage={setMessage}
         />

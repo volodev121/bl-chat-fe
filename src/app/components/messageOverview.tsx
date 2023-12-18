@@ -33,12 +33,7 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
               return (
                 <ListItem
                   key={index}
-                  sx={{
-                    width: "100%",
-                    borderRight: message.completed
-                      ? "6px solid #D02DF5"
-                      : "unset",
-                  }}
+                  sx={{alignItems: "flex-start", padding: "16px 24px 16px 12px"}}
                 >
                   <ListItemIcon className={styles.listItemIcon}>
                     <InfoIcon fontSize="small" sx={{ color: "#D02DF5" }} />
@@ -51,12 +46,20 @@ const MessageOverview: React.FC<MessageOverviewProps> = ({ messages }) => {
             }
           })()
         )}
-        <Typography
-          className={styles.timeLineStepText}
-          sx={{ paddingLeft: "12px" }}
-        >
-          {`${getAnsweredMessageCount()} out of ${getMessagesCount()}`}
-        </Typography>
+        <div style={{display: "inline-flex", margin: "8px 24px 8px 12px"}}>
+          <Typography
+            className={styles.timeLineStepText}
+            sx={{ color: "#D02DF5" }}
+          >
+            {`${getAnsweredMessageCount()}`}
+          </Typography>
+          <Typography
+            className={styles.timeLineStepText}
+            sx={{ paddingLeft: "4px" }}
+          >
+            {` out of ${getMessagesCount()}`}
+          </Typography>
+        </div>
       </List>
     </div>
   );

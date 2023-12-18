@@ -8,12 +8,14 @@ interface HeaderProps {
   setShowChatWidget: (flag: boolean) => void;
   setShowToolTip: (flag: boolean) => void;
   iconUrl: string;
+  baseUrl: string;
 }
 
 const Header: FC<HeaderProps> = ({
   setShowChatWidget,
   setShowToolTip,
   iconUrl,
+  baseUrl,
 }) => {
   const styles = useStyles();
 
@@ -24,20 +26,17 @@ const Header: FC<HeaderProps> = ({
 
   return (
     <Grid container direction="row" className={styles.header}>
-      <Grid item>
-        <span className={styles.headerIcon}>
-          <img
-            src={iconUrl}
-            style={{
-              height: "50px",
-              width: "50px",
-              borderRadius: "50%",
-              border: "1px solid #E3E3ED", // Added grey border
-            }}
-            role="presentation"
-            alt=""
-          />
-        </span>
+      <Grid item sx={{ width: "48px", height: "48px" }}>
+        <img
+          src={iconUrl}
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "50%",
+          }}
+          role="presentation"
+          alt=""
+        />
       </Grid>
       <Grid item className={styles.buttonGridContainer}>
         <Button
@@ -45,6 +44,9 @@ const Header: FC<HeaderProps> = ({
             backgroundColor: "#F6F7FC !important",
             justifyContent: "center",
             color: "#000000",
+            minWidth: "40px",
+            width: "40px !important",
+            height: "40px !important",
             textTransform: "none",
             ":hover": {
               backgroundColor: "#EEF0F8 !important",
@@ -55,7 +57,7 @@ const Header: FC<HeaderProps> = ({
           }}
           onClick={() => handleClick()}
         >
-          Collapse
+          <img src={`${baseUrl}/images/down_arrow.svg`} alt="" />
         </Button>
       </Grid>
     </Grid>

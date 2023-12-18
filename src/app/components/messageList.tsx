@@ -17,7 +17,7 @@ const MessageList: React.FC<MessageListProps> = ({
   messages,
   storeTimeLineMessages,
   updateMessageFactory,
-  iconUrl
+  iconUrl,
 }) => {
   const styles = useStyles();
   const [selectedValue, setSelectedValue] = useState("");
@@ -31,28 +31,30 @@ const MessageList: React.FC<MessageListProps> = ({
     }
   }, [messages]);
 
-  const handleChange = (message: MessageType, label: string) => {
-    if (!message.completed) {
-      setSelectedValue(label);
-      setElementDisabled(false);
-    }
-  };
-
-  const handleClick = (message: MessageType) => {
+  const handleClick = (message: MessageType, label: string) => {
+    console.log(selectedValue, "---------value");
     const msg = {
       ...message, // extend original message for back reference to the question
       key: `${message.key} answer`,
       role: "user",
-      content: selectedValue,
+      content: label,
       completed: true,
       disabled: true,
       name: message.key,
       customInput: false,
       surveyQuestion: message.surveyQuestion,
-      time: (new Date()).toISOString(),
+      time: new Date().toISOString(),
     };
     storeTimeLineMessages(msg);
     setElementDisabled(true);
+  };
+
+  const handleChange = (message: MessageType, label: string) => {
+    console.log(label, "-------------> label");
+    if (!message.completed) {
+      setSelectedValue(label);
+      setElementDisabled(false);
+    }
   };
 
   return (
@@ -75,6 +77,7 @@ const MessageList: React.FC<MessageListProps> = ({
             } else if (message.role === "bot") {
               return (
                 <MessageBot
+                  key={index}
                   message={message}
                   ratingAvailable={false}
                   elementDisabled={elementDisabled}
